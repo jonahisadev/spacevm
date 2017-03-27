@@ -1,16 +1,18 @@
 #ifndef SPACE_UTIL_H
 #define SPACE_UTIL_H
 
-#include <cstdio>
+#include <stdio.h>
 #include <cstdlib>
+
+#include <VM/Common.h>
 
 namespace VM {
     
     class Util {
     public:
-        static char* readFile(const char* path);   
+        LOCAL char* readFile(CONST char* path);   
     };
     
-}
+} // namespace VM
 
 #endif // SPACE_UTIL_H

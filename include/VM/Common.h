@@ -3,11 +3,16 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <cstdio>
+
+#define GLOBAL static
+#define LOCAL static
+#define CONST const
 
 #define ASSERT(x, y) \
     if (!(x)) panic(y);
-    
-void panic(const char* msg) {
+
+GLOBAL void panic(CONST char* msg) {
     std::cerr << msg << std::endl;
     std::exit(1);
 }
