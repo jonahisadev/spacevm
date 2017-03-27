@@ -19,4 +19,26 @@ namespace VM {
         return data;
     }
     
+    int Util::strLength(char* a) {
+        int len = 0;
+        while (a[len] != '\0')
+            len++;
+        return len;
+    }
+    
+    bool Util::strEquals(char* a, char* b) {
+        int aLen = strLength(a);
+        int bLen = strLength(b);
+        
+        if (aLen != bLen)
+            return false;
+            
+        for (int i = 0; i < aLen; i++) {
+            if (a[i] != b[i])
+                return false;
+        }
+        
+        return true;
+    }
+    
 } // namespace VM

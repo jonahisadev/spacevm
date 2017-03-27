@@ -10,7 +10,9 @@ namespace VM {
     
     class Util {
     public:
-        LOCAL char* readFile(CONST char* path);   
+        LOCAL char* readFile(CONST char* path);
+        LOCAL int strLength(char* a);
+        LOCAL bool strEquals(char* a, char* b);
     };
     
 } // namespace VM
