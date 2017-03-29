@@ -13,6 +13,8 @@ namespace VM {
         LOCAL char* readFile(const char* path);
         LOCAL int strLength(const char* a);
         LOCAL bool strEquals(const char* a, const char* b);
+        LOCAL void strCopy(char* src, char* dest, int start, int end);
+        LOCAL char* strDup(char* src, int start, int end);
     };
 
 } // namespace VM

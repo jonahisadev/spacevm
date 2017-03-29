@@ -23,8 +23,6 @@ namespace VM {
         for (int x = 0; x < 256; x++)
             lex[x] = '\0';
 		lexi = 0;
-		nextJump = 1;
-		delim = ' ';
 
         // Count up until delimeter is reached
         while (text[i] != delim && (text[i] != '\0' || text[i] == '\n')) {
@@ -33,13 +31,11 @@ namespace VM {
 
         // Set the delimeter to nothing
         lex[lexi] = '\0';
-		i += nextJump;
+		i++;
 
         // INSTRUCTIONS
         if (Util::strEquals("mov", lex)) {
             tokenList->add(new Token(TokenType::INST, TokenInst::MOV));
-			delim = ' ';
-			nextJump = 2;
         }
 
 		// REGISTERS
@@ -49,7 +45,7 @@ namespace VM {
 
 		// NUMBERS
 		else if (lex[0] == '#') {
-			// TODO: parse numbers
+			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex)));
 		}
 
 		// UNKNOWN

@@ -41,4 +41,20 @@ namespace VM {
         return true;
     }
 
+    void Util::strCopy(char* src, char* dest, int start, int end) {
+        int x = 0;
+        for (int i = start; i < end; i++) {
+            dest[x] = src[i];
+            x++;
+        }
+    }
+    
+    char* Util::strDup(char* src, int start, int end) {
+        char* dest = (char*) malloc(sizeof(char) * (end - start));
+        ASSERT(dest, "strDup allocation failure");
+        
+        strCopy(src, dest, start, end);
+        return dest;
+    }
+
 } // namespace VM

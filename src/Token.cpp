@@ -36,6 +36,12 @@ namespace VM {
 				return "%??";
 		}
 	}
+	
+	int Token::convertNumber(char* str) {
+		char* nStr = Util::strDup(str, 1, Util::strLength(str));
+		int x = (int) strtol(nStr, (char**)NULL, 10);
+		return x;
+	}
 
 	int Token::getRegToken(char* reg) {
 		if (Util::strEquals(reg, "%ax"))
@@ -89,6 +95,9 @@ namespace VM {
 				continue;
 			} else if (t->getType() == TokenType::REG) {
 				std::cout << Token::getRegister(t->getData()) << std::endl;
+				continue;
+			} else if (t->getType() == TokenType::NUM) {
+				std::cout << t->getData() << std::endl;
 				continue;
 			}
 		}

@@ -35,10 +35,11 @@ namespace VM {
 		TokenType getType() const { return type; }
 		int getData() const { return data; }
 
-		static const char* getInstruction(int inst);
-		static const char* getRegister(int reg);
+		LOCAL const char* getInstruction(int inst);
+		LOCAL const char* getRegister(int reg);
+		LOCAL int convertNumber(char* str);
 
-		static int getRegToken(char* reg);
+		LOCAL int getRegToken(char* reg);
 	};
 
 	class TokenList {
