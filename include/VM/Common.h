@@ -7,12 +7,11 @@
 
 #define GLOBAL static
 #define LOCAL static
-#define CONST const
 
 #define ASSERT(x, y) \
     if (!(x)) panic(y);
 
-GLOBAL void panic(CONST char* msg) {
+GLOBAL void panic(const char* msg) {
     std::cerr << msg << std::endl;
     std::exit(1);
 }

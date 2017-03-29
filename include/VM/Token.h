@@ -1,0 +1,62 @@
+#ifndef SPACE_TOKEN_H
+#define SPACE_TOKEN_H
+
+#include <iostream>
+#include <cstdlib>
+
+#include <VM/Util.h>
+
+namespace VM {
+
+	enum class TokenType {
+		INST,
+		REG,
+		NUM,
+	};
+
+	enum TokenInst {
+		MOV,
+		ADD
+	};
+
+	enum TokenReg {
+		AX, BX, CX, DX
+	};
+
+	class Token {
+	private:
+		TokenType type;
+		int data;
+
+	public:
+		Token(TokenType type, int data);
+		~Token();
+
+		TokenType getType() const { return type; }
+		int getData() const { return data; }
+
+		static const char* getInstruction(int inst);
+		static const char* getRegister(int reg);
+
+		static int getRegToken(char* reg);
+	};
+
+	class TokenList {
+	private:
+		Token** data;
+		int ptr;
+		int size;
+
+	public:
+		TokenList(int size);
+		~TokenList();
+
+		void add(Token* t);
+		Token* get(int ptr);
+
+		void showList();
+	};
+
+} // namespace VM
+
+#endif // SPACE_TOKEN_H
