@@ -56,6 +56,8 @@ namespace VM {
 		Token* get(int ptr);
 
 		void showList();
+
+		int getPointer() const { return ptr; }
 	};
 
 } // namespace VM

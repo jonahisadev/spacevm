@@ -19,14 +19,6 @@ namespace VM {
         return data;
     }
 
-	void Util::writeBytes(const char* path, unsigned char* data, int size) {
-		FILE* file = fopen(path, "wb");
-		ASSERT(file, "Could not open file");
-
-		fwrite(data, 1, size, file);
-		fclose(file);
-	}
-
     int Util::strLength(const char* a) {
         int len = 0;
         while (a[len] != '\0')

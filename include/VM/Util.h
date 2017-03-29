@@ -11,7 +11,6 @@ namespace VM {
     class Util {
     public:
         LOCAL char* readFile(const char* path);
-		LOCAL void writeBytes(const char* path, unsigned char* data, int size);
         LOCAL int strLength(const char* a);
         LOCAL bool strEquals(const char* a, const char* b);
         LOCAL void strCopy(char* src, char* dest, int start, int end);

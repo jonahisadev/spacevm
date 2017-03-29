@@ -17,7 +17,7 @@ namespace VM {
         ~Parser();
 
 		void showTokenList();
-		Compiler* createCompiler();
+		Compiler* createCompiler(const char* path);
 
         void start();
     };

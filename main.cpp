@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 	p->start();
 	p->showTokenList();
 
-	VM::Compiler* c = p->createCompiler();
+	VM::Compiler* c = p->createCompiler("test.vmc");
 	c->start();
 
 	delete p;
