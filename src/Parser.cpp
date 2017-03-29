@@ -63,4 +63,8 @@ namespace VM {
 		this->tokenList->showList();
 	}
 
+	Compiler* Parser::createCompiler() {
+		return new Compiler(this->tokenList);
+	}
+
 } // namespace VM

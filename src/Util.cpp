@@ -19,6 +19,14 @@ namespace VM {
         return data;
     }
 
+	void Util::writeBytes(const char* path, unsigned char* data, int size) {
+		FILE* file = fopen(path, "wb");
+		ASSERT(file, "Could not open file");
+
+		fwrite(data, 1, size, file);
+		fclose(file);
+	}
+
     int Util::strLength(const char* a) {
         int len = 0;
         while (a[len] != '\0')
@@ -48,11 +56,11 @@ namespace VM {
             x++;
         }
     }
-    
+
     char* Util::strDup(char* src, int start, int end) {
         char* dest = (char*) malloc(sizeof(char) * (end - start));
         ASSERT(dest, "strDup allocation failure");
-        
+
         strCopy(src, dest, start, end);
         return dest;
     }

@@ -3,6 +3,7 @@
 
 #include <VM/Util.h>
 #include <VM/Token.h>
+#include <VM/Compiler.h>
 
 namespace VM {
 
@@ -16,6 +17,7 @@ namespace VM {
         ~Parser();
 
 		void showTokenList();
+		Compiler* createCompiler();
 
         void start();
     };
