@@ -21,6 +21,8 @@ namespace VM {
 				return "MOV";
 			case TokenInst::ADD:
 				return "ADD";
+			default:
+				return "???";
 		}
 	}
 
@@ -30,6 +32,8 @@ namespace VM {
 				return "%AX";
 			case TokenReg::BX:
 				return "%BX";
+			default:
+				return "%??";
 		}
 	}
 
@@ -41,6 +45,7 @@ namespace VM {
 		else {
 			std::cerr << "Invalid register: " << reg << std::endl;
 			panic("Aborting");
+			return -1; // needed for clean compile
 		}
 	}
 
