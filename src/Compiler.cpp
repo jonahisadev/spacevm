@@ -36,7 +36,7 @@ namespace VM {
 
 			// NUMBERS
 			if (t->getType() == TokenType::NUM) {
-				writeByte((unsigned char)t->getData());
+				writeByte(t->getData());
 			}
 
 		}

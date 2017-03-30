@@ -10,6 +10,7 @@ int main(int argc, char** argv) {
 
 	VM::Parser* p = new VM::Parser(fileContents);
 	p->start();
+	std::cout << std::endl;
 	p->showTokenList();
 
 	VM::Compiler* c = p->createCompiler("test.vmc");

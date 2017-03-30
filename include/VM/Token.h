@@ -20,7 +20,10 @@ namespace VM {
 	};
 
 	enum TokenReg {
-		AX, BX, CX, DX
+		AX, BX, CX, DX, XX, YX,
+		AL, BL, CL, DL, XL, YL,
+		AH, BH, CH, DH, XH, YH,
+		CF, CY, BP, SP, RM
 	};
 
 	class Token {

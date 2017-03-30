@@ -33,10 +33,15 @@ namespace VM {
         lex[lexi] = '\0';
 		i++;
 
+		std::cout << "1" << lex << "2" << std::endl;
+
         // INSTRUCTIONS
-        if (Util::strEquals("mov", lex)) {
+        if (Util::strEquals(lex, "mov")) {
             tokenList->add(new Token(TokenType::INST, TokenInst::MOV));
         }
+		else if (Util::strEquals(lex, "add")) {
+			tokenList->add(new Token(TokenType::INST, TokenInst::ADD));
+		}
 
 		// REGISTERS
 		else if (lex[0] == '%') {
@@ -51,8 +56,7 @@ namespace VM {
 		// UNKNOWN
 		else {
 			std::cerr << "Syntax Error: " << lex << std::endl;
-			return;
-			//panic("Aborting");
+			panic("Aborting");
 		}
 
 		if (text[i] != '\0')
