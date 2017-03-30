@@ -88,6 +88,14 @@ namespace VM {
 				return "MOV";
 			case TokenInst::ADD:
 				return "ADD";
+			case TokenInst::SUB:
+				return "SUB";
+			case TokenInst::CALL:
+				return "CALL";
+			case TokenInst::RET:
+				return "RET";
+			case TokenInst::SYSI:
+				return "SYSI";
 			default:
 				return "???";
 		}

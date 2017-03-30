@@ -16,7 +16,11 @@ namespace VM {
 
 	enum TokenInst {
 		MOV,
-		ADD
+		ADD,
+		SUB,
+		CALL,
+		RET,
+		SYSI,
 	};
 
 	enum TokenReg {

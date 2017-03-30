@@ -40,6 +40,18 @@ namespace VM {
 		else if (Util::strEquals(lex, "add")) {
 			tokenList->add(new Token(TokenType::INST, TokenInst::ADD));
 		}
+		else if (Util::strEquals(lex, "sub")) {
+			tokenList->add(new Token(TokenType::INST, TokenInst::SUB));
+		}
+		else if (Util::strEquals(lex, "call")) {
+			tokenList->add(new Token(TokenType::INST, TokenInst::CALL));
+		}
+		else if (Util::strEquals(lex, "ret")) {
+			tokenList->add(new Token(TokenType::INST, TokenInst::RET));
+		}
+		else if (Util::strEquals(lex, "sysi")) {
+			tokenList->add(new Token(TokenType::INST, TokenInst::SYSI));
+		}
 
 		// REGISTERS
 		else if (lex[0] == '%') {

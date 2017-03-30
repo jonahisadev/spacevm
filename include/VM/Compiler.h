@@ -11,10 +11,16 @@
 namespace VM {
 
 	enum ByteInst {
-		NOP = 0x00,
-		MOV_RN = 0x01,
+		NOP =		0x00,
+		MOV_RN =	0x01,
 
-		ADD_RN = 0x04
+		ADD_RN =	0x04,
+		
+		SUB_RN =	0x07,
+		
+		CALL_ = 	0x0A,
+		RET_ =		0x0B,
+		SYSI_ = 	0x0C,
 	};
 
 	enum ByteReg {
