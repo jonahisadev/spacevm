@@ -24,6 +24,11 @@ namespace VM {
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::MOV_RN);
 				}
+				else if (t->getData() == TokenInst::ADD) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::ADD_RN);
+				}
 			}
 
 			// REGISTERS

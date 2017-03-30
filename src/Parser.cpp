@@ -25,15 +25,13 @@ namespace VM {
 		lexi = 0;
 
         // Count up until delimeter is reached
-        while (text[i] != delim && (text[i] != '\0' || text[i] == '\n')) {
+        while (text[i] != delim && text[i] != '\0' && text[i] != '\n') {
 			lex[lexi++] = text[i++];
         }
 
         // Set the delimeter to nothing
-        lex[lexi] = '\0';
+        lex[lexi] = 0;
 		i++;
-
-		std::cout << "1" << lex << "2" << std::endl;
 
         // INSTRUCTIONS
         if (Util::strEquals(lex, "mov")) {
