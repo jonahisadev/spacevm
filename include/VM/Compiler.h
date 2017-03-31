@@ -70,6 +70,8 @@ namespace VM {
 		void writeByte(unsigned char data);
 	
 		void writeOutputFile();
+		
+		unsigned char getByteReg(int tokenData);
 	};
 
 } // namespace VM

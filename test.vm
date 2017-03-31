@@ -1,5 +1,1 @@
-mov %ax #62
-add %bx #5
-sub %ax #20
-ret
-sysi
+mov %dh #42

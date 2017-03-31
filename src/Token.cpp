@@ -21,18 +21,6 @@ namespace VM {
 		return x;
 	}
 
-	int Token::getRegToken(char* reg) {
-		if (Util::strEquals(reg, "%ax"))
-			return TokenReg::AX;
-		else if (Util::strEquals(reg, "%bx"))
-			return TokenReg::BX;
-		else {
-			std::cerr << "Invalid Register: " << reg << std::endl;
-			panic("Aborting");
-			return -1; // needed for clean compile
-		}
-	}
-
 	//
 	//	TOKEN LIST
 	//
@@ -151,6 +139,60 @@ namespace VM {
 				return "%RM";
 			default:
 				return "%??";
+		}
+	}
+	
+	int Token::getRegToken(char* reg) {
+		if (Util::strEquals(reg, "%ax"))
+			return TokenReg::AX;
+		else if (Util::strEquals(reg, "%bx"))
+			return TokenReg::BX;
+		else if (Util::strEquals(reg, "%cx"))
+			return TokenReg::CX;
+		else if (Util::strEquals(reg, "%dx"))
+			return TokenReg::DX;
+		else if (Util::strEquals(reg, "%xx"))
+			return TokenReg::XX;
+		else if (Util::strEquals(reg, "%yx"))
+			return TokenReg::YX;
+		else if (Util::strEquals(reg, "%al"))
+			return TokenReg::AL;
+		else if (Util::strEquals(reg, "%bl"))
+			return TokenReg::BL;
+		else if (Util::strEquals(reg, "%cl"))
+			return TokenReg::CL;
+		else if (Util::strEquals(reg, "%dl"))
+			return TokenReg::DL;
+		else if (Util::strEquals(reg, "%xl"))
+			return TokenReg::XL;
+		else if (Util::strEquals(reg, "%yl"))
+			return TokenReg::YL;
+		else if (Util::strEquals(reg, "%ah"))
+			return TokenReg::AH;
+		else if (Util::strEquals(reg, "%bh"))
+			return TokenReg::BH;
+		else if (Util::strEquals(reg, "%ch"))
+			return TokenReg::CH;
+		else if (Util::strEquals(reg, "%dh"))
+			return TokenReg::DH;
+		else if (Util::strEquals(reg, "%xh"))
+			return TokenReg::XH;
+		else if (Util::strEquals(reg, "%yh"))
+			return TokenReg::YH;
+		else if (Util::strEquals(reg, "%cf"))
+			return TokenReg::CF;
+		else if (Util::strEquals(reg, "%cy"))
+			return TokenReg::CY;
+		else if (Util::strEquals(reg, "%bp"))
+			return TokenReg::BP;
+		else if (Util::strEquals(reg, "%sp"))
+			return TokenReg::SP;
+		else if (Util::strEquals(reg, "%rm"))
+			return TokenReg::RM;
+		else {
+			std::cerr << "Invalid Register: " << reg << std::endl;
+			panic("Aborting");
+			return -1; // needed for clean compile
 		}
 	}
 

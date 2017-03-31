@@ -36,7 +36,7 @@ namespace VM {
     	int get(int ptr);
     	
     	int getPointer() const { return ptr; }
-    }
+    };
     
 } // namespace VM
 

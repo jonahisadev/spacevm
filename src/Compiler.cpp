@@ -53,10 +53,13 @@ namespace VM {
 
 			// REGISTERS
 			else if (t->getType() == TokenType::REG) {
-				if (t->getData() == TokenReg::AX)
-					writeByte(ByteReg::AX_);
-				else if (t->getData() == TokenReg::BX)
-					writeByte(ByteReg::BX_);
+				int b = getByteReg(t->getData());
+				if (b != -1) {
+					writeByte(b);
+				} else {
+					std::cerr << "Invalid register: " << b << std::endl;
+					panic ("Aborting");
+				}
 			}
 
 			// NUMBERS
@@ -89,6 +92,57 @@ namespace VM {
 	void Compiler::writeByte(unsigned char data) {
 		this->textBuf->add(data);
 		this->addr++;
+	}
+	
+	unsigned char Compiler::getByteReg(int tokenData) {
+		switch (tokenData) {
+			case TokenReg::AX:
+				return ByteReg::AX_;
+			case TokenReg::BX:
+				return ByteReg::BX_;
+			case TokenReg::CX:
+				return ByteReg::CX_;
+			case TokenReg::DX:
+				return ByteReg::DX_;
+			case TokenReg::XX:
+				return ByteReg::XX_;
+			case TokenReg::YX:
+				return ByteReg::YX_;
+			case TokenReg::AL:
+				return ByteReg::AL_;
+			case TokenReg::BL:
+				return ByteReg::BL_;
+			case TokenReg::CL:
+				return ByteReg::CL_;
+			case TokenReg::DL:
+				return ByteReg::DL_;
+			case TokenReg::XL:
+				return ByteReg::XL_;
+			case TokenReg::YL:
+				return ByteReg::YL_;
+			case TokenReg::AH:
+				return ByteReg::AH_;
+			case TokenReg::BH:
+				return ByteReg::BH_;
+			case TokenReg::CH:
+				return ByteReg::CH_;
+			case TokenReg::DH:
+				return ByteReg::DH_;
+			case TokenReg::XH:
+				return ByteReg::XH_;
+			case TokenReg::YH:
+				return ByteReg::YH_;
+			case TokenReg::CF:
+				return ByteReg::CF_;
+			case TokenReg::CY:
+				return ByteReg::CY_;
+			case TokenReg::BP:
+				return ByteReg::BP_;
+			case TokenReg::SP:
+				return ByteReg::SP_;
+			case TokenReg::RM:
+				return ByteReg::RM_;
+		}
 	}
 
 } // namespace VM

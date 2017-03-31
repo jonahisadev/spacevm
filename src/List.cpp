@@ -33,17 +33,17 @@ namespace VM {
     //  INT LIST
     //
     
-    IntList(int size) {
+    IntList::IntList(int size) {
         this->data = (int*) malloc(sizeof(int) * size);
         this->size = size;
         this->ptr = 0;
     }
     
-	~IntList() {
+	IntList::~IntList() {
 	    free(this->data);
 	}
 	
-	void add(int data) {
+	void IntList::add(int data) {
 	    if (this->ptr >= this->size) {
 	        this->size *= 2;
 	        this->data = (int*) realloc(this->data, sizeof(int) * this->size);
@@ -52,7 +52,7 @@ namespace VM {
 	    this->data[this->ptr++] = data;
 	}
 	
-	int get(int ptr) {
+	int IntList::get(int ptr) {
 	    return this->data[ptr];
 	}
     
