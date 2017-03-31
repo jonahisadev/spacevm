@@ -4,7 +4,7 @@ namespace VM {
 
     Parser::Parser(char* text) {
         this->text = text;
-		this->tokenList = new TokenList(2);
+		this->tokenList = new TokenList(1);
     }
 
     Parser::~Parser() {

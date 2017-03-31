@@ -21,7 +21,7 @@ namespace VM {
 		
 		CALL_ = 	0x0A,
 		RET_ =		0x0B,
-		SYSI_ = 	0x0C
+		SYSI_ = 	0x0C,
 	};
 
 	enum ByteReg {
@@ -57,6 +57,8 @@ namespace VM {
 	private:
 		TokenList* tokenList;
 		ByteList* textBuf;
+		IntList* addrList;
+		int addr;
 		
 		const char* path;
 

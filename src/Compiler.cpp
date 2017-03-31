@@ -4,7 +4,10 @@ namespace VM {
 
 	Compiler::Compiler(const char* path, TokenList* tokenList) {
 		this->tokenList = tokenList;
-		this->textBuf = new ByteList(2);
+		this->textBuf = new ByteList(1);
+		this->addrList = new IntList(1);
+		
+		this->addr = 0;
 		this->path = path;
 	}
 
@@ -37,8 +40,8 @@ namespace VM {
 				}
 				else if (t->getData() == TokenInst::CALL) {
 					writeByte(ByteInst::CALL_);
+					this->addrList->add(this->addr);
 					writeByte(0x00);
-					// TODO: implement address-y things
 				}
 				else if (t->getData() == TokenInst::RET) {
 					writeByte(ByteInst::RET_);
@@ -85,6 +88,7 @@ namespace VM {
 
 	void Compiler::writeByte(unsigned char data) {
 		this->textBuf->add(data);
+		this->addr++;
 	}
 
 } // namespace VM

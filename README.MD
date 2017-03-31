@@ -26,3 +26,4 @@ Obviously more things need to be implemented before the compiler will be
 * Finish writing compiler opcodes
 * Implement addressing, and address parsing
 * Try to fix number conversion problems
+* Implement templating for list classes

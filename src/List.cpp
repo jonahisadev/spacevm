@@ -2,6 +2,10 @@
 
 namespace VM {
     
+    //
+    //  BYTE LIST
+    //
+    
     ByteList::ByteList(int size) {
         this->data = (unsigned char*) malloc(sizeof(unsigned char) * size);
         this->size = size;
@@ -24,5 +28,32 @@ namespace VM {
     unsigned char ByteList::get(int ptr) {
         return this->data[ptr];
     }
+    
+    //
+    //  INT LIST
+    //
+    
+    IntList(int size) {
+        this->data = (int*) malloc(sizeof(int) * size);
+        this->size = size;
+        this->ptr = 0;
+    }
+    
+	~IntList() {
+	    free(this->data);
+	}
+	
+	void add(int data) {
+	    if (this->ptr >= this->size) {
+	        this->size *= 2;
+	        this->data = (int*) realloc(this->data, sizeof(int) * this->size);
+	    }
+	    
+	    this->data[this->ptr++] = data;
+	}
+	
+	int get(int ptr) {
+	    return this->data[ptr];
+	}
     
 } // namespace VM
