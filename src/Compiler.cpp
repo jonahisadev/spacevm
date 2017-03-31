@@ -4,11 +4,12 @@ namespace VM {
 
 	Compiler::Compiler(const char* path, TokenList* tokenList) {
 		this->tokenList = tokenList;
-		this->obj_file = fopen(path, "wb");
+		this->textBuf = new ByteList(2);
+		this->path = path;
 	}
 
 	Compiler::~Compiler() {
-		fclose(this->obj_file);
+		delete this->textBuf;
 	}
 
 	void Compiler::start() {
@@ -66,10 +67,24 @@ namespace VM {
 				panic("Aborting");
 			}
 		}
+		
+		writeOutputFile();
+	}
+
+	void Compiler::writeOutputFile() {
+		FILE* outputFile = fopen(this->path, "wb");
+		ASSERT(outputFile, "Could not open output file");
+		
+		for (int i = 0; i < this->textBuf->getPointer(); i++) {
+			unsigned char b = this->textBuf->get(i);
+			fwrite(&b, 1, 1, outputFile);
+		}
+		
+		fclose(outputFile);
 	}
 
 	void Compiler::writeByte(unsigned char data) {
-		fwrite(&data, 1, 1, this->obj_file);
+		this->textBuf->add(data);
 	}
 
-}
+} // namespace VM

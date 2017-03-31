@@ -7,6 +7,7 @@
 
 #include <VM/Util.h>
 #include <VM/Token.h>
+#include <VM/List.h>
 
 namespace VM {
 
@@ -20,7 +21,7 @@ namespace VM {
 		
 		CALL_ = 	0x0A,
 		RET_ =		0x0B,
-		SYSI_ = 	0x0C,
+		SYSI_ = 	0x0C
 	};
 
 	enum ByteReg {
@@ -55,7 +56,9 @@ namespace VM {
 	class Compiler {
 	private:
 		TokenList* tokenList;
-		FILE* obj_file;
+		ByteList* textBuf;
+		
+		const char* path;
 
 	public:
 		Compiler(const char* path, TokenList* tokenList);
@@ -63,8 +66,10 @@ namespace VM {
 
 		void start();
 		void writeByte(unsigned char data);
+	
+		void writeOutputFile();
 	};
 
-}
+} // namespace VM
 
 #endif // SPACE_COMPILER_H

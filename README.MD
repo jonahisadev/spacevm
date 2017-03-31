@@ -25,7 +25,4 @@ Obviously more things need to be implemented before the compiler will be
 
 * Finish writing compiler opcodes
 * Implement addressing, and address parsing
-* Don't write to file, instead write to buffer
-⋅⋅* Easier for addressing
-⋅⋅* Overall better control over end code
 * Try to fix number conversion problems
