@@ -49,6 +49,11 @@ namespace VM {
 				else if (t->getData() == TokenInst::SYSI) {
 					writeByte(ByteInst::SYSI_);
 				}
+				else if (t->getData() == TokenInst::MUL) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::MUL_RN);
+				}
 			}
 
 			// REGISTERS
@@ -142,6 +147,8 @@ namespace VM {
 				return ByteReg::SP_;
 			case TokenReg::RM:
 				return ByteReg::RM_;
+			default:
+				return (unsigned char)-1;
 		}
 	}
 

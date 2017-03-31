@@ -21,6 +21,7 @@ namespace VM {
 		CALL,
 		RET,
 		SYSI,
+		MUL
 	};
 
 	enum TokenReg {

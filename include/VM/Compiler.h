@@ -22,6 +22,8 @@ namespace VM {
 		CALL_ = 	0x0A,
 		RET_ =		0x0B,
 		SYSI_ = 	0x0C,
+		
+		MUL_RN =	0x10,
 	};
 
 	enum ByteReg {

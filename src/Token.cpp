@@ -84,6 +84,8 @@ namespace VM {
 				return "RET";
 			case TokenInst::SYSI:
 				return "SYSI";
+			case TokenInst::MUL:
+				return "MUL";
 			default:
 				return "???";
 		}

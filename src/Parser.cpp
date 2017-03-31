@@ -52,6 +52,9 @@ namespace VM {
 		else if (Util::strEquals(lex, "sysi")) {
 			tokenList->add(new Token(TokenType::INST, TokenInst::SYSI));
 		}
+		else if (Util::strEquals(lex, "mul")) {
+			tokenList->add(new Token(TokenType::INST, TokenInst::MUL));
+		}
 
 		// REGISTERS
 		else if (lex[0] == '%') {
