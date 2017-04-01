@@ -16,6 +16,8 @@ namespace VM {
         fread(data, 1, size, file);
         fclose(file);
 
+		data[size] = '\0';
+
         return data;
     }
 

@@ -6,7 +6,7 @@ namespace VM {
 		this->tokenList = tokenList;
 		this->textBuf = new ByteList(1);
 		this->addrList = new IntList(1);
-		
+
 		this->addr = 0;
 		this->path = path;
 	}
@@ -54,6 +54,11 @@ namespace VM {
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::MUL_RN);
 				}
+				else if (t->getData() == TokenInst::DIV) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::DIV_RN);
+				}
 			}
 
 			// REGISTERS
@@ -71,26 +76,26 @@ namespace VM {
 			else if (t->getType() == TokenType::NUM) {
 				writeByte(t->getData());
 			}
-			
+
 			// UNKNOWN
 			else {
 				std::cerr << "Major Compiler Error: Unknown Token Type!" << std::endl;
 				panic("Aborting");
 			}
 		}
-		
+
 		writeOutputFile();
 	}
 
 	void Compiler::writeOutputFile() {
 		FILE* outputFile = fopen(this->path, "wb");
 		ASSERT(outputFile, "Could not open output file");
-		
+
 		for (int i = 0; i < this->textBuf->getPointer(); i++) {
 			unsigned char b = this->textBuf->get(i);
 			fwrite(&b, 1, 1, outputFile);
 		}
-		
+
 		fclose(outputFile);
 	}
 
@@ -98,7 +103,7 @@ namespace VM {
 		this->textBuf->add(data);
 		this->addr++;
 	}
-	
+
 	unsigned char Compiler::getByteReg(int tokenData) {
 		switch (tokenData) {
 			case TokenReg::AX:

@@ -1,1 +1,3 @@
-mov %dh #42
+mov %ax #1
+mov %bx #42
+sysi

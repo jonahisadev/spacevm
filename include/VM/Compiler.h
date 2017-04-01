@@ -16,14 +16,16 @@ namespace VM {
 		MOV_RN =	0x01,
 
 		ADD_RN =	0x04,
-		
+
 		SUB_RN =	0x07,
-		
+
 		CALL_ = 	0x0A,
 		RET_ =		0x0B,
 		SYSI_ = 	0x0C,
-		
+
 		MUL_RN =	0x10,
+
+		DIV_RN = 	0x13,
 	};
 
 	enum ByteReg {
@@ -61,7 +63,7 @@ namespace VM {
 		ByteList* textBuf;
 		IntList* addrList;
 		int addr;
-		
+
 		const char* path;
 
 	public:
@@ -70,9 +72,9 @@ namespace VM {
 
 		void start();
 		void writeByte(unsigned char data);
-	
+
 		void writeOutputFile();
-		
+
 		unsigned char getByteReg(int tokenData);
 	};
 

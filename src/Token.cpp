@@ -86,6 +86,8 @@ namespace VM {
 				return "SYSI";
 			case TokenInst::MUL:
 				return "MUL";
+			case TokenInst::DIV:
+				return "DIV";
 			default:
 				return "???";
 		}
@@ -143,7 +145,7 @@ namespace VM {
 				return "%??";
 		}
 	}
-	
+
 	int Token::getRegToken(char* reg) {
 		if (Util::strEquals(reg, "%ax"))
 			return TokenReg::AX;

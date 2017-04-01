@@ -17,6 +17,7 @@ namespace VM {
         int i = 0;
         char delim = ' ';
 		int nextJump = 1;
+		int line = 1;
 
         // Reset the buffer
         resetLex:
@@ -25,12 +26,12 @@ namespace VM {
 		lexi = 0;
 
         // Count up until delimeter is reached
-        while (text[i] != delim && text[i] != '\0' && text[i] != '\n') {
+        while (text[i] != '\n' && text[i] != '\0' && text[i] != delim) {
 			lex[lexi++] = text[i++];
         }
 
         // Set the delimeter to nothing
-        lex[lexi] = 0;
+        lex[lexi] = '\0';
 		i++;
 
         // INSTRUCTIONS
@@ -55,6 +56,9 @@ namespace VM {
 		else if (Util::strEquals(lex, "mul")) {
 			tokenList->add(new Token(TokenType::INST, TokenInst::MUL));
 		}
+		else if (Util::strEquals(lex, "div")) {
+			tokenList->add(new Token(TokenType::INST, TokenInst::DIV));
+		}
 
 		// REGISTERS
 		else if (lex[0] == '%') {
@@ -68,11 +72,16 @@ namespace VM {
 
 		// UNKNOWN
 		else {
-			std::cerr << "Syntax Error: " << lex << std::endl;
+			std::cerr << "Syntax Error (" << line << ") : " << lex << std::endl;
 			panic("Aborting");
 		}
 
-		if (text[i] != '\0')
+		// Line for debugging
+		if (text[i-1] == '\n')
+			line++;
+
+		// Check for EOF
+		if (text[i-1] != '\0')
 			goto resetLex;
     }
 
