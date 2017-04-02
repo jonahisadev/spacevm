@@ -22,7 +22,9 @@ namespace VM {
 		RET,
 		SYSI,
 		MUL,
-		DIV
+		DIV,
+		SXR,
+		SXL,
 	};
 
 	enum TokenReg {

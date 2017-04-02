@@ -59,6 +59,12 @@ namespace VM {
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::DIV_RN);
 				}
+				else if (t->getData() == TokenInst::SXR) {
+					writeByte(ByteInst::SXR_R);
+				}
+				else if (t->getData() == TokenInst::SXL) {
+					writeByte(ByteInst::SXL_R);
+				}
 			}
 
 			// REGISTERS

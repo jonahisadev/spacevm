@@ -26,6 +26,9 @@ namespace VM {
 		MUL_RN =	0x10,
 
 		DIV_RN = 	0x13,
+
+		SXR_R = 	0x16,
+		SXL_R = 	0x17,
 	};
 
 	enum ByteReg {

@@ -88,6 +88,10 @@ namespace VM {
 				return "MUL";
 			case TokenInst::DIV:
 				return "DIV";
+			case TokenInst::SXR:
+				return "SXR";
+			case TokenInst::SXL:
+				return "SXL";
 			default:
 				return "???";
 		}

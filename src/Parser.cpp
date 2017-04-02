@@ -59,6 +59,12 @@ namespace VM {
 		else if (Util::strEquals(lex, "div")) {
 			tokenList->add(new Token(TokenType::INST, TokenInst::DIV));
 		}
+		else if (Util::strEquals(lex, "sxr")) {
+			tokenList->add(new Token(TokenType::INST, TokenInst::SXR));
+		}
+		else if (Util::strEquals(lex, "sxl")) {
+			tokenList->add(new Token(TokenType::INST, TokenInst::SXL));
+		}
 
 		// REGISTERS
 		else if (lex[0] == '%') {
