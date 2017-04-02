@@ -35,35 +35,10 @@ namespace VM {
 		i++;
 
         // INSTRUCTIONS
-        if (Util::strEquals(lex, "mov")) {
-            tokenList->add(new Token(TokenType::INST, TokenInst::MOV));
-        }
-		else if (Util::strEquals(lex, "add")) {
-			tokenList->add(new Token(TokenType::INST, TokenInst::ADD));
-		}
-		else if (Util::strEquals(lex, "sub")) {
-			tokenList->add(new Token(TokenType::INST, TokenInst::SUB));
-		}
-		else if (Util::strEquals(lex, "call")) {
-			tokenList->add(new Token(TokenType::INST, TokenInst::CALL));
-		}
-		else if (Util::strEquals(lex, "ret")) {
-			tokenList->add(new Token(TokenType::INST, TokenInst::RET));
-		}
-		else if (Util::strEquals(lex, "sysi")) {
-			tokenList->add(new Token(TokenType::INST, TokenInst::SYSI));
-		}
-		else if (Util::strEquals(lex, "mul")) {
-			tokenList->add(new Token(TokenType::INST, TokenInst::MUL));
-		}
-		else if (Util::strEquals(lex, "div")) {
-			tokenList->add(new Token(TokenType::INST, TokenInst::DIV));
-		}
-		else if (Util::strEquals(lex, "sxr")) {
-			tokenList->add(new Token(TokenType::INST, TokenInst::SXR));
-		}
-		else if (Util::strEquals(lex, "sxl")) {
-			tokenList->add(new Token(TokenType::INST, TokenInst::SXL));
+
+		int tokenData;
+		if ((tokenData = checkInst(lex)) != -1) {
+			tokenList->add(new Token(TokenType::INST, tokenData));
 		}
 
 		// REGISTERS
@@ -97,6 +72,43 @@ namespace VM {
 
 	Compiler* Parser::createCompiler(const char* path) {
 		return new Compiler(path, this->tokenList);
+	}
+
+	int Parser::checkInst(char* lex) {
+		if (Util::strEquals(lex, "mov")) {
+            return TokenInst::MOV;
+        }
+		else if (Util::strEquals(lex, "add")) {
+			return TokenInst::ADD;
+		}
+		else if (Util::strEquals(lex, "sub")) {
+			return TokenInst::SUB;
+		}
+		else if (Util::strEquals(lex, "call")) {
+			return TokenInst::CALL;
+		}
+		else if (Util::strEquals(lex, "ret")) {
+			return TokenInst::RET;
+		}
+		else if (Util::strEquals(lex, "sysi")) {
+			return TokenInst::SYSI;
+		}
+		else if (Util::strEquals(lex, "mul")) {
+			return TokenInst::MUL;
+		}
+		else if (Util::strEquals(lex, "div")) {
+			return TokenInst::DIV;
+		}
+		else if (Util::strEquals(lex, "sxr")) {
+			return TokenInst::SXR;
+		}
+		else if (Util::strEquals(lex, "sxl")) {
+			return TokenInst::SXL;
+		}
+
+		else {
+			return -1;
+		}
 	}
 
 } // namespace VM

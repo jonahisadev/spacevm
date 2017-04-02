@@ -20,6 +20,7 @@ namespace VM {
 		Compiler* createCompiler(const char* path);
 
         void start();
+		int checkInst(char* lex);
     };
 
 } // namespace VM
