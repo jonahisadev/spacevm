@@ -27,3 +27,5 @@ Obviously more things need to be implemented before the compiler will be
 * Try to fix number conversion problems
 * Implement templating for list classes
 * Make a debugger for runtime
+* Ignore empty lines
+* Add comments soon
