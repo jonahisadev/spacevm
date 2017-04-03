@@ -21,6 +21,8 @@ namespace VM {
 
 		SXR_R = 	0x16,
 		SXL_R = 	0x17,
+
+		HLT_ = 		0x40,
 	};
 
 	enum ByteReg {
@@ -49,7 +51,8 @@ namespace VM {
 		CY_ = 0x31,
 		BP_ = 0x32,
 		SP_ = 0x33,
-		RM_ = 0x34
+		RM_ = 0x34,
+		PC_ = 0x35,
 	};
 
 } // namespace VM

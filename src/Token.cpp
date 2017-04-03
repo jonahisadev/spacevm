@@ -92,6 +92,8 @@ namespace VM {
 				return "SXR";
 			case TokenInst::SXL:
 				return "SXL";
+			case TokenInst::HLT:
+				return "HLT";
 			default:
 				return "???";
 		}
@@ -145,6 +147,8 @@ namespace VM {
 				return "%SP";
 			case TokenReg::RM:
 				return "%RM";
+			case TokenReg::PC:
+				return "%PC";
 			default:
 				return "%??";
 		}
@@ -197,6 +201,8 @@ namespace VM {
 			return TokenReg::SP;
 		else if (Util::strEquals(reg, "%rm"))
 			return TokenReg::RM;
+		else if (Util::strEquals(reg, "%pc"))
+			return TokenReg::PC;
 		else {
 			std::cerr << "Invalid Register: " << reg << std::endl;
 			panic("Aborting");

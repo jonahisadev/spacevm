@@ -21,6 +21,25 @@ namespace VM {
         return data;
     }
 
+	unsigned char* Util::readBinFile(const char* path) {
+		FILE* file = fopen(path, "rb");
+        ASSERT(file, "Could not open file");
+
+        fseek(file, 0, SEEK_END);
+        int size = (int) ftell(file);
+        fseek(file, 0, SEEK_SET);
+
+        unsigned char* data = new unsigned char[size];
+        ASSERT(data, "Could not load file");
+
+        fread(data, 1, size, file);
+        fclose(file);
+
+		data[size] = '\0';
+
+        return data;
+	}
+
     int Util::strLength(const char* a) {
         int len = 0;
         while (a[len] != '\0')

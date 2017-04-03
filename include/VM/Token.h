@@ -25,13 +25,15 @@ namespace VM {
 		DIV,
 		SXR,
 		SXL,
+
+		HLT,
 	};
 
 	enum TokenReg {
 		AX, BX, CX, DX, XX, YX,
 		AL, BL, CL, DL, XL, YL,
 		AH, BH, CH, DH, XH, YH,
-		CF, CY, BP, SP, RM
+		CF, CY, BP, SP, RM, PC
 	};
 
 	class Token {

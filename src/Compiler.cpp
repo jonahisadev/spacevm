@@ -65,6 +65,10 @@ namespace VM {
 				else if (t->getData() == TokenInst::SXL) {
 					writeByte(ByteInst::SXL_R);
 				}
+
+				else if (t->getData() == TokenInst::HLT) {
+					writeByte(ByteInst::HLT_);
+				}
 			}
 
 			// REGISTERS
@@ -90,6 +94,7 @@ namespace VM {
 			}
 		}
 
+		writeByte(ByteInst::HLT_);
 		writeOutputFile();
 	}
 
@@ -158,6 +163,8 @@ namespace VM {
 				return ByteReg::SP_;
 			case TokenReg::RM:
 				return ByteReg::RM_;
+			case TokenReg::PC:
+				return ByteReg::PC_;
 			default:
 				return (unsigned char)-1;
 		}

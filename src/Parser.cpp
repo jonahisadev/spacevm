@@ -105,6 +105,9 @@ namespace VM {
 		else if (Util::strEquals(lex, "sxl")) {
 			return TokenInst::SXL;
 		}
+		else if (Util::strEquals(lex, "hlt")) {
+			return TokenInst::HLT;
+		}
 
 		else {
 			return -1;
