@@ -1,6 +1,8 @@
 #ifndef SPACE_RUNTIME_H
 #define SPACE_RUNTIME_H
 
+#include <iostream>
+
 #include <VM/Bytecode.h>
 
 namespace VM {
@@ -8,6 +10,7 @@ namespace VM {
 	class Runtime {
 	private:
 		int retCode;
+		
 		short ax, bx, cx, dx, xx, yx;
 		short sp, bp;
 		short pc = -1;
@@ -23,6 +26,8 @@ namespace VM {
 		void sys_exit(int code);
 
 		int getReturnCode() const { return retCode; }
+		
+		void setRegister(unsigned char reg, unsigned char val);
 	};
 
 } // namespace VM
