@@ -18,13 +18,30 @@ namespace VM {
 			opcode = this->data[++this->pc];
 
 			if (opcode == ByteInst::MOV_RN) {
-				unsigned char reg = this->data[++this->pc];
-				unsigned char val = this->data[++this->pc];
-				setRegister(reg, val);
-				continue;
+				unsigned char reg = getNextByte();
+				unsigned char val = getNextByte();
+				
+				short* regPtr = getRegister(reg);
+				*regPtr = val;
 			}
 			
-			if (opcode == ByteInst::SYSI_) {
+			else if (opcode == ByteInst::ADD_RN) {
+				unsigned char reg = getNextByte();
+				unsigned char val = getNextByte();
+				
+				short* regPtr = getRegister(reg);
+				*regPtr += val;
+			}
+			
+			else if (opcode == ByteInst::SUB_RN) {
+				unsigned char reg = getNextByte();
+				unsigned char val = getNextByte();
+				
+				short* regPtr = getRegister(reg);
+				*regPtr -= val;
+			}
+			
+			else if (opcode == ByteInst::SYSI_) {
 				if (this->ax == 0x01) {
 					sys_exit(this->bx);
 					break;
@@ -32,17 +49,21 @@ namespace VM {
 			}
 		}
 	}
+	
+	unsigned char Runtime::getNextByte() {
+		return this->data[++this->pc];
+	}
 
 	void Runtime::sys_exit(int code) {
 		this->retCode = code;
 	}
 	
-	void Runtime::setRegister(unsigned char reg, unsigned char val) {
+	short* Runtime::getRegister(unsigned char reg) {
 		if (reg == ByteReg::AX_) {
-			this->ax = (short)val;
+			return &this->ax;
 		}
 		else if (reg == ByteReg::BX_) {
-			this->bx = (short)val;
+			return &this->bx;
 		}
 	}
 

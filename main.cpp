@@ -9,6 +9,7 @@ void showHelp() {
 	std::cout << "== SpaceVM Help ==" << std::endl;
 	std::cout << "\tspc -c [file]: Compile source" << std::endl;
 	std::cout << "\tspc -r [file]: Run bytecode" << std::endl;
+	std::cout << "Optionally append -d for debugging" << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -22,8 +23,12 @@ int main(int argc, char** argv) {
 	    ASSERT(fileContents, "File reading failure");
 
 		VM::Parser* p = new VM::Parser(fileContents);
+		if (argc >= 4 && VM::Util::strEquals(argv[3], "-d"))
+			p->setDebug(true);
 		p->start();
-		p->showTokenList();
+		
+		if (p->isDebug())
+			p->showTokenList();
 
 		VM::Compiler* c = p->createCompiler(std::string(argv[2]).append("c").c_str());
 		c->start();

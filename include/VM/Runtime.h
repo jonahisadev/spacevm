@@ -22,12 +22,13 @@ namespace VM {
 		~Runtime();
 
 		void start();
+		unsigned char getNextByte();
 
 		void sys_exit(int code);
 
 		int getReturnCode() const { return retCode; }
 		
-		void setRegister(unsigned char reg, unsigned char val);
+		short* getRegister(unsigned char reg);
 	};
 
 } // namespace VM

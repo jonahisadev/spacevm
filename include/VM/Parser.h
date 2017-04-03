@@ -11,6 +11,7 @@ namespace VM {
     private:
         char* text;
 		TokenList* tokenList;
+		bool debug;
 
     public:
         Parser(char* text);
@@ -18,6 +19,9 @@ namespace VM {
 
 		void showTokenList();
 		Compiler* createCompiler(const char* path);
+
+        void setDebug(bool debug) { this->debug = debug; }
+        inline bool isDebug() const { return debug; }
 
         void start();
 		int checkInst(char* lex);
