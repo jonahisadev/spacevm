@@ -27,6 +27,9 @@ namespace VM {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::MOV_RN);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::REG)
+						writeByte(ByteInst::MOV_RR);
 				}
 				else if (t->getData() == TokenInst::ADD) {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&

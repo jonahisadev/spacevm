@@ -6,6 +6,7 @@ namespace VM {
 	enum ByteInst {
 		NOP =		0x00,
 		MOV_RN =	0x01,
+		MOV_RR =	0x02,
 
 		ADD_RN =	0x04,
 
