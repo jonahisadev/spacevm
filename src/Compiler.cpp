@@ -35,11 +35,17 @@ namespace VM {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::ADD_RN);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::REG)
+						writeByte(ByteInst::ADD_RR);
 				}
 				else if (t->getData() == TokenInst::SUB) {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::SUB_RN);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::REG)
+						writeByte(ByteInst::SUB_RR);
 				}
 				else if (t->getData() == TokenInst::CALL) {
 					writeByte(ByteInst::CALL_);
@@ -56,11 +62,17 @@ namespace VM {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::MUL_RN);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::REG)
+						writeByte(ByteInst::MUL_RR);
 				}
 				else if (t->getData() == TokenInst::DIV) {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::DIV_RN);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::REG)
+						writeByte(ByteInst::DIV_RR);
 				}
 				else if (t->getData() == TokenInst::SXR) {
 					writeByte(ByteInst::SXR_R);

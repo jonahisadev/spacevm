@@ -21,47 +21,82 @@ namespace VM {
 			if (opcode == ByteInst::MOV_RN) {
 				unsigned char reg = getNextByte();
 				unsigned char val = getNextByte();
-				
+
 				short* regPtr = getRegister(reg);
 				*regPtr = val;
 			}
 			else if (opcode == ByteInst::MOV_RR) {
 				unsigned char dest = getNextByte();
 				unsigned char src = getNextByte();
-				
+
 				short* destPtr = getRegister(dest);
 				short* srcPtr = getRegister(src);
-				
+
 				*destPtr = *srcPtr;
 			}
-			
+
 			// ADD
 			else if (opcode == ByteInst::ADD_RN) {
 				unsigned char reg = getNextByte();
 				unsigned char val = getNextByte();
-				
+
 				short* regPtr = getRegister(reg);
 				*regPtr += val;
 			}
-			
+			else if (opcode == ByteInst::ADD_RR) {
+				unsigned char dest = getNextByte();
+				unsigned char src = getNextByte();
+
+				short* destPtr = getRegister(dest);
+				short* srcPtr = getRegister(src);
+
+				*destPtr += *srcPtr;
+			}
+
 			// SUB
 			else if (opcode == ByteInst::SUB_RN) {
 				unsigned char reg = getNextByte();
 				unsigned char val = getNextByte();
-				
+
 				short* regPtr = getRegister(reg);
 				*regPtr -= val;
 			}
-			
+			else if (opcode == ByteInst::SUB_RR) {
+				unsigned char dest = getNextByte();
+				unsigned char src = getNextByte();
+
+				short* destPtr = getRegister(dest);
+				short* srcPtr = getRegister(src);
+
+				*destPtr -= *srcPtr;
+			}
+
 			// MUL
 			else if (opcode == ByteInst::MUL_RN) {
 				unsigned char reg = getNextByte();
 				unsigned char val = getNextByte();
-				
+
 				short* regPtr = getRegister(reg);
 				*regPtr *= val;
 			}
-			
+			else if (opcode == ByteInst::MUL_RR) {
+				unsigned char dest = getNextByte();
+				unsigned char src = getNextByte();
+
+				short* destPtr = getRegister(dest);
+				short* srcPtr = getRegister(src);
+
+				*destPtr *= *srcPtr;
+			}
+
+			// DIV
+			else if (opcode == ByteInst::DIV_RN) {
+				// Do stuff here
+			}
+			else if (opcode == ByteInst::DIV_RR) {
+				// Do more stuff here
+			}
+
 			// SYSI
 			else if (opcode == ByteInst::SYSI_) {
 				if (this->ax == 0x01) {
@@ -71,7 +106,7 @@ namespace VM {
 			}
 		}
 	}
-	
+
 	unsigned char Runtime::getNextByte() {
 		return this->data[++this->pc];
 	}
@@ -79,7 +114,7 @@ namespace VM {
 	void Runtime::sys_exit(int code) {
 		this->retCode = code;
 	}
-	
+
 	short* Runtime::getRegister(unsigned char reg) {
 		if (reg == ByteReg::AX_) {
 			return &this->ax;
@@ -89,6 +124,8 @@ namespace VM {
 		}
 		else if (reg == ByteReg::CX_) {
 			return &this->cx;
+		} else {
+			return nullptr;
 		}
 	}
 

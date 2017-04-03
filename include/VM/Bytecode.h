@@ -9,16 +9,20 @@ namespace VM {
 		MOV_RR =	0x02,
 
 		ADD_RN =	0x04,
+		ADD_RR = 	0x05,
 
 		SUB_RN =	0x07,
+		SUB_RR = 	0x08,
 
 		CALL_ = 	0x0A,
 		RET_ =		0x0B,
 		SYSI_ = 	0x0C,
 
 		MUL_RN =	0x10,
+		MUL_RR =	0x11,
 
 		DIV_RN = 	0x13,
+		DIV_RR = 	0x14,
 
 		SXR_R = 	0x16,
 		SXL_R = 	0x17,

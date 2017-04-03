@@ -25,8 +25,19 @@ namespace VM {
             lex[x] = '\0';
 		lexi = 0;
 
+		if (text[i] == ';') {
+			while (text[i] != '\n' && text[i] != '\0')
+				i++;
+		}
+
+		if (text[i] == '\n') {
+			i++;
+			line++;
+		}
+
         // Count up until delimeter is reached
-        while (text[i] != '\n' && text[i] != '\0' && text[i] != delim) {
+        while (text[i] != '\n' && text[i] != '\0' &&
+				text[i] != delim) {
 			lex[lexi++] = text[i++];
         }
 

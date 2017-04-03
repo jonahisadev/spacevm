@@ -11,7 +11,7 @@ namespace VM {
     private:
         char* text;
 		TokenList* tokenList;
-		bool debug;
+		bool debug = false;
 
     public:
         Parser(char* text);
