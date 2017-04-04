@@ -91,10 +91,25 @@ namespace VM {
 
 			// DIV
 			else if (opcode == ByteInst::DIV_RN) {
-				// Do stuff here
+				unsigned char reg = getNextByte();
+				unsigned char val = getNextByte();
+
+				short* regPtr = getRegister(reg);
+				short save = *regPtr;
+
+				*regPtr = (short)floor((float)*regPtr / (float)val);
+				this->rm = (short)((int)save % (int)val);
 			}
 			else if (opcode == ByteInst::DIV_RR) {
-				// Do more stuff here
+				unsigned char dest = getNextByte();
+				unsigned char src = getNextByte();
+
+				short* destPtr = getRegister(dest);
+				short* srcPtr = getRegister(src);
+				short save = *destPtr;
+
+				*destPtr = (short)floor((float)*destPtr / (float)*srcPtr);
+				this->rm = (short)((int)save % (int)*srcPtr);
 			}
 
 			// SYSI
@@ -124,7 +139,21 @@ namespace VM {
 		}
 		else if (reg == ByteReg::CX_) {
 			return &this->cx;
-		} else {
+		}
+		else if (reg == ByteReg::DX_) {
+			return &this->dx;
+		}
+		else if (reg == ByteReg::XX_) {
+			return &this->xx;
+		}
+		else if (reg == ByteReg::YX_) {
+			return &this->yx;
+		}
+		else if (reg == ByteReg::RM_) {
+			return &this->rm;
+		}
+
+		else {
 			return nullptr;
 		}
 	}

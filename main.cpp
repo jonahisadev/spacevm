@@ -20,13 +20,14 @@ int main(int argc, char** argv) {
 
 	if (VM::Util::strEquals(argv[1], "-c")) {
 	    char* fileContents = VM::Util::readFile(argv[2]);
+		int flen = VM::Util::strLength(fileContents);
 	    ASSERT(fileContents, "File reading failure");
 
-		VM::Parser* p = new VM::Parser(fileContents);
+		VM::Parser* p = new VM::Parser(fileContents, flen);
 		if (argc >= 4 && VM::Util::strEquals(argv[3], "-d"))
 			p->setDebug(true);
 		p->start();
-		
+
 		if (p->isDebug())
 			p->showTokenList();
 

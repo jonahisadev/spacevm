@@ -1,7 +1,7 @@
 mov %ax #1
 
-mov %bx #40
-mov %cx #2
-add %bx %cx
+mov %cx #4
+mul %cx %cx
 
+mov %bx %cx
 sysi

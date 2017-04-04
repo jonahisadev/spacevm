@@ -12,9 +12,10 @@ namespace VM {
         char* text;
 		TokenList* tokenList;
 		bool debug = false;
+		int flen;
 
     public:
-        Parser(char* text);
+        Parser(char* text, int flen);
         ~Parser();
 
 		void showTokenList();

@@ -2,8 +2,9 @@
 
 namespace VM {
 
-    Parser::Parser(char* text) {
+    Parser::Parser(char* text, int flen) {
         this->text = text;
+		this->flen = flen;
 		this->tokenList = new TokenList(1);
     }
 
@@ -12,11 +13,10 @@ namespace VM {
     }
 
     void Parser::start() {
-        char lex[256];
+        char* lex = new char[256];
         int lexi;
         int i = 0;
         char delim = ' ';
-		int nextJump = 1;
 		int line = 1;
 
         // Reset the buffer
@@ -25,19 +25,16 @@ namespace VM {
             lex[x] = '\0';
 		lexi = 0;
 
-		if (text[i] == ';') {
-			while (text[i] != '\n' && text[i] != '\0')
-				i++;
-		}
-
+		// Ignore empty lines
 		if (text[i] == '\n') {
 			i++;
 			line++;
+			goto resetLex;
 		}
 
         // Count up until delimeter is reached
         while (text[i] != '\n' && text[i] != '\0' &&
-				text[i] != delim) {
+				text[i] != delim && i < this->flen) {
 			lex[lexi++] = text[i++];
         }
 
@@ -67,6 +64,9 @@ namespace VM {
 			std::cerr << "Syntax Error (" << line << ") : " << lex << std::endl;
 			panic("Aborting");
 		}
+
+		if (i >= flen)
+			return;
 
 		// Line for debugging
 		if (text[i-1] == '\n')
