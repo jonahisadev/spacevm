@@ -96,6 +96,8 @@ namespace VM {
 				return "HLT";
 			case TokenInst::INC:
 				return "INC";
+			case TokenInst::DEC:
+				return "DEC";
 			default:
 				return "???";
 		}

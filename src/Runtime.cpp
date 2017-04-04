@@ -150,6 +150,12 @@ namespace VM {
 					sys_exit(this->bx);
 					break;
 				}
+				else if (this->ax == 0x02) {
+					sys_print_b(this->bx);
+				}
+				else if (this->ax == 0x03) {
+					sys_print_c((char)this->bx);
+				}
 			}
 		}
 	}
@@ -158,8 +164,18 @@ namespace VM {
 		return this->data[++this->pc];
 	}
 
+	// SYSTEM INTERRUPTS
+
 	void Runtime::sys_exit(int code) {
 		this->retCode = code;
+	}
+	
+	void Runtime::sys_print_b(unsigned char b) {
+		std::cout << (int)b;
+	}
+	
+	void Runtime::sys_print_c(char c) {
+		std::cout << c;
 	}
 
 	short* Runtime::getRegister(unsigned char reg) {

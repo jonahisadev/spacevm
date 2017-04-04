@@ -18,14 +18,16 @@ namespace VM {
 
 		unsigned char* data;
 
+		void sys_exit(int code);
+		void sys_print_b(unsigned char b);
+		void sys_print_c(char c);
+
 	public:
 		Runtime(unsigned char* data);
 		~Runtime();
 
 		void start();
 		unsigned char getNextByte();
-
-		void sys_exit(int code);
 
 		int getReturnCode() const { return retCode; }
 

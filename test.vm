@@ -1,8 +1,16 @@
-mov %ax #1
+mov %ax #2
 
 mov %cx #6
 dec %cx
 mul %cx %cx
 
 mov %bx %cx
+sysi
+
+mov %ax #3
+mov %bx #10
+sysi
+
+mov %ax #1
+mov %bx #42
 sysi
