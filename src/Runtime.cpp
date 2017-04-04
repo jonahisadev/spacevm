@@ -112,6 +112,22 @@ namespace VM {
 				this->rm = (short)((int)save % (int)*srcPtr);
 			}
 
+			// SXL
+			else if (opcode == ByteInst::SXL_R) {
+				unsigned char reg = getNextByte();
+				short* regPtr = getRegister(reg);
+
+				*regPtr = *regPtr << 1;
+			}
+
+			// SXR
+			else if (opcode == ByteInst::SXR_R) {
+				unsigned char reg = getNextByte();
+				short* regPtr = getRegister(reg);
+
+				*regPtr = *regPtr >> 1;
+			}
+
 			// SYSI
 			else if (opcode == ByteInst::SYSI_) {
 				if (this->ax == 0x01) {
