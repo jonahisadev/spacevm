@@ -26,6 +26,8 @@ namespace VM {
 
 		SXR_R = 	0x16,
 		SXL_R = 	0x17,
+		INC_R = 	0x18,
+		DEC_R = 	0x19,
 
 		HLT_ = 		0x40,
 	};

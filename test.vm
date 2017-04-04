@@ -1,8 +1,8 @@
 mov %ax #1
 
 mov %cx #6
+dec %cx
 mul %cx %cx
-sxl %cx
 
 mov %bx %cx
 sysi

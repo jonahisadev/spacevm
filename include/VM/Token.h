@@ -25,6 +25,8 @@ namespace VM {
 		DIV,
 		SXR,
 		SXL,
+		INC,
+		DEC,
 
 		HLT,
 	};

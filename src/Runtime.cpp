@@ -127,6 +127,22 @@ namespace VM {
 
 				*regPtr = *regPtr >> 1;
 			}
+			
+			// INC
+			else if (opcode == ByteInst::INC_R) {
+				unsigned char reg = getNextByte();
+				short* regPtr = getRegister(reg);
+				
+				*regPtr += 1;
+			}
+			
+			// DEC
+			else if (opcode == ByteInst::DEC_R) {
+				unsigned char reg = getNextByte();
+				short* regPtr = getRegister(reg);
+				
+				*regPtr -= 1;
+			}
 
 			// SYSI
 			else if (opcode == ByteInst::SYSI_) {

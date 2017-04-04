@@ -116,6 +116,13 @@ namespace VM {
 		else if (Util::strEquals(lex, "sxl")) {
 			return TokenInst::SXL;
 		}
+		else if (Util::strEquals(lex, "inc")) {
+			return TokenInst::INC;
+		}
+		else if (Util::strEquals(lex, "dec")) {
+			return TokenInst::DEC;
+		}
+		
 		else if (Util::strEquals(lex, "hlt")) {
 			return TokenInst::HLT;
 		}
