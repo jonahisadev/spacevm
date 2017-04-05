@@ -4,7 +4,7 @@ namespace VM {
 
     char* Util::readFile(const char* path) {
         FILE* file = fopen(path, "r");
-        ASSERT(file, "Could not open file");
+        ASSERT(file, path);
 
         fseek(file, 0, SEEK_END);
         int size = (int) ftell(file);
@@ -75,7 +75,12 @@ namespace VM {
         ASSERT(dest, "strDup allocation failure");
 
         strCopy(src, dest, start, end);
+		dest[end] = '\0';
         return dest;
     }
+
+	char* Util::strDupFull(char* src) {
+		return strDup(src, 0, strLength(src));
+	}
 
 } // namespace VM

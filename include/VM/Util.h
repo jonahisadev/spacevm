@@ -16,6 +16,7 @@ namespace VM {
         LOCAL bool strEquals(const char* a, const char* b);
         LOCAL void strCopy(char* src, char* dest, int start, int end);
         LOCAL char* strDup(char* src, int start, int end);
+		LOCAL char* strDupFull(char* src);
     };
 
 } // namespace VM

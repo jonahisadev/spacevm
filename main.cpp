@@ -19,7 +19,9 @@ int main(int argc, char** argv) {
 	}
 
 	if (VM::Util::strEquals(argv[1], "-c")) {
-	    char* fileContents = VM::Util::readFile(argv[2]);
+		char* path = VM::Util::strDupFull(argv[2]);
+	    char* fileContents = VM::Util::readFile(path);
+		
 		int flen = VM::Util::strLength(fileContents);
 	    ASSERT(fileContents, "File reading failure");
 
@@ -31,7 +33,7 @@ int main(int argc, char** argv) {
 		if (p->isDebug())
 			p->showTokenList();
 
-		VM::Compiler* c = p->createCompiler(std::string(argv[2]).append("c").c_str());
+		VM::Compiler* c = p->createCompiler(std::string(path).append("c").c_str());
 		c->start();
 
 		delete p;
