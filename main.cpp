@@ -32,8 +32,12 @@ int main(int argc, char** argv) {
 
 		if (p->isDebug())
 			p->showTokenList();
-
-		VM::Compiler* c = p->createCompiler(std::string(path).append("c").c_str());
+			
+		// make output path constant	
+		std::string temp = std::string(path);
+		temp.append("c");
+		const char* outPath = temp.c_str();
+		VM::Compiler* c = p->createCompiler(outPath);
 		c->start();
 
 		delete p;
