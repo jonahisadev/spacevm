@@ -12,15 +12,16 @@ namespace VM {
 	class Runtime {
 	private:
 		int retCode;
-		const int STACK_SIZE = 65536;
+		const int MEMORY_SIZE = 0x10000;
+		const int STACK_MAX = 0xE000;
 
 		short ax, bx, cx, dx, xx, yx = 0;
 		short cf, cy, bp, rm = 0;
-		short sp = -1;
+		unsigned short sp = 0x8000-1;
 		short pc = -1;
 
 		unsigned char* data;
-		unsigned char* stack;
+		unsigned char* memory;
 
 		void sys_exit(int code);
 		void sys_print_b(unsigned char b);

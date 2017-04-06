@@ -5,11 +5,12 @@ namespace VM {
 	Runtime::Runtime(unsigned char* data) {
 		this->retCode = 0;
 		this->data = data;
-		this->stack = (unsigned char*) malloc(sizeof(unsigned char) * STACK_SIZE);
+		this->memory = new unsigned char[MEMORY_SIZE];
 	}
 
 	Runtime::~Runtime() {
 		delete[] this->data;
+		delete[] this->memory;
 	}
 
 	void Runtime::start() {
@@ -190,11 +191,12 @@ namespace VM {
 	}
 
 	void Runtime::push(unsigned char data) {
-		this->stack[++this->sp] = data;
+		if (this->sp < STACK_MAX)
+			this->memory[++this->sp] = data;
 	}
 
 	short Runtime::pop() {
-		return (short)this->stack[this->sp--];
+		return (short)this->memory[this->sp--];
 	}
 
 	// SYSTEM INTERRUPTS
