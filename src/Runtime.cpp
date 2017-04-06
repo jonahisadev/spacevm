@@ -5,6 +5,7 @@ namespace VM {
 	Runtime::Runtime(unsigned char* data) {
 		this->retCode = 0;
 		this->data = data;
+		this->stack = (unsigned char*) malloc(sizeof(unsigned char) * STACK_SIZE);
 	}
 
 	Runtime::~Runtime() {
@@ -127,21 +128,45 @@ namespace VM {
 
 				*regPtr = *regPtr >> 1;
 			}
-			
+
 			// INC
 			else if (opcode == ByteInst::INC_R) {
 				unsigned char reg = getNextByte();
 				short* regPtr = getRegister(reg);
-				
+
 				*regPtr += 1;
 			}
-			
+
 			// DEC
 			else if (opcode == ByteInst::DEC_R) {
 				unsigned char reg = getNextByte();
 				short* regPtr = getRegister(reg);
-				
+
 				*regPtr -= 1;
+			}
+
+			// PUSH
+			else if (opcode == ByteInst::PUSH_R) {
+				unsigned char reg = getNextByte();
+				short* regPtr = getRegister(reg);
+
+				unsigned char data = *regPtr;
+				push(data);
+			}
+			else if (opcode == ByteInst::PUSH_N) {
+				unsigned char num = getNextByte();
+				push(num);
+			}
+
+			// POP
+			else if (opcode == ByteInst::POP_R) {
+				unsigned char reg = getNextByte();
+				short* regPtr = getRegister(reg);
+
+				*regPtr = pop();
+			}
+			else if (opcode == ByteInst::POP_X) {
+				pop();
 			}
 
 			// SYSI
@@ -164,16 +189,24 @@ namespace VM {
 		return this->data[++this->pc];
 	}
 
+	void Runtime::push(unsigned char data) {
+		this->stack[++this->sp] = data;
+	}
+
+	short Runtime::pop() {
+		return (short)this->stack[this->sp--];
+	}
+
 	// SYSTEM INTERRUPTS
 
 	void Runtime::sys_exit(int code) {
 		this->retCode = code;
 	}
-	
+
 	void Runtime::sys_print_b(unsigned char b) {
 		std::cout << (int)b;
 	}
-	
+
 	void Runtime::sys_print_c(char c) {
 		std::cout << c;
 	}

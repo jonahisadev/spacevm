@@ -27,6 +27,8 @@ namespace VM {
 		SXL,
 		INC,
 		DEC,
+		PUSH,
+		POP,
 
 		HLT,
 	};

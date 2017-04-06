@@ -122,7 +122,13 @@ namespace VM {
 		else if (Util::strEquals(lex, "dec")) {
 			return TokenInst::DEC;
 		}
-		
+		else if (Util::strEquals(lex, "push")) {
+			return TokenInst::PUSH;
+		}
+		else if (Util::strEquals(lex, "pop")) {
+			return TokenInst::POP;
+		}
+
 		else if (Util::strEquals(lex, "hlt")) {
 			return TokenInst::HLT;
 		}

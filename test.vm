@@ -1,10 +1,14 @@
 mov %ax #2
 
-mov %cx #6
-dec %cx
-mul %cx %cx
+push #42
+mov %cx #12
+push %cx
+push #3
 
-mov %bx %cx
+pop %cx
+pop %bx
+pop
+add %bx %cx
 sysi
 
 mov %ax #3
@@ -12,5 +16,5 @@ mov %bx #10
 sysi
 
 mov %ax #1
-mov %bx #42
+mov %bx #7
 sysi

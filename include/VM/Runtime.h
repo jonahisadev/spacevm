@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cmath>
+#include <cstdlib>
 
 #include <VM/Bytecode.h>
 
@@ -11,12 +12,15 @@ namespace VM {
 	class Runtime {
 	private:
 		int retCode;
+		const int STACK_SIZE = 65536;
 
 		short ax, bx, cx, dx, xx, yx = 0;
-		short cf, cy, sp, bp, rm = 0;
+		short cf, cy, bp, rm = 0;
+		short sp = -1;
 		short pc = -1;
 
 		unsigned char* data;
+		unsigned char* stack;
 
 		void sys_exit(int code);
 		void sys_print_b(unsigned char b);
@@ -28,6 +32,8 @@ namespace VM {
 
 		void start();
 		unsigned char getNextByte();
+		void push(unsigned char data);
+		short pop();
 
 		int getReturnCode() const { return retCode; }
 

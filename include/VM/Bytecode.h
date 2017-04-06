@@ -29,6 +29,11 @@ namespace VM {
 		INC_R = 	0x18,
 		DEC_R = 	0x19,
 
+		PUSH_R = 	0x1A,
+		PUSH_N = 	0x1B,
+		POP_R = 	0x1C,
+		POP_X = 	0x1D,
+
 		HLT_ = 		0x40,
 	};
 

@@ -32,7 +32,7 @@ namespace VM {
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::MOV_RR);
 				}
-				
+
 				// ADD
 				else if (t->getData() == TokenInst::ADD) {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
@@ -42,7 +42,7 @@ namespace VM {
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::ADD_RR);
 				}
-				
+
 				// SUB
 				else if (t->getData() == TokenInst::SUB) {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
@@ -52,24 +52,24 @@ namespace VM {
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::SUB_RR);
 				}
-				
+
 				// CALL
 				else if (t->getData() == TokenInst::CALL) {
 					writeByte(ByteInst::CALL_);
 					this->addrList->add(this->addr);
 					writeByte(0x00);
 				}
-				
+
 				// RET
 				else if (t->getData() == TokenInst::RET) {
 					writeByte(ByteInst::RET_);
 				}
-				
+
 				// SYSI
 				else if (t->getData() == TokenInst::SYSI) {
 					writeByte(ByteInst::SYSI_);
 				}
-				
+
 				// MUL
 				else if (t->getData() == TokenInst::MUL) {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
@@ -79,7 +79,7 @@ namespace VM {
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::MUL_RR);
 				}
-				
+
 				// DIV
 				else if (t->getData() == TokenInst::DIV) {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
@@ -89,25 +89,41 @@ namespace VM {
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::DIV_RR);
 				}
-				
+
 				// SXR
 				else if (t->getData() == TokenInst::SXR) {
 					writeByte(ByteInst::SXR_R);
 				}
-				
+
 				// SXL
 				else if (t->getData() == TokenInst::SXL) {
 					writeByte(ByteInst::SXL_R);
 				}
-				
+
 				// INC
 				else if (t->getData() == TokenInst::INC) {
 					writeByte(ByteInst::INC_R);
 				}
-				
+
 				// DEC
 				else if (t->getData() == TokenInst::DEC) {
 					writeByte(ByteInst::DEC_R);
+				}
+
+				// PUSH
+				else if (t->getData() == TokenInst::PUSH) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG)
+						writeByte(ByteInst::PUSH_R);
+					else if (tokenList->get(i+1)->getType() == TokenType::NUM)
+						writeByte(ByteInst::PUSH_N);
+				}
+
+				// POP
+				else if (t->getData() == TokenInst::POP) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG)
+						writeByte(ByteInst::POP_R);
+					else if (tokenList->get(i+1)->getType() == TokenType::INST)
+						writeByte(ByteInst::POP_X);
 				}
 
 				// HLT

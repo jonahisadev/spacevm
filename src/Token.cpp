@@ -98,6 +98,10 @@ namespace VM {
 				return "INC";
 			case TokenInst::DEC:
 				return "DEC";
+			case TokenInst::PUSH:
+				return "PUSH";
+			case TokenInst::POP:
+				return "POP";
 			default:
 				return "???";
 		}
