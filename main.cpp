@@ -30,8 +30,10 @@ int main(int argc, char** argv) {
 			p->setDebug(true);
 		p->start();
 
-		if (p->isDebug())
+		if (p->isDebug()) {
 			p->showTokenList();
+			p->showLabelLists();
+		}
 			
 		// make output path constant	
 		std::string temp = std::string(path);

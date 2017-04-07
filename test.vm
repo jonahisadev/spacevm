@@ -1,20 +1,11 @@
-mov %ax #2
+mov %dx #5
+mov %cx #0
+mov %bx #3
 
-push #42
-mov %cx #12
-push %cx
-push #3
-
-pop %cx
-pop %bx
-pop
-add %bx %cx
-sysi
-
-mov %ax #3
-mov %bx #10
-sysi
+:loop
+add %bx #2
+inc %cx
+@loop
 
 mov %ax #1
-mov %bx #7
 sysi

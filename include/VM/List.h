@@ -19,12 +19,14 @@ namespace VM {
 		
 		void add(T data);
 		T get(int ptr);
+		void showList();
 		
 		int getPointer() const { return ptr; }
 	};
 	
 	template class List<unsigned char>;
 	template class List<int>;
+	template class List<char*>;
 	
 	template <class T>
 	List<T>::List(int size) {
@@ -51,6 +53,16 @@ namespace VM {
 	template <class T>
 	T List<T>::get(int ptr) {
 		return this->data[ptr];
+	}
+	
+	template <class T>
+	void List<T>::showList() {
+		for (int i = 0; i < getPointer(); i++) {
+			std::cout << this->data[i];
+			if (i != getPointer() - 1)
+				std::cout << ", ";
+		}
+		std::cout << std::endl;
 	}
     
 } // namespace VM

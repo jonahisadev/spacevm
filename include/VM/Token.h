@@ -12,6 +12,8 @@ namespace VM {
 		INST,
 		REG,
 		NUM,
+		LBL,
+		JMP,
 	};
 
 	enum TokenInst {
@@ -30,7 +32,7 @@ namespace VM {
 		PUSH,
 		POP,
 
-		HLT,
+		HLT
 	};
 
 	enum TokenReg {

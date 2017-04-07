@@ -6,6 +6,8 @@ namespace VM {
         this->text = text;
 		this->flen = flen;
 		this->tokenList = new TokenList(1);
+		this->lblList = new List<char*>(1);
+		this->jmpList = new List<char*>(1);
     }
 
     Parser::~Parser() {
@@ -35,6 +37,8 @@ namespace VM {
         // Count up until delimeter is reached
         while (text[i] != '\n' && text[i] != '\0' &&
 				text[i] != delim && i < this->flen) {
+			//if (text[i] == '\t')
+				//i++; continue;
 			lex[lexi++] = text[i++];
         }
 
@@ -43,7 +47,6 @@ namespace VM {
 		i++;
 
         // INSTRUCTIONS
-
 		int tokenData;
 		if ((tokenData = checkInst(lex)) != -1) {
 			tokenList->add(new Token(TokenType::INST, tokenData));
@@ -60,8 +63,16 @@ namespace VM {
 		}
 
 		// LABELS
-		else if (lex[0] == '@') {
-			
+		else if (lex[0] == ':') {
+			char* labelName = Util::strDup(lex, 1, Util::strLength(lex));
+			// TODO: check for duplicates
+			lblList->add(labelName);
+			tokenList->add(new Token(TokenType::LBL, lblList->getPointer()-1));
+		}
+		else if (lex[0] == '@') {	
+			char* jumpName = Util::strDup(lex, 1, Util::strLength(lex));
+			jmpList->add(jumpName);
+			tokenList->add(new Token(TokenType::JMP, jmpList->getPointer()-1));
 		}
 
 		// UNKNOWN
@@ -84,6 +95,18 @@ namespace VM {
 
 	void Parser::showTokenList() {
 		this->tokenList->showList();
+	}
+	
+	void Parser::showLabelLists() {
+		if (this->lblList->getPointer() > 0) {
+			std::cout << "Label List: ";
+			this->lblList->showList();
+		}
+		
+		if (this->jmpList->getPointer() > 0) {
+			std::cout << "Jump List: ";
+			this->jmpList->showList();
+		}
 	}
 
 	Compiler* Parser::createCompiler(const char* path) {

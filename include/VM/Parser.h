@@ -10,15 +10,19 @@ namespace VM {
     class Parser {
     private:
         char* text;
-		TokenList* tokenList;
 		bool debug = false;
 		int flen;
+		
+		TokenList* tokenList;
+		List<char*>* lblList;
+		List<char*>* jmpList;
 
     public:
         Parser(char* text, int flen);
         ~Parser();
 
 		void showTokenList();
+		void showLabelLists();
 		Compiler* createCompiler(const char* path);
 
         void setDebug(bool debug) { this->debug = debug; }
