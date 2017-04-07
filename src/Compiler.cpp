@@ -4,8 +4,8 @@ namespace VM {
 
 	Compiler::Compiler(const char* path, TokenList* tokenList) {
 		this->tokenList = tokenList;
-		this->textBuf = new ByteList(1);
-		this->addrList = new IntList(1);
+		this->textBuf = new List<unsigned char>(1);
+		this->addrList = new List<int>(1);
 
 		this->addr = 0;
 		this->path = path;

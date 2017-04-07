@@ -15,8 +15,8 @@ namespace VM {
 	class Compiler {
 	private:
 		TokenList* tokenList;
-		ByteList* textBuf;
-		IntList* addrList;
+		List<unsigned char>* textBuf;
+		List<int>* addrList;
 		int addr;
 
 		const char* path;

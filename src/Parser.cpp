@@ -59,6 +59,11 @@ namespace VM {
 			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex)));
 		}
 
+		// LABELS
+		else if (lex[0] == '@') {
+			
+		}
+
 		// UNKNOWN
 		else {
 			std::cerr << "Syntax Error (" << line << ") : " << lex << std::endl;

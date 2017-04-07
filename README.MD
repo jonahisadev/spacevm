@@ -24,7 +24,6 @@ Obviously more things need to be implemented before the compiler will be
 ### To Do
 
 * Finish writing compiler opcodes
-* Implement templating for list classes
 * Make a debugger for runtime
 * Add comments soon
 * Add semantics checker (possibly)

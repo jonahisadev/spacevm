@@ -6,37 +6,52 @@
 
 namespace VM {
     
-    class ByteList {
-    private:
-        unsigned char* data;
-        int size;
-        int ptr;
-        
-    public:
-        ByteList(int size);
-        ~ByteList();
-        
-        void add(unsigned char data);
-        unsigned char get(int ptr);
-        
-        int getPointer() const { return ptr; }
-    };
-    
-    class IntList {
-    private:
-    	int* data;
-    	int size;
-    	int ptr;
-    	
-    public:
-    	IntList(int size);
-    	~IntList();
-    	
-    	void add(int data);
-    	int get(int ptr);
-    	
-    	int getPointer() const { return ptr; }
-    };
+	template <class T>
+	class List {
+	private:
+		T* data;
+		int size;
+		int ptr;
+		
+	public:
+		List(int size);
+		~List();
+		
+		void add(T data);
+		T get(int ptr);
+		
+		int getPointer() const { return ptr; }
+	};
+	
+	template class List<unsigned char>;
+	template class List<int>;
+	
+	template <class T>
+	List<T>::List(int size) {
+		this->data = (T*) malloc(sizeof(T) * size);
+		this->size = size;
+		this->ptr = 0;
+	}
+	
+	template <class T>
+	List<T>::~List() {
+		free(this->data);
+	}
+	
+	template <class T>
+	void List<T>::add(T data) {
+		if (this->ptr >= this->size) {
+			this->size *= 2;
+			this->data = (T*) realloc(this->data, sizeof(T) * this->size);
+		}
+		
+		this->data[this->ptr++] = data;
+	}
+	
+	template <class T>
+	T List<T>::get(int ptr) {
+		return this->data[ptr];
+	}
     
 } // namespace VM
 
