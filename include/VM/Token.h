@@ -31,6 +31,7 @@ namespace VM {
 		DEC,
 		PUSH,
 		POP,
+		JL,
 
 		HLT
 	};

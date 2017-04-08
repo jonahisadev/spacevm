@@ -5,7 +5,7 @@ mov %bx #3
 :loop
 add %bx #2
 inc %cx
-@loop
+jl @loop
 
 mov %ax #1
 sysi

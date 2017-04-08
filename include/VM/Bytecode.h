@@ -33,6 +33,8 @@ namespace VM {
 		PUSH_N = 	0x1B,
 		POP_R = 	0x1C,
 		POP_X = 	0x1D,
+		
+		JL_ = 		0x20,
 
 		HLT_ = 		0x40,
 	};

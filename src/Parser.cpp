@@ -159,6 +159,9 @@ namespace VM {
 		else if (Util::strEquals(lex, "pop")) {
 			return TokenInst::POP;
 		}
+		else if (Util::strEquals(lex, "jl")) {
+			return TokenInst::JL;
+		}
 
 		else if (Util::strEquals(lex, "hlt")) {
 			return TokenInst::HLT;

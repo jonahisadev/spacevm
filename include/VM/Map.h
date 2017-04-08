@@ -2,8 +2,10 @@
 #define SPACE_MAP_H
 
 namespace VM {
-    
-    template <class A, class B>
+	
+	template <typename ...> class Map;
+	
+    template <typename A, typename B>
     class Map<A, B> {
     private:
         A* dataA;

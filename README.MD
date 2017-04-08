@@ -15,7 +15,7 @@ in the following order:
 * Token.h
 * Token.cpp
 * Parser.cpp
-* Compiler.h
+* Bytecode.h
 * Compiler.cpp
 
 Obviously more things need to be implemented before the compiler will be

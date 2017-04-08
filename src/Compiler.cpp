@@ -5,7 +5,9 @@ namespace VM {
 	Compiler::Compiler(const char* path, TokenList* tokenList) {
 		this->tokenList = tokenList;
 		this->textBuf = new List<unsigned char>(1);
-		this->addrList = new List<int>(1);
+		
+		this->lblMap = new Map<int, unsigned short>(1);
+		this->jmpMap = new Map<int, unsigned short>(1);
 
 		this->addr = 0;
 		this->path = path;
@@ -64,7 +66,7 @@ namespace VM {
 				// CALL
 				else if (t->getData() == TokenInst::CALL) {
 					writeByte(ByteInst::CALL_);
-					this->addrList->add(this->addr);
+					//this->addrList->add(this->addr);
 					writeByte(0x00);
 				}
 
@@ -133,6 +135,12 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::INST)
 						writeByte(ByteInst::POP_X);
 				}
+				
+				// JL
+				else if (t->getData() == TokenInst::JL) {
+					if (tokenList->get(i+1)->getType() == TokenType::JMP)
+						writeByte(ByteInst::JL_);
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {
@@ -140,7 +148,14 @@ namespace VM {
 				}
 			}
 			
-			// TODO: Labels
+			// LABELS
+			else if (t->getType() == TokenType::LBL) {
+				this->lblMap->add(t->getData(), this->addr);
+			}
+			else if (t->getType() == TokenType::JMP) {
+				this->jmpMap->add(t->getData(), this->addr);
+				writeByte(0x00);
+			}
 
 			// REGISTERS
 			else if (t->getType() == TokenType::REG) {
