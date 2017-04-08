@@ -110,7 +110,10 @@ namespace VM {
 	}
 
 	Compiler* Parser::createCompiler(const char* path) {
-		return new Compiler(path, this->tokenList);
+		Compiler* c = new Compiler(path, this->tokenList);
+		c->setLabelList(this->lblList);
+		c->setJumpList(this->jmpList);
+		return c;
 	}
 
 	int Parser::checkInst(char* lex) {

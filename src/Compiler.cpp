@@ -14,6 +14,14 @@ namespace VM {
 	Compiler::~Compiler() {
 		delete this->textBuf;
 	}
+	
+	void Compiler::setLabelList(List<char*>* lblList) {
+		this->lblList = lblList;
+	}
+	
+	void Compiler::setJumpList(List<char*>* jmpList) {
+		this->jmpList = jmpList;
+	}
 
 	void Compiler::start() {
 		Token* t;
@@ -131,6 +139,8 @@ namespace VM {
 					writeByte(ByteInst::HLT_);
 				}
 			}
+			
+			// TODO: Labels
 
 			// REGISTERS
 			else if (t->getType() == TokenType::REG) {
