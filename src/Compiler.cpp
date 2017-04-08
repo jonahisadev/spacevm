@@ -136,9 +136,23 @@ namespace VM {
 						writeByte(ByteInst::POP_X);
 				}
 				
-				// JL
+				// CMP
+				else if (t->getData() == TokenInst::CMP) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::REG)
+						writeByte(ByteInst::CMP_RR);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::CMP_RN);
+				}
+				
+				// JUMPS
+				else if (t->getData() == TokenInst::JMP) {
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
+						writeByte(ByteInst::JMP_);
+				}
 				else if (t->getData() == TokenInst::JL) {
-					if (tokenList->get(i+1)->getType() == TokenType::JMP)
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JL_);
 				}
 
@@ -152,7 +166,7 @@ namespace VM {
 			else if (t->getType() == TokenType::LBL) {
 				this->lblMap->add(t->getData(), this->addr);
 			}
-			else if (t->getType() == TokenType::JMP) {
+			else if (t->getType() == TokenType::JMP_T) {
 				this->jmpMap->add(t->getData(), this->addr);
 				// Make room for later
 				writeByte(0x00);

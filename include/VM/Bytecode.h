@@ -34,7 +34,10 @@ namespace VM {
 		POP_R = 	0x1C,
 		POP_X = 	0x1D,
 		
-		JL_ = 		0x20,
+		CMP_RR = 	0x1E,
+		CMP_RN = 	0x1F,
+		JMP_ = 		0x20,
+		JL_ = 		0x21,
 
 		HLT_ = 		0x40,
 	};

@@ -1,10 +1,9 @@
-mov %dx #5
-mov %cx #0
-mov %bx #10
+mov %bx #0
+mov %dx #3
 
 :loop
-add %bx #2
-inc %cx
+inc %bx
+cmp %bx %dx
 jl @loop
 
 mov %ax #1

@@ -72,7 +72,7 @@ namespace VM {
 		else if (lex[0] == '@') {	
 			char* jumpName = Util::strDup(lex, 1, Util::strLength(lex));
 			jmpList->add(jumpName);
-			tokenList->add(new Token(TokenType::JMP, jmpList->getPointer()-1));
+			tokenList->add(new Token(TokenType::JMP_T, jmpList->getPointer()-1));
 		}
 
 		// UNKNOWN
@@ -158,6 +158,12 @@ namespace VM {
 		}
 		else if (Util::strEquals(lex, "pop")) {
 			return TokenInst::POP;
+		}
+		else if (Util::strEquals(lex, "cmp")) {
+			return TokenInst::CMP;
+		}
+		else if (Util::strEquals(lex, "jmp")) {
+			return TokenInst::JMP;
 		}
 		else if (Util::strEquals(lex, "jl")) {
 			return TokenInst::JL;

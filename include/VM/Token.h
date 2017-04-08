@@ -13,7 +13,7 @@ namespace VM {
 		REG,
 		NUM,
 		LBL,
-		JMP,
+		JMP_T,
 	};
 
 	enum TokenInst {
@@ -31,6 +31,8 @@ namespace VM {
 		DEC,
 		PUSH,
 		POP,
+		CMP,
+		JMP,
 		JL,
 
 		HLT

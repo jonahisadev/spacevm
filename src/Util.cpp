@@ -89,5 +89,10 @@ namespace VM {
 		ret[1] = (addr & 0x00FF) >> 0;
 		return ret;
 	}
+	
+	unsigned short Util::bToS(unsigned char a, unsigned char b) {
+		short x = (a << 4) | b;
+		return x;
+	}
 
 } // namespace VM

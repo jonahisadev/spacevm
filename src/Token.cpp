@@ -64,7 +64,7 @@ namespace VM {
 				std::cout << t->getData() << std::endl;
 			} else if (t->getType() == TokenType::LBL) {
 				std::cout << "Label: i" << t->getData() << std::endl;
-			} else if (t->getType() == TokenType::JMP) {
+			} else if (t->getType() == TokenType::JMP_T) {
 				std::cout << "JumpTo: i" << t->getData() << std::endl;
 			}
 		}
@@ -106,6 +106,10 @@ namespace VM {
 				return "PUSH";
 			case TokenInst::POP:
 				return "POP";
+			case TokenInst::CMP:
+				return "CMP";
+			case TokenInst::JMP:
+				return "JMP";
 			case TokenInst::JL:
 				return "JL";
 			default:

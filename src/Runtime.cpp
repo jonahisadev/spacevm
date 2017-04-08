@@ -17,7 +17,7 @@ namespace VM {
 		unsigned char opcode = 0;
 
 		while (opcode != ByteInst::HLT_) {
-			opcode = this->data[++this->pc];
+			opcode = this->data[this->pc];
 
 			// MOV
 			if (opcode == ByteInst::MOV_RN) {
@@ -170,6 +170,37 @@ namespace VM {
 				pop();
 			}
 
+			// CMP
+			else if (opcode == ByteInst::CMP_RR) {
+				unsigned char a = getNextByte();
+				unsigned char b = getNextByte();
+				
+				short* aPtr = getRegister(a);
+				short* bPtr = getRegister(b);
+				
+				cmp(*aPtr, *bPtr);
+			}
+			else if (opcode == ByteInst::CMP_RN) {
+				unsigned char a = getNextByte();
+				unsigned char b = getNextByte();
+				
+				short* aPtr = getRegister(a);
+				
+				cmp(*aPtr, b);
+			}
+			
+			// JUMPS
+			else if (opcode == ByteInst::JMP_) {
+				this->pc = Util::bToS(getNextByte(), getNextByte());
+				continue;
+			}
+			else if (opcode == ByteInst::JL_) {
+				if (getFlag(2)) {
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					continue;
+				}
+			}
+
 			// SYSI
 			else if (opcode == ByteInst::SYSI_) {
 				if (this->ax == 0x01) {
@@ -183,6 +214,8 @@ namespace VM {
 					sys_print_c((char)this->bx);
 				}
 			}
+			
+			this->pc++;
 		}
 	}
 
@@ -197,6 +230,32 @@ namespace VM {
 
 	short Runtime::pop() {
 		return (short)this->memory[this->sp--];
+	}
+	
+	void Runtime::cmp(short a, short b) {
+		if (a == b)
+			this->cf = (this->cf | 0b0001);
+		else
+			this->cf = (this->cf & 0b1110);
+		
+		if (a < b)
+			this->cf = (this->cf | 0b0010);
+		else
+			this->cf = (this->cf & 0b1101);
+			
+		if (a > b)
+			this->cf = (this->cf | 0b0100);
+		else	
+			this->cf = (this->cf & 0b1011);
+		
+		if (a == 0)
+			this->cf = (this->cf | 0b1000);
+		else
+			this->cf = (this->cf & 0b0111);
+	}
+	
+	bool Runtime::getFlag(int ptr) {
+		return (bool)((this->cf >> (ptr-1)) & 0b0001);
 	}
 
 	// SYSTEM INTERRUPTS

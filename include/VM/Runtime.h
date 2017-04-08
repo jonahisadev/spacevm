@@ -5,6 +5,7 @@
 #include <cmath>
 #include <cstdlib>
 
+#include <VM/Util.h>
 #include <VM/Bytecode.h>
 
 namespace VM {
@@ -16,9 +17,10 @@ namespace VM {
 		const int STACK_MAX = 0xE000;
 
 		short ax, bx, cx, dx, xx, yx = 0;
-		short cf, cy, bp, rm = 0;
+		short cy, bp, rm = 0;
+		unsigned short cf = 0b0000;
 		unsigned short sp = 0x8000-1;
-		short pc = -1;
+		unsigned short pc = 0;
 
 		unsigned char* data;
 		unsigned char* memory;
@@ -35,6 +37,13 @@ namespace VM {
 		unsigned char getNextByte();
 		void push(unsigned char data);
 		short pop();
+		
+		// 0001 = Equals
+		// 0010 = Less than
+		// 0100 = Greater than
+		// 1000 = Zero
+		void cmp(short a, short b);
+		bool getFlag(int ptr);
 
 		int getReturnCode() const { return retCode; }
 
