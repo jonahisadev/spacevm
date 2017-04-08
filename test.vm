@@ -1,6 +1,6 @@
 mov %dx #5
 mov %cx #0
-mov %bx #3
+mov %bx #10
 
 :loop
 add %bx #2

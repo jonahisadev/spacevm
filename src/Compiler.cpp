@@ -154,6 +154,8 @@ namespace VM {
 			}
 			else if (t->getType() == TokenType::JMP) {
 				this->jmpMap->add(t->getData(), this->addr);
+				// Make room for later
+				writeByte(0x00);
 				writeByte(0x00);
 			}
 
@@ -177,6 +179,22 @@ namespace VM {
 			else {
 				std::cerr << "Major Compiler Error: Unknown Token Type!" << std::endl;
 				panic("Aborting");
+			}
+		}
+
+		// Fix label jumps
+		for (int i = 0; i < jmpMap->getPointer(); i++) {
+			int index = jmpMap->getDataA(i);
+			for (int j = 0; j < lblMap->getPointer(); i++) {
+				char* jmp = jmpList->get(index);
+				if (Util::strEquals(jmp, lblList->get(j))) {
+					unsigned short addr = lblMap->getDataB(j);
+					unsigned char* addrw = Util::sToB(addr);
+					this->textBuf->set(jmpMap->getDataB(i), addrw[0]);
+					this->textBuf->set(jmpMap->getDataB(i)+1, addrw[1]);
+					delete[] addrw;
+					break;
+				}
 			}
 		}
 

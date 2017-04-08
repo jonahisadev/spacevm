@@ -82,5 +82,12 @@ namespace VM {
 	char* Util::strDupFull(char* src) {
 		return strDup(src, 0, strLength(src));
 	}
+	
+	unsigned char* Util::sToB(unsigned short addr) {
+		unsigned char* ret = new unsigned char[2];
+		ret[0] = (addr & 0xFF00) >> 4;
+		ret[1] = (addr & 0x00FF) >> 0;
+		return ret;
+	}
 
 } // namespace VM

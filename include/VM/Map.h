@@ -19,8 +19,8 @@ namespace VM {
         ~Map();
         
         void add(A dataA, B dataB);
-        A getA(int ptr);
-        B getB(int ptr);
+        A getDataA(int ptr);
+        B getDataB(int ptr);
         void showList();
         
         int getPointer() const { return ptr; }
@@ -57,12 +57,12 @@ namespace VM {
     }
     
     template <class A, class B>
-    A Map<A, B>::getA(int ptr) {
+    A Map<A, B>::getDataA(int ptr) {
         return this->dataA[ptr];
     }
     
     template <class A, class B>
-    B Map<A, B>::getB(int ptr) {
+    B Map<A, B>::getDataB(int ptr) {
         return this->dataB[ptr];
     }
     

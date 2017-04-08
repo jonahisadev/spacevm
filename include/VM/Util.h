@@ -17,6 +17,7 @@ namespace VM {
         LOCAL void strCopy(char* src, char* dest, int start, int end);
         LOCAL char* strDup(char* src, int start, int end);
 		LOCAL char* strDupFull(char* src);
+		LOCAL unsigned char* sToB(unsigned short addr);
     };
 
 } // namespace VM

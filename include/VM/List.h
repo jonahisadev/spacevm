@@ -19,6 +19,7 @@ namespace VM {
 		
 		void add(T data);
 		T get(int ptr);
+		void set(int ptr, T data);
 		void showList();
 		
 		int getPointer() const { return ptr; }
@@ -53,6 +54,11 @@ namespace VM {
 	template <class T>
 	T List<T>::get(int ptr) {
 		return this->data[ptr];
+	}
+	
+	template <class T>
+	void List<T>::set(int ptr, T data) {
+		this->data[ptr] = data;
 	}
 	
 	template <class T>
