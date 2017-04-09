@@ -7,9 +7,8 @@
 
 void showHelp() {
 	std::cout << "== SpaceVM Help ==" << std::endl;
-	std::cout << "\tspc -c [file]: Compile source" << std::endl;
+	std::cout << "\tspc -c [file] (-d): Compile source" << std::endl;
 	std::cout << "\tspc -r [file]: Run bytecode" << std::endl;
-	std::cout << "Optionally append -d for debugging" << std::endl;
 }
 
 int main(int argc, char** argv) {

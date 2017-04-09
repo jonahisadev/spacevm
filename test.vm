@@ -1,10 +1,14 @@
-mov %bx #0
-mov %dx #3
+mov %dx #5
 
 :loop
 inc %bx
 cmp %bx %dx
 jl @loop
 
+mul %bx #2
+jmp @skip
+sub %bx #3
+
+:skip
 mov %ax #1
 sysi

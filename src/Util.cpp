@@ -4,7 +4,7 @@ namespace VM {
 
     char* Util::readFile(const char* path) {
         FILE* file = fopen(path, "r");
-        ASSERT(file, path);
+        ASSERT(file, "Could not open file");
 
         fseek(file, 0, SEEK_END);
         int size = (int) ftell(file);
@@ -23,7 +23,7 @@ namespace VM {
 
 	unsigned char* Util::readBinFile(const char* path) {
 		FILE* file = fopen(path, "rb");
-        ASSERT(file, "Could not open file");
+        ASSERT(file, "Could not open binary file");
 
         fseek(file, 0, SEEK_END);
         int size = (int) ftell(file);
@@ -71,16 +71,16 @@ namespace VM {
     }
 
     char* Util::strDup(char* src, int start, int end) {
-        char* dest = (char*) malloc(sizeof(char) * (end - start));
+        char* dest = new char[(end-start)+1];
         ASSERT(dest, "strDup allocation failure");
 
-        strCopy(src, dest, start, end);
+        strCopy(src, dest, start, end+1);
 		dest[end] = '\0';
         return dest;
     }
 
 	char* Util::strDupFull(char* src) {
-		return strDup(src, 0, strLength(src));
+		return strDup(src, 0, strLength(src)+1);
 	}
 	
 	unsigned char* Util::sToB(unsigned short addr) {

@@ -199,17 +199,26 @@ namespace VM {
 		// Fix label jumps
 		for (int i = 0; i < jmpMap->getPointer(); i++) {
 			int index = jmpMap->getDataA(i);
-			for (int j = 0; j < lblMap->getPointer(); i++) {
-				char* jmp = jmpList->get(index);
+			char* jmp = Util::strDupFull(jmpList->get(index));
+			
+			for (int j = 0; j < lblMap->getPointer(); j++) {
 				if (Util::strEquals(jmp, lblList->get(j))) {
 					unsigned short addr = lblMap->getDataB(j);
 					unsigned char* addrw = Util::sToB(addr);
 					this->textBuf->set(jmpMap->getDataB(i), addrw[0]);
 					this->textBuf->set(jmpMap->getDataB(i)+1, addrw[1]);
 					delete[] addrw;
-					break;
+					free(jmp);
+					goto endInsideLoop;
 				}
 			}
+			
+			std::cerr << "Could not find matching label '" << jmp << "'" << std::endl;
+			free(jmp);
+			panic("Aborting");
+			
+			endInsideLoop:
+			continue;
 		}
 
 		writeByte(ByteInst::HLT_);
