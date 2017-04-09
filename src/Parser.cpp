@@ -38,8 +38,16 @@ namespace VM {
         while (text[i] != '\n' && text[i] != '\0' &&
 				text[i] != delim && i < this->flen) {
 			if (text[i] == '\t') {
-				i++; goto resetLex;
+				i++;
+				continue;
 			}
+			
+			if (text[i] == ';') {
+				while (text[i] != '\n' && text[i] != '\0')
+					i++;
+				continue;
+			}
+			
 			lex[lexi++] = text[i++];
         }
 

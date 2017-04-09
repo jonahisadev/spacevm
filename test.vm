@@ -1,9 +1,9 @@
 :start	
-	mov %ax $1
-	mov %bx $6
-	call @square
-	sysi
+	mov %ax $1			; Set our system interrupt
+	mov %bx $6			; Set our number to square
+	call @square		; Call our function
+	sysi				; System interrupt
 
 :square
-	mul %bx %bx
-	ret
+	mul %bx %bx			; Multiply the number by itself
+	ret					; Return

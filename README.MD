@@ -25,10 +25,10 @@ and debugging the current VM is priority along with the first couple of items
 
 ### To Do
 
-* Add comments
 * Add data section
 * String support
 * Make a debugger for runtime
+* Implement more system calls
 
 ### The First Six Bytes
 
