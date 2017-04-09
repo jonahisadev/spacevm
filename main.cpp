@@ -4,11 +4,13 @@
 #include <VM/Token.h>
 #include <VM/Compiler.h>
 #include <VM/Runtime.h>
+#include <VM/Decomp.h>
 
 void showHelp() {
 	std::cout << "== SpaceVM Help ==" << std::endl;
 	std::cout << "\tspc -c [file] (-d): Compile source" << std::endl;
 	std::cout << "\tspc -r [file]: Run bytecode" << std::endl;
+	std::cout << "\tspc -d [file]: Disassemble bytecode" << std::endl;
 }
 
 int main(int argc, char** argv) {
@@ -58,5 +60,15 @@ int main(int argc, char** argv) {
 		delete r;
 
 		return ret;
+	}
+	
+	else if (VM::Util::strEquals(argv[1], "-d")) {
+		unsigned char* data = VM::Util::readBinFile(argv[2]);
+		ASSERT(data, "Binary reading failure");
+		
+		VM::Decomp* d = new VM::Decomp(data);
+		d->start();
+		
+		return 0;
 	}
 }
