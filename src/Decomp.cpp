@@ -26,6 +26,7 @@ namespace VM {
 				case NOP: {
 					std::printf("NOP");
 					addr++;
+					break;
 				}
 				
 				// MOV

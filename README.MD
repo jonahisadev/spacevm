@@ -29,3 +29,15 @@ and debugging the current VM is priority along with the first couple of items
 * Add data section
 * String support
 * Make a debugger for runtime
+
+### The First Six Bytes
+
+Just for some personal documentation on the first six bytes of the program:
+Why are they there? They're actually two sets of three bytes, which will
+contain a call and a jump. The first byte will be the call instruction. The next
+two will be an address. That address will be the section of the bytecode that
+will set up the "data" section of the code: all of the variables. A return
+instruction will be placed at the end of the section during compilation. Once
+returned, there will be a jump instruction to the "start" label, if any. These
+six bytes are completely optional to the source code, but if a data section
+or a start label are included in source, the respective bytes *must* be set

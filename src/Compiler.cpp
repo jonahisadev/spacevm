@@ -26,8 +26,11 @@ namespace VM {
 	}
 
 	void Compiler::start() {
+		for (int i = 0; i < 6; i++) {
+			writeByte(0x00);
+		}
+		
 		Token* t;
-
 		for (int i = 0; i < tokenList->getPointer(); i++) {
 			t = tokenList->get(i);
 
