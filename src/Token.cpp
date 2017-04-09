@@ -110,8 +110,22 @@ namespace VM {
 				return "CMP";
 			case TokenInst::JMP:
 				return "JMP";
+			case TokenInst::JNE:
+				return "JNE";
+			case TokenInst::JE:
+				return "JE";
+			case TokenInst::JG:
+				return "JG";
 			case TokenInst::JL:
 				return "JL";
+			case TokenInst::JGE:
+				return "JGE";
+			case TokenInst::JLE:
+				return "JLE";
+			case TokenInst::JZ:
+				return "JZ";
+			case TokenInst::JNZ:
+				return "JNZ";
 			default:
 				return "???";
 		}

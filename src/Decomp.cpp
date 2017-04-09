@@ -212,8 +212,50 @@ namespace VM {
 					addr += 3;
 					break;
 				}
+				case JNE_: {
+					std::printf("JNE \t0x%02d%02d",
+					data[addr+1], data[addr+2]);
+					addr += 3;
+					break;
+				}
+				case JE_: {
+					std::printf("JE \t0x%02d%02d",
+					data[addr+1], data[addr+2]);
+					addr += 3;
+					break;
+				}
+				case JG_: {
+					std::printf("JG \t0x%02d%02d",
+					data[addr+1], data[addr+2]);
+					addr += 3;
+					break;
+				}
 				case JL_: {
 					std::printf("JL \t0x%02d%02d",
+					data[addr+1], data[addr+2]);
+					addr += 3;
+					break;
+				}
+				case JGE_: {
+					std::printf("JGE \t0x%02d%02d",
+					data[addr+1], data[addr+2]);
+					addr += 3;
+					break;
+				}
+				case JLE_: {
+					std::printf("JLE \t0x%02d%02d",
+					data[addr+1], data[addr+2]);
+					addr += 3;
+					break;
+				}
+				case JZ_: {
+					std::printf("JZ \t0x%02d%02d",
+					data[addr+1], data[addr+2]);
+					addr += 3;
+					break;
+				}
+				case JNZ_: {
+					std::printf("JNZ \t0x%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;

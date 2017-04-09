@@ -165,8 +165,29 @@ namespace VM {
 		else if (Util::strEquals(lex, "jmp")) {
 			return TokenInst::JMP;
 		}
+		else if (Util::strEquals(lex, "jne")) {
+			return TokenInst::JNE;
+		}
+		else if (Util::strEquals(lex, "je")) {
+			return TokenInst::JE;
+		}
+		else if (Util::strEquals(lex, "jg")) {
+			return TokenInst::JG;
+		}
 		else if (Util::strEquals(lex, "jl")) {
 			return TokenInst::JL;
+		}
+		else if (Util::strEquals(lex, "jge")) {
+			return TokenInst::JGE;
+		}
+		else if (Util::strEquals(lex, "jle")) {
+			return TokenInst::JLE;
+		}
+		else if (Util::strEquals(lex, "jz")) {
+			return TokenInst::JZ;
+		}
+		else if (Util::strEquals(lex, "jnz")) {
+			return TokenInst::JNZ;
 		}
 
 		else if (Util::strEquals(lex, "hlt")) {

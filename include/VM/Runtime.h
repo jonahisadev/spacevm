@@ -17,7 +17,7 @@ namespace VM {
 		const int STACK_MAX = 0xE000;
 
 		short ax, bx, cx, dx, xx, yx = 0;
-		short cy, bp, rm = 0;
+		short rm = 0;
 		unsigned short cf = 0b0000;
 		unsigned short sp = 0x8000-1;
 		unsigned short pc = 0;

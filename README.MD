@@ -24,6 +24,7 @@ Obviously more things need to be implemented before the compiler will be
 
 ### To Do
 
-* Finish jump opcodes
+* Finish opcodes
+* Allow tabs for the love of all that is holy
 * Make a debugger for runtime
 * Add comments soon

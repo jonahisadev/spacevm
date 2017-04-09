@@ -217,8 +217,50 @@ namespace VM {
 				this->pc = Util::bToS(getNextByte(), getNextByte());
 				continue;
 			}
+			else if (opcode == ByteInst::JNE_) {
+				if (!getFlag(1)) {
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					continue;
+				}
+			}
+			else if (opcode == ByteInst::JE_) {
+				if (getFlag(1)) {
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					continue;
+				}
+			}
+			else if (opcode == ByteInst::JG_) {
+				if (getFlag(3)) {
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					continue;
+				}
+			}
 			else if (opcode == ByteInst::JL_) {
 				if (getFlag(2)) {
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					continue;
+				}
+			}
+			else if (opcode == ByteInst::JGE_) {
+				if (getFlag(1) || getFlag(3)) {
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					continue;
+				}
+			}
+			else if (opcode == ByteInst::JLE_) {
+				if (getFlag(1) || getFlag(2)) {
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					continue;
+				}
+			}
+			else if (opcode == ByteInst::JZ_) {
+				if (getFlag(4)) {
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					continue;
+				}
+			}
+			else if (opcode == ByteInst::JNZ_) {
+				if (!getFlag(4)) {
 					this->pc = Util::bToS(getNextByte(), getNextByte());
 					continue;
 				}
@@ -271,7 +313,7 @@ namespace VM {
 		else	
 			this->cf = (this->cf & 0b1011);
 		
-		if (a == 0)
+		if ((a - b) == 0)
 			this->cf = (this->cf | 0b1000);
 		else
 			this->cf = (this->cf & 0b0111);

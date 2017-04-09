@@ -150,9 +150,37 @@ namespace VM {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JMP_);
 				}
+				else if (t->getData() == TokenInst::JNE) {
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
+						writeByte(ByteInst::JNE_);
+				}
+				else if (t->getData() == TokenInst::JE) {
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
+						writeByte(ByteInst::JE_);
+				}
+				else if (t->getData() == TokenInst::JG) {
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
+						writeByte(ByteInst::JG_);
+				}
 				else if (t->getData() == TokenInst::JL) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JL_);
+				}
+				else if (t->getData() == TokenInst::JGE) {
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
+						writeByte(ByteInst::JGE_);
+				}
+				else if (t->getData() == TokenInst::JLE) {
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
+						writeByte(ByteInst::JLE_);
+				}
+				else if (t->getData() == TokenInst::JZ) {
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
+						writeByte(ByteInst::JZ_);
+				}
+				else if (t->getData() == TokenInst::JNZ) {
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
+						writeByte(ByteInst::JNZ_);
 				}
 
 				// HLT

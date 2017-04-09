@@ -33,7 +33,14 @@ namespace VM {
 		POP,
 		CMP,
 		JMP,
+		JNE,
+		JE,
+		JG,
 		JL,
+		JGE,
+		JLE,
+		JZ,
+		JNZ,
 
 		HLT
 	};
