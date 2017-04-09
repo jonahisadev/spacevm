@@ -72,6 +72,29 @@ namespace VM {
 
 				*destPtr -= *srcPtr;
 			}
+			
+			// CALL
+			else if (opcode == ByteInst::CALL_) {
+				// Save return address
+				unsigned char* data = Util::sToB(this->pc + 3);
+				push(data[1]);
+				push(data[0]);
+				
+				// Jump to address
+				this->pc = Util::bToS(getNextByte(), getNextByte());
+				continue;
+			}
+			
+			// RET
+			else if (opcode == ByteInst::RET_) {
+				// Get return address
+				unsigned char a = pop();
+				unsigned char b = pop();
+				
+				// Jump to address
+				this->pc = Util::bToS(a, b);
+				continue;
+			}
 
 			// MUL
 			else if (opcode == ByteInst::MUL_RN) {

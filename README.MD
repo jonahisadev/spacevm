@@ -25,6 +25,5 @@ Obviously more things need to be implemented before the compiler will be
 ### To Do
 
 * Finish jump opcodes
-* Implement function calling
 * Make a debugger for runtime
 * Add comments soon

@@ -65,9 +65,8 @@ namespace VM {
 
 				// CALL
 				else if (t->getData() == TokenInst::CALL) {
-					writeByte(ByteInst::CALL_);
-					//this->addrList->add(this->addr);
-					writeByte(0x00);
+					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
+						writeByte(ByteInst::CALL_);
 				}
 
 				// RET
