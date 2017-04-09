@@ -25,7 +25,6 @@ and debugging the current VM is priority along with the first couple of items
 
 ### To Do
 
-* Allow tabs for the love of all that is holy
 * Add comments
 * Add data section
 * String support

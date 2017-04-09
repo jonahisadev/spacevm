@@ -1,8 +1,9 @@
-mov %ax $1
-mov %bx $5
-call @square
-sysi
+:start	
+	mov %ax $1
+	mov %bx $6
+	call @square
+	sysi
 
 :square
-mul %bx %bx
-ret
+	mul %bx %bx
+	ret

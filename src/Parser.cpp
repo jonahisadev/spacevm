@@ -37,8 +37,9 @@ namespace VM {
         // Count up until delimeter is reached
         while (text[i] != '\n' && text[i] != '\0' &&
 				text[i] != delim && i < this->flen) {
-			//if (text[i] == '\t')
-				//i++; continue;
+			if (text[i] == '\t') {
+				i++; goto resetLex;
+			}
 			lex[lexi++] = text[i++];
         }
 

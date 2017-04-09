@@ -15,12 +15,17 @@ namespace VM {
 
 	void Runtime::start() {
 		unsigned char opcode = 0;
-
+		
 		while (opcode != ByteInst::HLT_) {
 			startWhile:
 			opcode = this->data[this->pc];
 
 			switch (opcode) {
+				
+				// NOP
+				case ByteInst::NOP: {
+					break;
+				}
 
 				// MOV
 				case ByteInst::MOV_RN: {
