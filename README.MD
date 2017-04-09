@@ -17,13 +17,14 @@ in the following order:
 * Parser.cpp
 * Bytecode.h
 * Compiler.cpp
+* (Decomp.cpp)
 
 Obviously more things need to be implemented before the compiler will be
 100% functional. Getting the opcodes in place for now will be busywork.
 
 ### To Do
 
-* Finish writing compiler opcodes
+* Finish jump opcodes
+* Implement function calling
 * Make a debugger for runtime
 * Add comments soon
-* Add semantics checker (possibly)
