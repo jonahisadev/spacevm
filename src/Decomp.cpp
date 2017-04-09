@@ -261,6 +261,54 @@ namespace VM {
 					break;
 				}
 				
+				// AND
+				case AND_RN: {
+					std::printf("AND \t%s %d", 
+					Token::getRegister(data[addr+1]), 
+					data[addr+2]);
+					addr += 3;
+					break;
+				}
+				case AND_RR: {
+					std::printf("AND \t%s %s", 
+					Token::getRegister(data[addr+1]), 
+					Token::getRegister(data[addr+2]));
+					addr += 3;
+					break;
+				}
+				
+				// OR
+				case OR_RN: {
+					std::printf("OR \t%s %d", 
+					Token::getRegister(data[addr+1]), 
+					data[addr+2]);
+					addr += 3;
+					break;
+				}
+				case OR_RR: {
+					std::printf("OR \t%s %s", 
+					Token::getRegister(data[addr+1]), 
+					Token::getRegister(data[addr+2]));
+					addr += 3;
+					break;
+				}
+				
+				// XOR
+				case XOR_RN: {
+					std::printf("XOR \t%s %d", 
+					Token::getRegister(data[addr+1]), 
+					data[addr+2]);
+					addr += 3;
+					break;
+				}
+				case XOR_RR: {
+					std::printf("XOR \t%s %s", 
+					Token::getRegister(data[addr+1]), 
+					Token::getRegister(data[addr+2]));
+					addr += 3;
+					break;
+				}
+				
 				// DEFAULT
 				default: {
 					std::printf("???");

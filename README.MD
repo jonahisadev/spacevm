@@ -9,8 +9,8 @@ pieces to make it better.
 
 ### Dev Notes
 
-For adding opcodes for the compiler, please have the following files open
-in the following order:
+For adding opcodes, please have the following files open in the following 
+order:
 
 * Token.h
 * Token.cpp
@@ -18,13 +18,15 @@ in the following order:
 * Bytecode.h
 * Compiler.cpp
 * (Decomp.cpp)
+* Runtime.cpp
 
-Obviously more things need to be implemented before the compiler will be
-100% functional. Getting the opcodes in place for now will be busywork.
+To Do list is likely in the order of features to be added. As of now, testing
+and debugging the current VM is priority along with the first couple of items
 
 ### To Do
 
-* Finish opcodes
 * Allow tabs for the love of all that is holy
+* Add comments
+* Add data section
+* String support
 * Make a debugger for runtime
-* Add comments soon

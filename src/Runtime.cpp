@@ -17,271 +17,361 @@ namespace VM {
 		unsigned char opcode = 0;
 
 		while (opcode != ByteInst::HLT_) {
+			startWhile:
 			opcode = this->data[this->pc];
 
-			// MOV
-			if (opcode == ByteInst::MOV_RN) {
-				unsigned char reg = getNextByte();
-				unsigned char val = getNextByte();
+			switch (opcode) {
 
-				short* regPtr = getRegister(reg);
-				*regPtr = val;
-			}
-			else if (opcode == ByteInst::MOV_RR) {
-				unsigned char dest = getNextByte();
-				unsigned char src = getNextByte();
+				// MOV
+				case ByteInst::MOV_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char val = getNextByte();
 
-				short* destPtr = getRegister(dest);
-				short* srcPtr = getRegister(src);
-
-				*destPtr = *srcPtr;
-			}
-
-			// ADD
-			else if (opcode == ByteInst::ADD_RN) {
-				unsigned char reg = getNextByte();
-				unsigned char val = getNextByte();
-
-				short* regPtr = getRegister(reg);
-				*regPtr += val;
-			}
-			else if (opcode == ByteInst::ADD_RR) {
-				unsigned char dest = getNextByte();
-				unsigned char src = getNextByte();
-
-				short* destPtr = getRegister(dest);
-				short* srcPtr = getRegister(src);
-
-				*destPtr += *srcPtr;
-			}
-
-			// SUB
-			else if (opcode == ByteInst::SUB_RN) {
-				unsigned char reg = getNextByte();
-				unsigned char val = getNextByte();
-
-				short* regPtr = getRegister(reg);
-				*regPtr -= val;
-			}
-			else if (opcode == ByteInst::SUB_RR) {
-				unsigned char dest = getNextByte();
-				unsigned char src = getNextByte();
-
-				short* destPtr = getRegister(dest);
-				short* srcPtr = getRegister(src);
-
-				*destPtr -= *srcPtr;
-			}
-			
-			// CALL
-			else if (opcode == ByteInst::CALL_) {
-				// Save return address
-				unsigned char* data = Util::sToB(this->pc + 3);
-				push(data[1]);
-				push(data[0]);
-				
-				// Jump to address
-				this->pc = Util::bToS(getNextByte(), getNextByte());
-				continue;
-			}
-			
-			// RET
-			else if (opcode == ByteInst::RET_) {
-				// Get return address
-				unsigned char a = pop();
-				unsigned char b = pop();
-				
-				// Jump to address
-				this->pc = Util::bToS(a, b);
-				continue;
-			}
-
-			// MUL
-			else if (opcode == ByteInst::MUL_RN) {
-				unsigned char reg = getNextByte();
-				unsigned char val = getNextByte();
-
-				short* regPtr = getRegister(reg);
-				*regPtr *= val;
-			}
-			else if (opcode == ByteInst::MUL_RR) {
-				unsigned char dest = getNextByte();
-				unsigned char src = getNextByte();
-
-				short* destPtr = getRegister(dest);
-				short* srcPtr = getRegister(src);
-
-				*destPtr *= *srcPtr;
-			}
-
-			// DIV
-			else if (opcode == ByteInst::DIV_RN) {
-				unsigned char reg = getNextByte();
-				unsigned char val = getNextByte();
-
-				short* regPtr = getRegister(reg);
-				short save = *regPtr;
-
-				*regPtr = (short)floor((float)*regPtr / (float)val);
-				this->rm = (short)((int)save % (int)val);
-			}
-			else if (opcode == ByteInst::DIV_RR) {
-				unsigned char dest = getNextByte();
-				unsigned char src = getNextByte();
-
-				short* destPtr = getRegister(dest);
-				short* srcPtr = getRegister(src);
-				short save = *destPtr;
-
-				*destPtr = (short)floor((float)*destPtr / (float)*srcPtr);
-				this->rm = (short)((int)save % (int)*srcPtr);
-			}
-
-			// SXL
-			else if (opcode == ByteInst::SXL_R) {
-				unsigned char reg = getNextByte();
-				short* regPtr = getRegister(reg);
-
-				*regPtr = *regPtr << 1;
-			}
-
-			// SXR
-			else if (opcode == ByteInst::SXR_R) {
-				unsigned char reg = getNextByte();
-				short* regPtr = getRegister(reg);
-
-				*regPtr = *regPtr >> 1;
-			}
-
-			// INC
-			else if (opcode == ByteInst::INC_R) {
-				unsigned char reg = getNextByte();
-				short* regPtr = getRegister(reg);
-
-				*regPtr += 1;
-			}
-
-			// DEC
-			else if (opcode == ByteInst::DEC_R) {
-				unsigned char reg = getNextByte();
-				short* regPtr = getRegister(reg);
-
-				*regPtr -= 1;
-			}
-
-			// PUSH
-			else if (opcode == ByteInst::PUSH_R) {
-				unsigned char reg = getNextByte();
-				short* regPtr = getRegister(reg);
-
-				unsigned char data = *regPtr;
-				push(data);
-			}
-			else if (opcode == ByteInst::PUSH_N) {
-				unsigned char num = getNextByte();
-				push(num);
-			}
-
-			// POP
-			else if (opcode == ByteInst::POP_R) {
-				unsigned char reg = getNextByte();
-				short* regPtr = getRegister(reg);
-
-				*regPtr = pop();
-			}
-			else if (opcode == ByteInst::POP_X) {
-				pop();
-			}
-
-			// CMP
-			else if (opcode == ByteInst::CMP_RR) {
-				unsigned char a = getNextByte();
-				unsigned char b = getNextByte();
-				
-				short* aPtr = getRegister(a);
-				short* bPtr = getRegister(b);
-				
-				cmp(*aPtr, *bPtr);
-			}
-			else if (opcode == ByteInst::CMP_RN) {
-				unsigned char a = getNextByte();
-				unsigned char b = getNextByte();
-				
-				short* aPtr = getRegister(a);
-				
-				cmp(*aPtr, b);
-			}
-			
-			// JUMPS
-			else if (opcode == ByteInst::JMP_) {
-				this->pc = Util::bToS(getNextByte(), getNextByte());
-				continue;
-			}
-			else if (opcode == ByteInst::JNE_) {
-				if (!getFlag(1)) {
-					this->pc = Util::bToS(getNextByte(), getNextByte());
-					continue;
-				}
-			}
-			else if (opcode == ByteInst::JE_) {
-				if (getFlag(1)) {
-					this->pc = Util::bToS(getNextByte(), getNextByte());
-					continue;
-				}
-			}
-			else if (opcode == ByteInst::JG_) {
-				if (getFlag(3)) {
-					this->pc = Util::bToS(getNextByte(), getNextByte());
-					continue;
-				}
-			}
-			else if (opcode == ByteInst::JL_) {
-				if (getFlag(2)) {
-					this->pc = Util::bToS(getNextByte(), getNextByte());
-					continue;
-				}
-			}
-			else if (opcode == ByteInst::JGE_) {
-				if (getFlag(1) || getFlag(3)) {
-					this->pc = Util::bToS(getNextByte(), getNextByte());
-					continue;
-				}
-			}
-			else if (opcode == ByteInst::JLE_) {
-				if (getFlag(1) || getFlag(2)) {
-					this->pc = Util::bToS(getNextByte(), getNextByte());
-					continue;
-				}
-			}
-			else if (opcode == ByteInst::JZ_) {
-				if (getFlag(4)) {
-					this->pc = Util::bToS(getNextByte(), getNextByte());
-					continue;
-				}
-			}
-			else if (opcode == ByteInst::JNZ_) {
-				if (!getFlag(4)) {
-					this->pc = Util::bToS(getNextByte(), getNextByte());
-					continue;
-				}
-			}
-
-			// SYSI
-			else if (opcode == ByteInst::SYSI_) {
-				if (this->ax == 0x01) {
-					sys_exit(this->bx);
+					short* regPtr = getRegister(reg);
+					*regPtr = val;
 					break;
 				}
-				else if (this->ax == 0x02) {
-					sys_print_b(this->bx);
+				case ByteInst::MOV_RR: {
+					unsigned char dest = getNextByte();
+					unsigned char src = getNextByte();
+
+					short* destPtr = getRegister(dest);
+					short* srcPtr = getRegister(src);
+
+					*destPtr = *srcPtr;
+					break;
 				}
-				else if (this->ax == 0x03) {
-					sys_print_c((char)this->bx);
+
+				// ADD
+				case ByteInst::ADD_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char val = getNextByte();
+
+					short* regPtr = getRegister(reg);
+					*regPtr += val;
+					break;
 				}
+				case ByteInst::ADD_RR: {
+					unsigned char dest = getNextByte();
+					unsigned char src = getNextByte();
+
+					short* destPtr = getRegister(dest);
+					short* srcPtr = getRegister(src);
+
+					*destPtr += *srcPtr;
+					break;
+				}
+
+				// SUB
+				case ByteInst::SUB_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char val = getNextByte();
+
+					short* regPtr = getRegister(reg);
+					*regPtr -= val;
+					break;
+				}
+				case ByteInst::SUB_RR: {
+					unsigned char dest = getNextByte();
+					unsigned char src = getNextByte();
+
+					short* destPtr = getRegister(dest);
+					short* srcPtr = getRegister(src);
+
+					*destPtr -= *srcPtr;
+					break;
+				}
+				
+				// CALL
+				case ByteInst::CALL_: {
+					// Save return address
+					unsigned char* data = Util::sToB(this->pc + 3);
+					push(data[1]);
+					push(data[0]);
+					
+					// Jump to address
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					goto startWhile;
+				}
+				
+				// RET
+				case ByteInst::RET_: {
+					// Get return address
+					unsigned char a = pop();
+					unsigned char b = pop();
+					
+					// Jump to address
+					this->pc = Util::bToS(a, b);
+					goto startWhile;
+				}
+
+				// MUL
+				case ByteInst::MUL_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char val = getNextByte();
+
+					short* regPtr = getRegister(reg);
+					*regPtr *= val;
+					break;
+				}
+				case ByteInst::MUL_RR: {
+					unsigned char dest = getNextByte();
+					unsigned char src = getNextByte();
+
+					short* destPtr = getRegister(dest);
+					short* srcPtr = getRegister(src);
+
+					*destPtr *= *srcPtr;
+					break;
+				}
+
+				// DIV
+				case ByteInst::DIV_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char val = getNextByte();
+
+					short* regPtr = getRegister(reg);
+					short save = *regPtr;
+
+					*regPtr = (short)floor((float)*regPtr / (float)val);
+					this->rm = (short)((int)save % (int)val);
+					
+					break;
+				}
+				case ByteInst::DIV_RR: {
+					unsigned char dest = getNextByte();
+					unsigned char src = getNextByte();
+
+					short* destPtr = getRegister(dest);
+					short* srcPtr = getRegister(src);
+					short save = *destPtr;
+
+					*destPtr = (short)floor((float)*destPtr / (float)*srcPtr);
+					this->rm = (short)((int)save % (int)*srcPtr);
+					
+					break;
+				}
+
+				// SXL
+				case ByteInst::SXL_R: {
+					unsigned char reg = getNextByte();
+					short* regPtr = getRegister(reg);
+
+					*regPtr = *regPtr << 1;
+					break;
+				}
+
+				// SXR
+				case ByteInst::SXR_R: {
+					unsigned char reg = getNextByte();
+					short* regPtr = getRegister(reg);
+
+					*regPtr = *regPtr >> 1;
+					break;
+				}
+
+				// INC
+				case ByteInst::INC_R: {
+					unsigned char reg = getNextByte();
+					short* regPtr = getRegister(reg);
+
+					*regPtr += 1;
+					break;
+				}
+
+				// DEC
+				case ByteInst::DEC_R: {
+					unsigned char reg = getNextByte();
+					short* regPtr = getRegister(reg);
+
+					*regPtr -= 1;
+					break;
+				}
+
+				// PUSH
+				case ByteInst::PUSH_R: {
+					unsigned char reg = getNextByte();
+					short* regPtr = getRegister(reg);
+
+					unsigned char data = *regPtr;
+					push(data);
+					break;
+				}
+				case ByteInst::PUSH_N: {
+					unsigned char num = getNextByte();
+					push(num);
+					break;
+				}
+
+				// POP
+				case ByteInst::POP_R: {
+					unsigned char reg = getNextByte();
+					short* regPtr = getRegister(reg);
+
+					*regPtr = pop();
+					break;
+				}
+				case ByteInst::POP_X: {
+					pop();
+					break;
+				}
+
+				// CMP
+				case ByteInst::CMP_RR: {
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short* aPtr = getRegister(a);
+					short* bPtr = getRegister(b);
+					
+					cmp(*aPtr, *bPtr);
+					break;
+				}
+				case ByteInst::CMP_RN: {
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short* aPtr = getRegister(a);
+					
+					cmp(*aPtr, b);
+					break;
+				}
+			
+				// JUMPS
+				case ByteInst::JMP_: {
+					this->pc = Util::bToS(getNextByte(), getNextByte());
+					goto startWhile;
+				}
+				case ByteInst::JNE_: {
+					if (!getFlag(1)) {
+						this->pc = Util::bToS(getNextByte(), getNextByte());
+						goto startWhile;
+					}
+				}
+				case ByteInst::JE_: {
+					if (getFlag(1)) {
+						this->pc = Util::bToS(getNextByte(), getNextByte());
+						goto startWhile;
+					}
+				}
+				case ByteInst::JG_: {
+					if (getFlag(3)) {
+						this->pc = Util::bToS(getNextByte(), getNextByte());
+						goto startWhile;
+					}
+				}
+				case ByteInst::JL_: {
+					if (getFlag(2)) {
+						this->pc = Util::bToS(getNextByte(), getNextByte());
+						goto startWhile;
+					}
+				}
+				case ByteInst::JGE_: {
+					if (getFlag(1) || getFlag(3)) {
+						this->pc = Util::bToS(getNextByte(), getNextByte());
+						goto startWhile;
+					}
+				}
+				case ByteInst::JLE_: {
+					if (getFlag(1) || getFlag(2)) {
+						this->pc = Util::bToS(getNextByte(), getNextByte());
+						goto startWhile;
+					}
+				}
+				case ByteInst::JZ_: {
+					if (getFlag(4)) {
+						this->pc = Util::bToS(getNextByte(), getNextByte());
+						goto startWhile;
+					}
+				}
+				case ByteInst::JNZ_: {
+					if (!getFlag(4)) {
+						this->pc = Util::bToS(getNextByte(), getNextByte());
+						goto startWhile;
+					}
+				}
+				
+				// AND
+				case ByteInst::AND_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char val = getNextByte();
+					
+					short* regPtr = getRegister(reg);
+					*regPtr &= val;
+					break;
+				}
+				case ByteInst::AND_RR: {
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short* aPtr = getRegister(a);
+					short* bPtr = getRegister(b);
+					
+					*aPtr &= *bPtr;
+					break;
+				}
+				
+				// OR
+				case ByteInst::OR_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char val = getNextByte();
+					
+					short* regPtr = getRegister(reg);
+					*regPtr |= val;
+					break;
+				}
+				case ByteInst::OR_RR: {
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short* aPtr = getRegister(a);
+					short* bPtr = getRegister(b);
+					
+					*aPtr |= *bPtr;
+					break;
+				}
+				
+				// XOR
+				case ByteInst::XOR_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char val = getNextByte();
+					
+					short* regPtr = getRegister(reg);
+					*regPtr ^= val;
+					break;
+				}
+				case ByteInst::XOR_RR: {
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short* aPtr = getRegister(a);
+					short* bPtr = getRegister(b);
+					
+					*aPtr ^= *bPtr;
+					break;
+				}
+
+				// SYSI
+				case ByteInst::SYSI_: {
+					if (this->ax == 0x01) {
+						sys_exit(this->bx);
+						goto endLoop;
+					}
+					else if (this->ax == 0x02) {
+						sys_print_b(this->bx);
+					}
+					else if (this->ax == 0x03) {
+						sys_print_c((char)this->bx);
+					}
+				}
+				
 			}
 			
 			this->pc++;
 		}
+		
+		endLoop:
+		return;
 	}
 
 	unsigned char Runtime::getNextByte() {
@@ -299,24 +389,24 @@ namespace VM {
 	
 	void Runtime::cmp(short a, short b) {
 		if (a == b)
-			this->cf = (this->cf | 0b0001);
+			this->cf |= 0b0001;
 		else
-			this->cf = (this->cf & 0b1110);
+			this->cf &= 0b1110;
 		
 		if (a < b)
-			this->cf = (this->cf | 0b0010);
+			this->cf |= 0b0010;
 		else
-			this->cf = (this->cf & 0b1101);
+			this->cf &= 0b1101;
 			
 		if (a > b)
-			this->cf = (this->cf | 0b0100);
+			this->cf |= 0b0100;
 		else	
-			this->cf = (this->cf & 0b1011);
+			this->cf &= 0b1011;
 		
 		if ((a - b) == 0)
-			this->cf = (this->cf | 0b1000);
+			this->cf |= 0b1000;
 		else
-			this->cf = (this->cf & 0b0111);
+			this->cf &= 0b0111;
 	}
 	
 	bool Runtime::getFlag(int ptr) {

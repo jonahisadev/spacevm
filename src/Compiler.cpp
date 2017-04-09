@@ -182,6 +182,36 @@ namespace VM {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JNZ_);
 				}
+				
+				// AND
+				else if (t->getData() == TokenInst::AND) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::AND_RN);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::REG)
+						writeByte(ByteInst::AND_RR);
+				}
+				
+				// OR
+				else if (t->getData() == TokenInst::OR) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::OR_RN);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::REG)
+						writeByte(ByteInst::OR_RR);
+				}
+				
+				// XOR
+				else if (t->getData() == TokenInst::XOR) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::XOR_RN);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::REG)
+						writeByte(ByteInst::XOR_RR);
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {

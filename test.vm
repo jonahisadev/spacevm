@@ -1,9 +1,8 @@
-mov %ax #1
-mov %bx #6
-cmp %bx #5
-jnz @otherThing
+mov %ax $1
+mov %bx $5
+call @square
 sysi
 
-:otherThing
-add %bx #4
-sysi
+:square
+mul %bx %bx
+ret

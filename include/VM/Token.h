@@ -41,6 +41,9 @@ namespace VM {
 		JLE,
 		JZ,
 		JNZ,
+		AND,
+		OR,
+		XOR,
 
 		HLT
 	};
@@ -66,7 +69,7 @@ namespace VM {
 
 		LOCAL const char* getInstruction(int inst);
 		LOCAL const char* getRegister(int reg);
-		LOCAL int convertNumber(char* str);
+		LOCAL int convertNumber(char* str, int base);
 
 		LOCAL int getRegToken(char* reg);
 	};

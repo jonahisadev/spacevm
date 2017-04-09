@@ -45,6 +45,13 @@ namespace VM {
 		JLE_ = 		0x26,
 		JZ_ = 		0x27,
 		JNZ_ = 		0x28,
+		
+		AND_RN = 	0x30,
+		AND_RR = 	0x31,
+		OR_RN = 	0x32,
+		OR_RR =		0x33,
+		XOR_RN = 	0x34,
+		XOR_RR = 	0x35,
 
 		HLT_ = 		0x40,
 	};

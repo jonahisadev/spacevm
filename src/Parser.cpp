@@ -46,20 +46,19 @@ namespace VM {
         lex[lexi] = '\0';
 		i++;
 
-        // INSTRUCTIONS
-		int tokenData;
-		if ((tokenData = checkInst(lex)) != -1) {
-			tokenList->add(new Token(TokenType::INST, tokenData));
-		}
-
 		// REGISTERS
-		else if (lex[0] == '%') {
+		int tokenData;	// used later
+		
+		if (lex[0] == '%') {
 			tokenList->add(new Token(TokenType::REG, Token::getRegToken(lex)));
 		}
 
 		// NUMBERS
-		else if (lex[0] == '#') {
-			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex)));
+		else if (lex[0] == '$') {
+			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex, 10)));
+		}
+		else if (lex[0] == '0' && lex[1] == 'x') {
+			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex, 16)));
 		}
 
 		// LABELS
@@ -73,6 +72,11 @@ namespace VM {
 			char* jumpName = Util::strDup(lex, 1, Util::strLength(lex));
 			jmpList->add(jumpName);
 			tokenList->add(new Token(TokenType::JMP_T, jmpList->getPointer()-1));
+		}
+		
+		// INSTRUCTIONS
+		else if ((tokenData = checkInst(lex)) != -1) {
+			tokenList->add(new Token(TokenType::INST, tokenData));
 		}
 
 		// UNKNOWN
@@ -117,82 +121,63 @@ namespace VM {
 	}
 
 	int Parser::checkInst(char* lex) {
-		if (Util::strEquals(lex, "mov")) {
+		if (Util::strEquals(lex, "mov"))
             return TokenInst::MOV;
-        }
-		else if (Util::strEquals(lex, "add")) {
+		else if (Util::strEquals(lex, "add"))
 			return TokenInst::ADD;
-		}
-		else if (Util::strEquals(lex, "sub")) {
+		else if (Util::strEquals(lex, "sub"))
 			return TokenInst::SUB;
-		}
-		else if (Util::strEquals(lex, "call")) {
+		else if (Util::strEquals(lex, "call"))
 			return TokenInst::CALL;
-		}
-		else if (Util::strEquals(lex, "ret")) {
+		else if (Util::strEquals(lex, "ret"))
 			return TokenInst::RET;
-		}
-		else if (Util::strEquals(lex, "sysi")) {
+		else if (Util::strEquals(lex, "sysi"))
 			return TokenInst::SYSI;
-		}
-		else if (Util::strEquals(lex, "mul")) {
+		else if (Util::strEquals(lex, "mul"))
 			return TokenInst::MUL;
-		}
-		else if (Util::strEquals(lex, "div")) {
+		else if (Util::strEquals(lex, "div"))
 			return TokenInst::DIV;
-		}
-		else if (Util::strEquals(lex, "sxr")) {
+		else if (Util::strEquals(lex, "sxr"))
 			return TokenInst::SXR;
-		}
-		else if (Util::strEquals(lex, "sxl")) {
+		else if (Util::strEquals(lex, "sxl"))
 			return TokenInst::SXL;
-		}
-		else if (Util::strEquals(lex, "inc")) {
+		else if (Util::strEquals(lex, "inc"))
 			return TokenInst::INC;
-		}
-		else if (Util::strEquals(lex, "dec")) {
+		else if (Util::strEquals(lex, "dec"))
 			return TokenInst::DEC;
-		}
-		else if (Util::strEquals(lex, "push")) {
+		else if (Util::strEquals(lex, "push"))
 			return TokenInst::PUSH;
-		}
-		else if (Util::strEquals(lex, "pop")) {
+		else if (Util::strEquals(lex, "pop"))
 			return TokenInst::POP;
-		}
-		else if (Util::strEquals(lex, "cmp")) {
+		else if (Util::strEquals(lex, "cmp"))
 			return TokenInst::CMP;
-		}
-		else if (Util::strEquals(lex, "jmp")) {
+		else if (Util::strEquals(lex, "jmp"))
 			return TokenInst::JMP;
-		}
-		else if (Util::strEquals(lex, "jne")) {
+		else if (Util::strEquals(lex, "jne"))
 			return TokenInst::JNE;
-		}
-		else if (Util::strEquals(lex, "je")) {
+		else if (Util::strEquals(lex, "je"))
 			return TokenInst::JE;
-		}
-		else if (Util::strEquals(lex, "jg")) {
+		else if (Util::strEquals(lex, "jg"))
 			return TokenInst::JG;
-		}
-		else if (Util::strEquals(lex, "jl")) {
+		else if (Util::strEquals(lex, "jl"))
 			return TokenInst::JL;
-		}
-		else if (Util::strEquals(lex, "jge")) {
+		else if (Util::strEquals(lex, "jge"))
 			return TokenInst::JGE;
-		}
-		else if (Util::strEquals(lex, "jle")) {
+		else if (Util::strEquals(lex, "jle"))
 			return TokenInst::JLE;
-		}
-		else if (Util::strEquals(lex, "jz")) {
+		else if (Util::strEquals(lex, "jz"))
 			return TokenInst::JZ;
-		}
-		else if (Util::strEquals(lex, "jnz")) {
+		else if (Util::strEquals(lex, "jnz"))
 			return TokenInst::JNZ;
-		}
+		else if (Util::strEquals(lex, "and"))
+			return TokenInst::AND;
+		else if (Util::strEquals(lex, "or"))
+			return TokenInst::OR;
+		else if (Util::strEquals(lex, "xor"))
+			return TokenInst::XOR;
 
-		else if (Util::strEquals(lex, "hlt")) {
+		else if (Util::strEquals(lex, "hlt"))
 			return TokenInst::HLT;
-		}
 
 		else {
 			return -1;

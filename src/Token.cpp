@@ -15,9 +15,13 @@ namespace VM {
 		// Nothing
 	}
 
-	int Token::convertNumber(char* str) {
-		char* nStr = Util::strDup(str, 1, Util::strLength(str));
-		int x = (int) strtol(nStr, (char**)NULL, 10);
+	int Token::convertNumber(char* str, int base) {
+		char* nStr = nullptr;
+		if (base == 10)
+		 	nStr = Util::strDup(str, 1, Util::strLength(str));
+		else if (base == 16)
+			nStr = Util::strDup(str, 2, Util::strLength(str));
+		int x = (int) strtol(nStr, (char**)NULL, base);
 		return x;
 	}
 
@@ -126,6 +130,12 @@ namespace VM {
 				return "JZ";
 			case TokenInst::JNZ:
 				return "JNZ";
+			case TokenInst::AND:
+				return "AND";
+			case TokenInst::OR:
+				return "OR";
+			case TokenInst::XOR:
+				return "XOR";
 			default:
 				return "???";
 		}
