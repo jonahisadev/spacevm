@@ -7,6 +7,7 @@ namespace VM {
 		NOP =		0x00,
 		MOV_RN =	0x01,
 		MOV_RR =	0x02,
+		MOV_RA = 	0x03,
 
 		ADD_RN =	0x04,
 		ADD_RR = 	0x05,
@@ -54,6 +55,8 @@ namespace VM {
 		XOR_RR = 	0x35,
 
 		HLT_ = 		0x40,
+		
+		STB_ = 		0x50,
 	};
 
 	enum ByteReg {

@@ -44,6 +44,13 @@ namespace VM {
 					addr += 3;
 					break;
 				}
+				case MOV_RA: {
+					std::printf("MOV \t%s 0x%02d%02d", 
+					Token::getRegister(data[addr+1]), 
+					data[addr+2], data[addr+3]);
+					addr += 4;
+					break;
+				}
 				
 				// ADD
 				case ADD_RN: {
@@ -307,6 +314,14 @@ namespace VM {
 					Token::getRegister(data[addr+1]), 
 					Token::getRegister(data[addr+2]));
 					addr += 3;
+					break;
+				}
+				
+				// STB
+				case STB_: {
+					std::printf("STB \t%d", 
+					data[addr+1]);
+					addr += 2;
 					break;
 				}
 				

@@ -8,6 +8,8 @@ namespace VM {
 		
 		this->lblMap = new Map<int, unsigned short>(1);
 		this->jmpMap = new Map<int, unsigned short>(1);
+		this->addrMap = new Map<int, unsigned short>(1);
+		this->varMap = new Map<int, unsigned short>(1);
 
 		this->addr = 0;
 		this->path = path;
@@ -23,6 +25,14 @@ namespace VM {
 	
 	void Compiler::setJumpList(List<char*>* jmpList) {
 		this->jmpList = jmpList;
+	}
+	
+	void Compiler::setAddrList(List<char*>* addrList) {
+		this->addrList = addrList;
+	}
+	
+	void Compiler::setVarList(List<char*>* varList) {
+		this->varList = varList;
 	}
 
 	void Compiler::start() {
@@ -44,6 +54,9 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::MOV_RR);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::ADDR)
+						writeByte(ByteInst::MOV_RA);
 				}
 
 				// ADD
@@ -215,6 +228,13 @@ namespace VM {
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::XOR_RR);
 				}
+				
+				// STB
+				else if (t->getData() == TokenInst::STB) {
+					if (tokenList->get(i+1)->getType() == TokenType::VAR &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::STB_);
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {
@@ -228,6 +248,17 @@ namespace VM {
 			}
 			else if (t->getType() == TokenType::JMP_T) {
 				this->jmpMap->add(t->getData(), this->addr);
+				// Make room for later
+				writeByte(0x00);
+				writeByte(0x00);
+			}
+			
+			// VARIABLES
+			else if (t->getType() == TokenType::VAR) {
+				this->varMap->add(t->getData(), this->addr);
+			}
+			else if (t->getType() == TokenType::ADDR) {
+				this->addrMap->add(t->getData(), this->addr);
 				// Make room for later
 				writeByte(0x00);
 				writeByte(0x00);

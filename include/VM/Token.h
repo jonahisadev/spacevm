@@ -15,6 +15,8 @@ namespace VM {
 		LBL,
 		JMP_T,
 		PPI,
+		ADDR,
+		VAR,
 	};
 
 	enum TokenInst {
@@ -45,6 +47,8 @@ namespace VM {
 		AND,
 		OR,
 		XOR,
+		
+		STB,
 
 		HLT
 	};

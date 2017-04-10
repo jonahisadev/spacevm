@@ -8,6 +8,8 @@ namespace VM {
 		this->tokenList = new TokenList(1);
 		this->lblList = new List<char*>(1);
 		this->jmpList = new List<char*>(1);
+		this->varList = new List<char*>(1);
+		this->addrList = new List<char*>(1);
     }
 
     Parser::~Parser() {
@@ -87,7 +89,19 @@ namespace VM {
 			tokenList->add(new Token(TokenType::JMP_T, jmpList->getPointer()-1));
 		}
 		
-		// Preprocessor Instruction
+		// VARIABLES
+		else if (lex[0] == '&') {
+			char* addr = Util::strDup(lex, 1, Util::strLength(lex));
+			addrList->add(addr);
+			tokenList->add(new Token(TokenType::ADDR, addrList->getPointer()-1));
+		}
+		else if (lex[0] == '*') {
+			char* var = Util::strDup(lex, 1, Util::strLength(lex));
+			varList->add(var);
+			tokenList->add(new Token(TokenType::VAR, varList->getPointer()-1));
+		}
+		
+		// PREPROCESSORS
 		else if (lex[0] == '#') {
 			char* inst = Util::strDup(lex, 1, Util::strLength(lex));
 			ppi(inst);
@@ -136,6 +150,8 @@ namespace VM {
 		Compiler* c = new Compiler(path, this->tokenList);
 		c->setLabelList(this->lblList);
 		c->setJumpList(this->jmpList);
+		c->setAddrList(this->addrList);
+		c->setVarList(this->varList);
 		return c;
 	}
 	
@@ -207,6 +223,8 @@ namespace VM {
 			return TokenInst::OR;
 		else if (Util::strEquals(lex, "xor"))
 			return TokenInst::XOR;
+		else if (Util::strEquals(lex, "stb"))
+			return TokenInst::STB;
 
 		else if (Util::strEquals(lex, "hlt"))
 			return TokenInst::HLT;

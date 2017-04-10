@@ -18,6 +18,8 @@ namespace VM {
 		TokenList* tokenList;
 		List<char*>* lblList;
 		List<char*>* jmpList;
+		List<char*>* varList;
+		List<char*>* addrList;
 
     public:
         Parser(char* text, int flen);

@@ -14,7 +14,7 @@
 	pop %cx				; Get original back
 	mul %bx %cx			; Multiply once more
 	ret
-	
+
 #data
-	stb myNum $5
+	stb *myNum $5
 #end

@@ -21,9 +21,13 @@ namespace VM {
 		
 		List<char*>* lblList;
 		List<char*>* jmpList;
+		List<char*>* addrList;
+		List<char*>* varList;
 		
 		Map<int, unsigned short>* lblMap;
 		Map<int, unsigned short>* jmpMap;
+		Map<int, unsigned short>* addrMap;
+		Map<int, unsigned short>* varMap;
 
 		const char* path;
 		
@@ -35,6 +39,8 @@ namespace VM {
 
 		void setLabelList(List<char*>* lblList);
 		void setJumpList(List<char*>* jmpList);
+		void setAddrList(List<char*>* addrList);
+		void setVarList(List<char*>* varList);
 
 		void start();
 		void writeByte(unsigned char data);
