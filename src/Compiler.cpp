@@ -248,6 +248,20 @@ namespace VM {
 			else if (t->getType() == TokenType::NUM) {
 				writeByte(t->getData());
 			}
+			
+			// PREPROCESSORS
+			else if (t->getType() == TokenType::PPI) {
+				if (t->getData() == TokenPPI::DATA) {
+					currentDataSection = true;
+					unsigned char* addrw = Util::sToB(this->addr);
+					this->textBuf->set(0, ByteInst::CALL_);
+					this->textBuf->set(1, addrw[0]);
+					this->textBuf->set(2, addrw[1]);
+				} else if (t->getData() == TokenPPI::END) {
+					if (currentDataSection)
+						writeByte(ByteInst::RET_);
+				}
+			}
 
 			// UNKNOWN
 			else {
@@ -279,6 +293,18 @@ namespace VM {
 			
 			endInsideLoop:
 			continue;
+		}
+		
+		// Write jump to start label
+		for (int i = 0; i < lblMap->getPointer(); i++) {
+			if (Util::strEquals(lblList->get(i), "start")) {
+				unsigned short addr = lblMap->getDataB(i);
+				unsigned char* addrw = Util::sToB(addr);
+				this->textBuf->set(3, ByteInst::JMP_);
+				this->textBuf->set(4, addrw[0]);
+				this->textBuf->set(5, addrw[1]);
+				break;
+			}
 		}
 
 		writeByte(ByteInst::HLT_);

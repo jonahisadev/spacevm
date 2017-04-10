@@ -17,7 +17,7 @@ namespace VM {
 	private:
 		TokenList* tokenList;
 		List<unsigned char>* textBuf;
-		int addr;
+		unsigned short addr;
 		
 		List<char*>* lblList;
 		List<char*>* jmpList;
@@ -26,6 +26,8 @@ namespace VM {
 		Map<int, unsigned short>* jmpMap;
 
 		const char* path;
+		
+		bool currentDataSection = false;
 
 	public:
 		Compiler(const char* path, TokenList* tokenList);

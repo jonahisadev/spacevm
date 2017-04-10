@@ -1,9 +1,20 @@
-:start	
-	mov %ax $1			; Set our system interrupt
-	mov %bx $6			; Set our number to square
-	call @square		; Call our function
-	sysi				; System interrupt
+:start					; Start here
+	mov %ax $1			; Set system interrupt
+	mov %bx &myNum		; Set number to be cubed
+	call @cube
+	sysi
 
 :square
-	mul %bx %bx			; Multiply the number by itself
-	ret					; Return
+	mul %bx %bx			; Square number
+	ret
+
+:cube
+	push %bx			; Save original number
+	call @square		; Square the number
+	pop %cx				; Get original back
+	mul %bx %cx			; Multiply once more
+	ret
+	
+#data
+	stb myNum $5
+#end

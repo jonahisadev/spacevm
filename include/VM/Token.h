@@ -14,6 +14,7 @@ namespace VM {
 		NUM,
 		LBL,
 		JMP_T,
+		PPI,
 	};
 
 	enum TokenInst {
@@ -53,6 +54,11 @@ namespace VM {
 		AL, BL, CL, DL, XL, YL,
 		AH, BH, CH, DH, XH, YH,
 		CF, CY, BP, SP, RM, PC
+	};
+	
+	enum TokenPPI {
+		DATA,
+		END
 	};
 
 	class Token {

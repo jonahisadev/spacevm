@@ -54,6 +54,10 @@ namespace VM {
         // Set the delimeter to nothing
         lex[lexi] = '\0';
 		i++;
+		
+		if (nextPPI) {
+			ppi(lex);
+		}
 
 		// REGISTERS
 		int tokenData;	// used later
@@ -81,6 +85,12 @@ namespace VM {
 			char* jumpName = Util::strDup(lex, 1, Util::strLength(lex));
 			jmpList->add(jumpName);
 			tokenList->add(new Token(TokenType::JMP_T, jmpList->getPointer()-1));
+		}
+		
+		// Preprocessor Instruction
+		else if (lex[0] == '#') {
+			char* inst = Util::strDup(lex, 1, Util::strLength(lex));
+			ppi(inst);
 		}
 		
 		// INSTRUCTIONS
@@ -127,6 +137,19 @@ namespace VM {
 		c->setLabelList(this->lblList);
 		c->setJumpList(this->jmpList);
 		return c;
+	}
+	
+	void Parser::ppi(char* inst) {
+		if (!nextPPI) {
+			if (Util::strEquals(inst, "data")) {
+				tokenList->add(new Token(TokenType::PPI, TokenPPI::DATA));
+			} else if (Util::strEquals(inst, "end")) {
+				tokenList->add(new Token(TokenType::PPI, TokenPPI::END));
+			} else {
+				std::cerr << "Invalid Preprocessor: '" << inst << "'" << std::endl;
+				panic("Aborting");
+			}
+		}
 	}
 
 	int Parser::checkInst(char* lex) {

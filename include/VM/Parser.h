@@ -13,6 +13,8 @@ namespace VM {
 		bool debug = false;
 		int flen;
 		
+		bool nextPPI = false;
+		
 		TokenList* tokenList;
 		List<char*>* lblList;
 		List<char*>* jmpList;
@@ -24,6 +26,7 @@ namespace VM {
 		void showTokenList();
 		void showLabelLists();
 		Compiler* createCompiler(const char* path);
+		void ppi(char* inst);
 
         void setDebug(bool debug) { this->debug = debug; }
         inline bool isDebug() const { return debug; }
