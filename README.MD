@@ -28,11 +28,3 @@ and debugging the current VM is priority along with the first couple of items
 * String support
 * Make a debugger for runtime
 * Implement more system calls
-
-### Data Section Checklist
-
-* Add Data section parsing
-* Add STB opcode
-* Add variable parsing
-* Have a variable table for compilation
-* Make it work yo

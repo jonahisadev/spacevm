@@ -384,9 +384,15 @@ namespace VM {
 					}
 					else if (this->ax == 0x02) {
 						sys_print_b(this->bx);
+						break;
 					}
 					else if (this->ax == 0x03) {
 						sys_print_c((char)this->bx);
+						break;
+					}
+					else if (this->ax == 0x04) {
+						sys_print_w(this->bx);
+						break;
 					}
 				}
 				
@@ -450,6 +456,10 @@ namespace VM {
 
 	void Runtime::sys_print_c(char c) {
 		std::cout << c;
+	}
+	
+	void Runtime::sys_print_w(short w) {
+		std::cout << w;
 	}
 
 	short* Runtime::getRegister(unsigned char reg) {
