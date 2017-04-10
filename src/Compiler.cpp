@@ -326,6 +326,31 @@ namespace VM {
 			continue;
 		}
 		
+		// Fix variable addresses
+		for (int i = 0; i < addrMap->getPointer(); i++) {
+			int index = addrMap->getDataA(i);
+			char* addrName = Util::strDupFull(addrList->get(index));
+			
+			for (int j = 0; j < varMap->getPointer(); j++) {
+				if (Util::strEquals(addrName, varList->get(j))) {
+					int size = varMap->getDataA(j);
+					unsigned char* addrw = Util::sToB(j);
+					this->textBuf->set(addrMap->getDataB(i), addrw[0]);
+					this->textBuf->set(addrMap->getDataB(i)+1, addrw[1]);
+					delete[] addrw;
+					free(addrName);
+					goto endInsideLoop2;
+				}
+			}
+			
+			std::cerr << "Could not find matching variable '" << addrName << "'" << std::endl;
+			free(addrName);
+			panic("Aborting");
+			
+			endInsideLoop2:
+			continue;
+		}
+		
 		// Write jump to start label
 		for (int i = 0; i < lblMap->getPointer(); i++) {
 			if (Util::strEquals(lblList->get(i), "start")) {

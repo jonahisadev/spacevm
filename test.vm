@@ -1,5 +1,5 @@
 :start					; Start here
-	mov %ax $1			; Set system interrupt
+	mov %ax &sysCall	; Set system interrupt
 	mov %bx &myNum		; Set number to be cubed
 	call @cube
 	sysi
@@ -16,5 +16,6 @@
 	ret
 
 #data
-	stb *myNum $5
+	stb *myNum $5		; Store 5 in memory
+	stb *sysCall $1		; Needed for compilation testing
 #end

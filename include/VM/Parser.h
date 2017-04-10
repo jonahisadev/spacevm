@@ -14,6 +14,7 @@ namespace VM {
 		int flen;
 		
 		bool nextPPI = false;
+		int lastStoreSize = 0;
 		
 		TokenList* tokenList;
 		List<char*>* lblList;

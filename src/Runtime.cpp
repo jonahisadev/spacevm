@@ -46,6 +46,18 @@ namespace VM {
 					*destPtr = *srcPtr;
 					break;
 				}
+				case ByteInst::MOV_RA: {
+					unsigned char reg = getNextByte();
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					unsigned short addr = Util::bToS(a, b);
+					addr += VAR_OFFSET;
+					
+					short* regPtr = getRegister(reg);
+					*regPtr = memory[addr];
+					break;
+				}
 
 				// ADD
 				case ByteInst::ADD_RN: {
@@ -353,6 +365,14 @@ namespace VM {
 					short* bPtr = getRegister(b);
 					
 					*aPtr ^= *bPtr;
+					break;
+				}
+				
+				// STB
+				case ByteInst::STB_: {
+					unsigned char data = getNextByte();
+					memory[VAR_OFFSET + var_ptr] = data;
+					var_ptr += 1;
 					break;
 				}
 

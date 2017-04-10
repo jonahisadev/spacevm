@@ -25,7 +25,6 @@ and debugging the current VM is priority along with the first couple of items
 
 ### To Do
 
-* Add data section/variables
 * Allow custom starting point
 * String support
 * Make a debugger for runtime

@@ -15,12 +15,15 @@ namespace VM {
 		int retCode;
 		const int MEMORY_SIZE = 0x10000;
 		const int STACK_MAX = 0xE000;
+		const int VAR_OFFSET = 0x4000;
 
 		short ax, bx, cx, dx, xx, yx = 0;
 		short rm = 0;
 		unsigned short cf = 0b0000;
 		unsigned short sp = 0x8000-1;
 		unsigned short pc = 0;
+
+		unsigned short var_ptr = 0;
 
 		unsigned char* data;
 		unsigned char* memory;

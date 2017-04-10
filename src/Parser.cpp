@@ -98,7 +98,7 @@ namespace VM {
 		else if (lex[0] == '*') {
 			char* var = Util::strDup(lex, 1, Util::strLength(lex));
 			varList->add(var);
-			tokenList->add(new Token(TokenType::VAR, varList->getPointer()-1));
+			tokenList->add(new Token(TokenType::VAR, lastStoreSize));
 		}
 		
 		// PREPROCESSORS
@@ -110,6 +110,8 @@ namespace VM {
 		// INSTRUCTIONS
 		else if ((tokenData = checkInst(lex)) != -1) {
 			tokenList->add(new Token(TokenType::INST, tokenData));
+			if (tokenData == TokenInst::STB)
+				lastStoreSize = 1;
 		}
 
 		// UNKNOWN
