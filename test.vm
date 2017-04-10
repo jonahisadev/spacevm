@@ -1,7 +1,7 @@
 :start					; Start here
 	mov %ax &sysCall	; Set system interrupt
 	mov %bx &myNum		; Set number to be cubed
-	call @cube
+	call @cube			; Actually cube the number
 	sysi
 
 :square

@@ -59,6 +59,7 @@ namespace VM {
 		
 		if (nextPPI) {
 			ppi(lex);
+			goto finalChecks;
 		}
 
 		// REGISTERS
@@ -120,6 +121,7 @@ namespace VM {
 			panic("Aborting");
 		}
 
+		finalChecks:
 		if (i >= flen)
 			return;
 
@@ -154,6 +156,7 @@ namespace VM {
 		c->setJumpList(this->jmpList);
 		c->setAddrList(this->addrList);
 		c->setVarList(this->varList);
+		c->setBeginLabel(this->beginLabel);
 		return c;
 	}
 	
@@ -161,12 +164,24 @@ namespace VM {
 		if (!nextPPI) {
 			if (Util::strEquals(inst, "data")) {
 				tokenList->add(new Token(TokenType::PPI, TokenPPI::DATA));
-			} else if (Util::strEquals(inst, "end")) {
+			} 
+			else if (Util::strEquals(inst, "end")) {
 				tokenList->add(new Token(TokenType::PPI, TokenPPI::END));
-			} else {
+			}
+			else if (Util::strEquals(inst, "begin")) {
+				tokenList->add(new Token(TokenType::PPI, TokenPPI::BEGIN));
+				nextPPI = true;
+			}
+			else {
 				std::cerr << "Invalid Preprocessor: '" << inst << "'" << std::endl;
 				panic("Aborting");
 			}
+		} else {
+			Token* lastToken = tokenList->get(tokenList->getPointer()-1);
+			if (lastToken->getData() == TokenPPI::BEGIN) {
+				this->beginLabel = const_cast<const char*>(Util::strDupFull(inst));
+			}
+			nextPPI = false;
 		}
 	}
 

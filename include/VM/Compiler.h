@@ -30,6 +30,7 @@ namespace VM {
 		Map<int, unsigned short>* varMap;
 
 		const char* path;
+		const char* beginLabel;
 		
 		bool currentDataSection = false;
 
@@ -41,6 +42,7 @@ namespace VM {
 		void setJumpList(List<char*>* jmpList);
 		void setAddrList(List<char*>* addrList);
 		void setVarList(List<char*>* varList);
+		void setBeginLabel(const char* beginLabel);
 
 		void start();
 		void writeByte(unsigned char data);

@@ -21,6 +21,8 @@ namespace VM {
 		List<char*>* jmpList;
 		List<char*>* varList;
 		List<char*>* addrList;
+		
+		const char* beginLabel = "start";
 
     public:
         Parser(char* text, int flen);

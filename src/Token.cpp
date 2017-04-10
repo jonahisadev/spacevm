@@ -70,6 +70,8 @@ namespace VM {
 				std::cout << "Label: i" << t->getData() << std::endl;
 			} else if (t->getType() == TokenType::JMP_T) {
 				std::cout << "JumpTo: i" << t->getData() << std::endl;
+			} else if (t->getType() == TokenType::PPI) {
+				std::cout << "PPI: " << t->getData() << std::endl;
 			}
 		}
 	}

@@ -25,7 +25,6 @@ and debugging the current VM is priority along with the first couple of items
 
 ### To Do
 
-* Allow custom starting point
 * String support
 * Make a debugger for runtime
 * Implement more system calls

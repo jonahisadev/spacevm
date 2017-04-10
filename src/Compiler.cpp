@@ -34,6 +34,10 @@ namespace VM {
 	void Compiler::setVarList(List<char*>* varList) {
 		this->varList = varList;
 	}
+	
+	void Compiler::setBeginLabel(const char* beginLabel) {
+		this->beginLabel = beginLabel;
+	}
 
 	void Compiler::start() {
 		for (int i = 0; i < 6; i++) {
@@ -353,7 +357,7 @@ namespace VM {
 		
 		// Write jump to start label
 		for (int i = 0; i < lblMap->getPointer(); i++) {
-			if (Util::strEquals(lblList->get(i), "start")) {
+			if (Util::strEquals(lblList->get(i), this->beginLabel)) {
 				unsigned short addr = lblMap->getDataB(i);
 				unsigned char* addrw = Util::sToB(addr);
 				this->textBuf->set(3, ByteInst::JMP_);
