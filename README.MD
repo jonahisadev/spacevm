@@ -32,8 +32,8 @@ and debugging the current VM is priority along with the first couple of items
 
 ### Data Section Checklist
 
-[x] Add Data section parsing
-[ ] Add STB opcode
-[ ] Add variable parsing
-[ ] Have a variable table for compilation
-[ ] Make it work yo
+* Add Data section parsing
+* Add STB opcode
+* Add variable parsing
+* Have a variable table for compilation
+* Make it work yo
