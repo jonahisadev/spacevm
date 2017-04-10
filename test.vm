@@ -1,4 +1,6 @@
-:start					; Start here
+#entry main
+
+:main					; Start here
 	mov %ax &sysCall	; Set system interrupt
 	mov %bx &myNum		; Set number to be cubed
 	call @cube			; Actually cube the number

@@ -168,8 +168,8 @@ namespace VM {
 			else if (Util::strEquals(inst, "end")) {
 				tokenList->add(new Token(TokenType::PPI, TokenPPI::END));
 			}
-			else if (Util::strEquals(inst, "begin")) {
-				tokenList->add(new Token(TokenType::PPI, TokenPPI::BEGIN));
+			else if (Util::strEquals(inst, "entry")) {
+				tokenList->add(new Token(TokenType::PPI, TokenPPI::ENTRY));
 				nextPPI = true;
 			}
 			else {
@@ -178,7 +178,7 @@ namespace VM {
 			}
 		} else {
 			Token* lastToken = tokenList->get(tokenList->getPointer()-1);
-			if (lastToken->getData() == TokenPPI::BEGIN) {
+			if (lastToken->getData() == TokenPPI::ENTRY) {
 				this->beginLabel = const_cast<const char*>(Util::strDupFull(inst));
 			}
 			nextPPI = false;

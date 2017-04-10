@@ -63,7 +63,7 @@ namespace VM {
 	enum TokenPPI {
 		DATA,
 		END,
-		BEGIN
+		ENTRY
 	};
 
 	class Token {
