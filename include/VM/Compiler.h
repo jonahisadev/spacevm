@@ -32,6 +32,8 @@ namespace VM {
 		const char* path;
 		const char* beginLabel;
 		
+		void serror(const char* inst, int line);
+		
 		bool currentDataSection = false;
 
 	public:

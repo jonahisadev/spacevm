@@ -39,6 +39,10 @@ namespace VM {
 		this->beginLabel = beginLabel;
 	}
 
+	void Compiler::serror(const char* inst, int line) {
+		std::cerr << "Symantics Error (" << line << "): Invalid " << inst << " operand types" << std::endl;
+	}
+
 	void Compiler::start() {
 		for (int i = 0; i < 6; i++) {
 			writeByte(0x00);
@@ -61,6 +65,8 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::ADDR)
 						writeByte(ByteInst::MOV_RA);
+					else
+						serror("MOV", t->getLine());
 				}
 
 				// ADD
@@ -71,6 +77,8 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::ADD_RR);
+					else
+						serror("ADD", t->getLine());
 				}
 
 				// SUB
@@ -81,12 +89,16 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::SUB_RR);
+					else
+						serror("SUB", t->getLine());
 				}
 
 				// CALL
 				else if (t->getData() == TokenInst::CALL) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::CALL_);
+					else
+						serror("CALL", t->getLine());
 				}
 
 				// RET
@@ -107,6 +119,8 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::MUL_RR);
+					else
+						serror("MUL", t->getLine());
 				}
 
 				// DIV
@@ -117,26 +131,40 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::DIV_RR);
+					else
+						serror("DIV", t->getLine());
 				}
 
 				// SXR
 				else if (t->getData() == TokenInst::SXR) {
-					writeByte(ByteInst::SXR_R);
+					if (tokenList->get(i+1)->getType() == TokenType::REG)
+						writeByte(ByteInst::SXR_R);
+					else
+						serror("SXR", t->getLine());
 				}
 
 				// SXL
 				else if (t->getData() == TokenInst::SXL) {
-					writeByte(ByteInst::SXL_R);
+					if (tokenList->get(i+1)->getType() == TokenType::REG)
+						writeByte(ByteInst::SXL_R);
+					else
+						serror("SXL", t->getLine());
 				}
 
 				// INC
 				else if (t->getData() == TokenInst::INC) {
-					writeByte(ByteInst::INC_R);
+					if (tokenList->get(i+1)->getType() == TokenType::REG)
+						writeByte(ByteInst::INC_R);
+					else
+						serror("INC", t->getLine());
 				}
 
 				// DEC
 				else if (t->getData() == TokenInst::DEC) {
-					writeByte(ByteInst::DEC_R);
+					if (tokenList->get(i+1)->getType() == TokenType::REG)
+						writeByte(ByteInst::DEC_R);
+					else
+						serror("DEC", t->getLine());
 				}
 
 				// PUSH
@@ -145,6 +173,8 @@ namespace VM {
 						writeByte(ByteInst::PUSH_R);
 					else if (tokenList->get(i+1)->getType() == TokenType::NUM)
 						writeByte(ByteInst::PUSH_N);
+					else
+						serror("PUSH", t->getLine());
 				}
 
 				// POP
@@ -153,6 +183,8 @@ namespace VM {
 						writeByte(ByteInst::POP_R);
 					else if (tokenList->get(i+1)->getType() == TokenType::INST)
 						writeByte(ByteInst::POP_X);
+					else
+						serror("POP", t->getLine());
 				}
 				
 				// CMP
@@ -163,44 +195,64 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::CMP_RN);
+					else
+						serror("CMP", t->getLine());
 				}
 				
 				// JUMPS
 				else if (t->getData() == TokenInst::JMP) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JMP_);
+					else
+						serror("JMP", t->getLine());
 				}
 				else if (t->getData() == TokenInst::JNE) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JNE_);
+					else
+						serror("JNE", t->getLine());
 				}
 				else if (t->getData() == TokenInst::JE) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JE_);
+					else
+						serror("JE", t->getLine());
 				}
 				else if (t->getData() == TokenInst::JG) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JG_);
+					else
+						serror("JG", t->getLine());
 				}
 				else if (t->getData() == TokenInst::JL) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JL_);
+					else
+						serror("JL", t->getLine());
 				}
 				else if (t->getData() == TokenInst::JGE) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JGE_);
+					else
+						serror("JGE", t->getLine());
 				}
 				else if (t->getData() == TokenInst::JLE) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JLE_);
+					else
+						serror("JLE", t->getLine());
 				}
 				else if (t->getData() == TokenInst::JZ) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JZ_);
+					else
+						serror("JZ", t->getLine());
 				}
 				else if (t->getData() == TokenInst::JNZ) {
 					if (tokenList->get(i+1)->getType() == TokenType::JMP_T)
 						writeByte(ByteInst::JNZ_);
+					else
+						serror("JNZ", t->getLine());
 				}
 				
 				// AND
@@ -211,6 +263,8 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::AND_RR);
+					else
+						serror("AND", t->getLine());
 				}
 				
 				// OR
@@ -221,6 +275,8 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::OR_RR);
+					else
+						serror("OR", t->getLine());
 				}
 				
 				// XOR
@@ -231,6 +287,8 @@ namespace VM {
 					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::XOR_RR);
+					else
+						serror("XOR", t->getLine());
 				}
 				
 				// STB
@@ -238,6 +296,8 @@ namespace VM {
 					if (tokenList->get(i+1)->getType() == TokenType::VAR &&
 						tokenList->get(i+2)->getType() == TokenType::NUM)
 						writeByte(ByteInst::STB_);
+					else
+						serror("STB", t->getLine());
 				}
 
 				// HLT

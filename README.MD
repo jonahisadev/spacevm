@@ -21,13 +21,15 @@ order:
 * Runtime.cpp
 
 To Do list is likely in the order of features to be added. As of now, testing
-and debugging the current VM is priority along with the first couple of items
+and debugging the current VM is priority along with the first couple of items.
 
 ### To Do
 
+* Add address support for instruction
 * String support
 * Make a debugger for runtime
 * Implement more system calls
+* Allow file inclusion
 
 ### System Calls
 

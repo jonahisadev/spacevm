@@ -31,7 +31,7 @@ namespace VM {
 		void showTokenList();
 		void showLabelLists();
 		Compiler* createCompiler(const char* path);
-		void ppi(char* inst);
+		void ppi(char* inst, int line);
 
         void setDebug(bool debug) { this->debug = debug; }
         inline bool isDebug() const { return debug; }

@@ -58,7 +58,7 @@ namespace VM {
 		i++;
 		
 		if (nextPPI) {
-			ppi(lex);
+			ppi(lex, line);
 			goto finalChecks;
 		}
 
@@ -66,15 +66,15 @@ namespace VM {
 		int tokenData;	// used later
 		
 		if (lex[0] == '%') {
-			tokenList->add(new Token(TokenType::REG, Token::getRegToken(lex)));
+			tokenList->add(new Token(TokenType::REG, Token::getRegToken(lex), line));
 		}
 
 		// NUMBERS
 		else if (lex[0] == '$') {
-			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex, 10)));
+			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex, 10), line));
 		}
 		else if (lex[0] == '0' && lex[1] == 'x') {
-			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex, 16)));
+			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex, 16), line));
 		}
 
 		// LABELS
@@ -82,35 +82,35 @@ namespace VM {
 			char* labelName = Util::strDup(lex, 1, Util::strLength(lex));
 			// TODO: check for duplicates
 			lblList->add(labelName);
-			tokenList->add(new Token(TokenType::LBL, lblList->getPointer()-1));
+			tokenList->add(new Token(TokenType::LBL, lblList->getPointer()-1, line));
 		}
 		else if (lex[0] == '@') {	
 			char* jumpName = Util::strDup(lex, 1, Util::strLength(lex));
 			jmpList->add(jumpName);
-			tokenList->add(new Token(TokenType::JMP_T, jmpList->getPointer()-1));
+			tokenList->add(new Token(TokenType::JMP_T, jmpList->getPointer()-1, line));
 		}
 		
 		// VARIABLES
 		else if (lex[0] == '&') {
 			char* addr = Util::strDup(lex, 1, Util::strLength(lex));
 			addrList->add(addr);
-			tokenList->add(new Token(TokenType::ADDR, addrList->getPointer()-1));
+			tokenList->add(new Token(TokenType::ADDR, addrList->getPointer()-1, line));
 		}
 		else if (lex[0] == '*') {
 			char* var = Util::strDup(lex, 1, Util::strLength(lex));
 			varList->add(var);
-			tokenList->add(new Token(TokenType::VAR, lastStoreSize));
+			tokenList->add(new Token(TokenType::VAR, lastStoreSize, line));
 		}
 		
 		// PREPROCESSORS
 		else if (lex[0] == '#') {
 			char* inst = Util::strDup(lex, 1, Util::strLength(lex));
-			ppi(inst);
+			ppi(inst, line);
 		}
 		
 		// INSTRUCTIONS
 		else if ((tokenData = checkInst(lex)) != -1) {
-			tokenList->add(new Token(TokenType::INST, tokenData));
+			tokenList->add(new Token(TokenType::INST, tokenData, line));
 			if (tokenData == TokenInst::STB)
 				lastStoreSize = 1;
 		}
@@ -160,16 +160,16 @@ namespace VM {
 		return c;
 	}
 	
-	void Parser::ppi(char* inst) {
+	void Parser::ppi(char* inst, int line) {
 		if (!nextPPI) {
 			if (Util::strEquals(inst, "data")) {
-				tokenList->add(new Token(TokenType::PPI, TokenPPI::DATA));
+				tokenList->add(new Token(TokenType::PPI, TokenPPI::DATA, line));
 			} 
 			else if (Util::strEquals(inst, "end")) {
-				tokenList->add(new Token(TokenType::PPI, TokenPPI::END));
+				tokenList->add(new Token(TokenType::PPI, TokenPPI::END, line));
 			}
 			else if (Util::strEquals(inst, "entry")) {
-				tokenList->add(new Token(TokenType::PPI, TokenPPI::ENTRY));
+				tokenList->add(new Token(TokenType::PPI, TokenPPI::ENTRY, line));
 				nextPPI = true;
 			}
 			else {

@@ -6,9 +6,10 @@ namespace VM {
 	//	TOKEN
 	//
 
-	Token::Token(TokenType type, int data) {
+	Token::Token(TokenType type, int data, int line) {
 		this->type = type;
 		this->data = data;
+		this->line = line;
 	}
 
 	Token::~Token() {

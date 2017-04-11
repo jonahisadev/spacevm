@@ -70,13 +70,15 @@ namespace VM {
 	private:
 		TokenType type;
 		int data;
+		int line;
 
 	public:
-		Token(TokenType type, int data);
+		Token(TokenType type, int data, int line);
 		~Token();
 
 		TokenType getType() const { return type; }
 		int getData() const { return data; }
+		int getLine() const { return line; }
 
 		LOCAL const char* getInstruction(int inst);
 		LOCAL const char* getRegister(int reg);
