@@ -28,3 +28,10 @@ and debugging the current VM is priority along with the first couple of items
 * String support
 * Make a debugger for runtime
 * Implement more system calls
+
+### System Calls
+
+* 0x01 - exit(code)
+* 0x02 - print_b(byte)
+* 0x03 - print_c(char)
+* 0x04 - print_w(word)

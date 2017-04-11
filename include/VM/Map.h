@@ -19,8 +19,8 @@ namespace VM {
         ~Map();
         
         void add(A dataA, B dataB);
-        A getDataA(int ptr);
-        B getDataB(int ptr);
+        A getDataA(int ptr) const { return dataA[ptr]; }
+        B getDataB(int ptr) const { return dataB[ptr]; }
         void showList();
         
         int getPointer() const { return ptr; }
@@ -46,8 +46,8 @@ namespace VM {
     void Map<A, B>::add(A dataA, B dataB) {
         if (this->ptr >= this->size) {
             this->size *= 2;
-            this->dataA = (A*) realloc(this->dataA, this->size);
-            this->dataB = (B*) realloc(this->dataB, this->size);
+            this->dataA = (A*) realloc(this->dataA, sizeof(A) * this->size);
+            this->dataB = (B*) realloc(this->dataB, sizeof(B) * this->size);
         }
         
         this->dataA[this->ptr] = dataA;
@@ -56,6 +56,7 @@ namespace VM {
         this->ptr++;
     }
     
+	/**
     template <class A, class B>
     A Map<A, B>::getDataA(int ptr) {
         return this->dataA[ptr];
@@ -65,6 +66,7 @@ namespace VM {
     B Map<A, B>::getDataB(int ptr) {
         return this->dataB[ptr];
     }
+	**/
     
     template <class A, class B>
     void Map<A, B>::showList() {

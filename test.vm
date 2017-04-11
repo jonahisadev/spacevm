@@ -1,31 +1,36 @@
 #entry main
 
+:main
+	mov %cx &min		; Start the counter
+	mov %dx &max		; Set maximum
+
+:loop
+	inc %cx				; Increment counter
+	cmp %cx %dx			; Compare
+	mov %bx %cx			; Copy iteration to BX
+	call @square		; Square BX
+	call @print			; Print BX
+	jl @loop			; If less, keep going
+	jmp @end			; Otherwise, end the program
+
 :square
-	mul %bx %bx			; Square number
+	mul %bx %bx			; Square BX
 	ret
 
-:cube
-	push %bx			; Save original number
-	call @square		; Square the number
-	pop %cx				; Get original back
-	mul %bx %cx			; Multiply once more
-	ret
-
-:main					; Start here
-	mov %ax &sysCall	; Set system interrupt
-	mov %bx &myNum		; Set number to be cubed
-	call @cube		; Actually cube the number
+:print
+	mov %ax $2			; Print BX
 	sysi
-
 	mov %ax $3			; Print new-line
 	mov %bx $10
 	sysi
+	ret
 
-	mov %ax $1			; Exit
+:end
+	mov %ax $1			; Exit the program
 	mov %bx $0
 	sysi
 
 #data
-	stb *myNum $7		; Store 6 in memory
-	stb *sysCall $4		; Needed for compilation testing
+	stb *min $0			; Minimum - 1
+	stb *max $10		; Maximum
 #end

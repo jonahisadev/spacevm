@@ -264,48 +264,56 @@ namespace VM {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					break;
 				}
 				case ByteInst::JE_: {
 					if (getFlag(1)) {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					break;
 				}
 				case ByteInst::JG_: {
 					if (getFlag(3)) {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					break;
 				}
 				case ByteInst::JL_: {
 					if (getFlag(2)) {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					break;
 				}
 				case ByteInst::JGE_: {
 					if (getFlag(1) || getFlag(3)) {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					break;
 				}
 				case ByteInst::JLE_: {
 					if (getFlag(1) || getFlag(2)) {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					break;
 				}
 				case ByteInst::JZ_: {
 					if (getFlag(4)) {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					break;
 				}
 				case ByteInst::JNZ_: {
 					if (!getFlag(4)) {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					break;
 				}
 				
 				// AND
@@ -399,6 +407,9 @@ namespace VM {
 			}
 			
 			this->pc++;
+			if (this->cx == 10) {
+				sys_exit(0);
+			}
 		}
 		
 		endLoop:

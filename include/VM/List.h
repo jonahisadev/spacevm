@@ -18,7 +18,7 @@ namespace VM {
 		~List();
 		
 		void add(T data);
-		T get(int ptr);
+		T get(int ptr) const { return data[ptr]; }
 		void set(int ptr, T data);
 		void showList();
 		
@@ -51,10 +51,12 @@ namespace VM {
 		this->data[this->ptr++] = data;
 	}
 	
+	/**
 	template <class T>
 	T List<T>::get(int ptr) {
 		return this->data[ptr];
 	}
+	**/
 	
 	template <class T>
 	void List<T>::set(int ptr, T data) {
