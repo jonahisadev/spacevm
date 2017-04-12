@@ -295,13 +295,11 @@ namespace VM {
 						serror("XOR", t->getLine());
 				}
 				
+				// PTR
 				else if (t->getData() == TokenInst::PTR) {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&
 						tokenList->get(i+2)->getType() == TokenType::REG)
 						writeByte(ByteInst::PTR_RR);
-					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
-						tokenList->get(i+2)->getType() == TokenType::ADDR)
-						writeByte(ByteInst::PTR_RA);
 					else if (tokenList->get(i+1)->getType() == TokenType::REG)
 						writeByte(ByteInst::PTR_R);
 					else
@@ -315,6 +313,15 @@ namespace VM {
 						writeByte(ByteInst::STB_);
 					else
 						serror("STB", t->getLine());
+				}
+				
+				// LDB
+				else if (t->getData() == TokenInst::LDB) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::ADDR)
+						writeByte(ByteInst::LDB_);
+					else
+						serror("LDB", t->getLine());
 				}
 
 				// HLT

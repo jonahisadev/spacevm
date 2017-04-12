@@ -331,19 +331,21 @@ namespace VM {
 					addr += 3;
 					break;
 				}
-				case PTR_RA: {
-					std::printf("PTR \t%s &%02d%02d",
-					Token::getRegister(data[addr+1]),
-					data[addr+2], data[addr+3]);
-					addr += 4;
-					break;
-				}
 				
 				// STB
 				case STB_: {
 					std::printf("STB \t%d", 
 					data[addr+1]);
 					addr += 2;
+					break;
+				}
+				
+				// LDB
+				case LDB_: {
+					std::printf("LDB \t%s &%02d%02d",
+					Token::getRegister(data[addr+1]),
+					data[addr+2], data[addr+3]);
+					addr += 4;
 					break;
 				}
 				

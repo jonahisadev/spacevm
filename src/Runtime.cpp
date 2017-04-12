@@ -407,7 +407,17 @@ namespace VM {
 					
 					break;
 				}
-				case ByteInst::PTR_RA: {
+				
+				// STB
+				case ByteInst::STB_: {
+					unsigned char data = getNextByte();
+					memory[VAR_OFFSET + var_ptr] = data;
+					var_ptr += 1;
+					break;
+				}
+				
+				// LDB
+				case ByteInst::LDB_: {
 					unsigned char reg = getNextByte();
 					unsigned char a = getNextByte();
 					unsigned char b = getNextByte();
@@ -416,14 +426,6 @@ namespace VM {
 					unsigned short addr = Util::bToS(a, b);
 					
 					*regPtr = memory[VAR_OFFSET + addr];
-					break;
-				}
-				
-				// STB
-				case ByteInst::STB_: {
-					unsigned char data = getNextByte();
-					memory[VAR_OFFSET + var_ptr] = data;
-					var_ptr += 1;
 					break;
 				}
 

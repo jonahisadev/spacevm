@@ -1,10 +1,8 @@
 #entry main
 
 :main
-	ptr %cx &min		; Start the counter
-	ptr %dx &max		; Set maximum
-	
-; 	comment?	
+	ldb %cx &min		; Start the counter
+	ldb %dx &max		; Set maximum	
 
 :loop
 	mov %bx %cx			; Copy iteration to BX

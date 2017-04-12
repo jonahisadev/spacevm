@@ -254,6 +254,8 @@ namespace VM {
 			return TokenInst::PTR;
 		else if (Util::strEquals(lex, "stb"))
 			return TokenInst::STB;
+		else if (Util::strEquals(lex, "ldb"))
+			return TokenInst::LDB;
 
 		else if (Util::strEquals(lex, "hlt"))
 			return TokenInst::HLT;

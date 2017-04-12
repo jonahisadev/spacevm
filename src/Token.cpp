@@ -143,6 +143,8 @@ namespace VM {
 				return "PTR";
 			case TokenInst::STB:
 				return "STB";
+			case TokenInst::LDB:
+				return "LDB";
 			default:
 				return "???";
 		}
