@@ -203,7 +203,7 @@ namespace VM {
 		}
 	}
 
-	int Token::getRegToken(char* reg) {
+	int Token::getRegToken(char* reg, int line) {
 		if (Util::strEquals(reg, "%ax"))
 			return TokenReg::AX;
 		else if (Util::strEquals(reg, "%bx"))
@@ -253,7 +253,7 @@ namespace VM {
 		else if (Util::strEquals(reg, "%pc"))
 			return TokenReg::PC;
 		else {
-			std::cerr << "Invalid Register: " << reg << std::endl;
+			std::cerr << "Invalid Register (" << line << "): " << reg << std::endl;
 			panic("Aborting");
 			return -1; // needed for clean compile
 		}

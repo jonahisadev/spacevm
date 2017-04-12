@@ -66,7 +66,7 @@ namespace VM {
 		int tokenData;	// used later
 		
 		if (lex[0] == '%') {
-			tokenList->add(new Token(TokenType::REG, Token::getRegToken(lex), line));
+			tokenList->add(new Token(TokenType::REG, Token::getRegToken(lex, line), line));
 		}
 
 		// NUMBERS

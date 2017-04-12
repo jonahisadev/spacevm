@@ -28,6 +28,7 @@ and debugging the current VM is priority along with the first couple of items.
 * Store words
 * String support
 * Make a debugger for runtime
+* Sub-labels?
 * Implement more system calls
 * Allow file inclusion
 
