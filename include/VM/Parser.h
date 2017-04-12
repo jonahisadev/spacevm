@@ -5,6 +5,8 @@
 #include <VM/Token.h>
 #include <VM/Compiler.h>
 
+#include <cstdlib>
+
 namespace VM {
 
     class Parser {

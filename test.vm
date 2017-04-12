@@ -3,6 +3,8 @@
 :main
 	ptr %cx &min		; Start the counter
 	ptr %dx &max		; Set maximum
+	
+; 	comment?	
 
 :loop
 	mov %bx %cx			; Copy iteration to BX

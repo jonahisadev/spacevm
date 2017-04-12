@@ -253,7 +253,7 @@ namespace VM {
 		else if (Util::strEquals(reg, "%pc"))
 			return TokenReg::PC;
 		else {
-			std::cerr << "Invalid Register (" << line << "): " << reg << std::endl;
+			std::cerr << "Invalid Register (" << line << ") : " << reg << std::endl;
 			panic("Aborting");
 			return -1; // needed for clean compile
 		}

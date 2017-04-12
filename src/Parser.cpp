@@ -57,14 +57,24 @@ namespace VM {
         lex[lexi] = '\0';
 		i++;
 		
+		// Ignore lines filled with white-space
+		bool empty = true;
+		for (int j = 0; j < Util::strLength(lex); j++) {
+			if (!isspace(lex[j]))
+				empty = false; break;
+		}
+		if (empty)
+			goto resetLex;
+			
+		// Preprocessor check
 		if (nextPPI) {
 			ppi(lex, line);
 			goto finalChecks;
 		}
 
-		// REGISTERS
 		int tokenData;	// used later
 		
+		// REGISTERS
 		if (lex[0] == '%') {
 			tokenList->add(new Token(TokenType::REG, Token::getRegToken(lex, line), line));
 		}
