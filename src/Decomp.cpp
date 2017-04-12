@@ -45,7 +45,7 @@ namespace VM {
 					break;
 				}
 				case MOV_RA: {
-					std::printf("MOV \t%s 0x%02d%02d", 
+					std::printf("MOV \t%s &%02d%02d", 
 					Token::getRegister(data[addr+1]), 
 					data[addr+2], data[addr+3]);
 					addr += 4;
@@ -86,7 +86,7 @@ namespace VM {
 				
 				// CALL
 				case CALL_: {
-					std::printf("CALL \t0x%02d%02d",
+					std::printf("CALL \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
@@ -215,55 +215,55 @@ namespace VM {
 				
 				// JUMPS
 				case JMP_: {
-					std::printf("JMP \t0x%02d%02d",
+					std::printf("JMP \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JNE_: {
-					std::printf("JNE \t0x%02d%02d",
+					std::printf("JNE \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JE_: {
-					std::printf("JE \t0x%02d%02d",
+					std::printf("JE \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JG_: {
-					std::printf("JG \t0x%02d%02d",
+					std::printf("JG \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JL_: {
-					std::printf("JL \t0x%02d%02d",
+					std::printf("JL \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JGE_: {
-					std::printf("JGE \t0x%02d%02d",
+					std::printf("JGE \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JLE_: {
-					std::printf("JLE \t0x%02d%02d",
+					std::printf("JLE \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JZ_: {
-					std::printf("JZ \t0x%02d%02d",
+					std::printf("JZ \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JNZ_: {
-					std::printf("JNZ \t0x%02d%02d",
+					std::printf("JNZ \t&%02d%02d",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
@@ -314,6 +314,28 @@ namespace VM {
 					Token::getRegister(data[addr+1]), 
 					Token::getRegister(data[addr+2]));
 					addr += 3;
+					break;
+				}
+				
+				// PTR
+				case PTR_R: {
+					std::printf("PTR \t%s", 
+					Token::getRegister(data[addr+1]));
+					addr += 2;
+					break;
+				}
+				case PTR_RR: {
+					std::printf("PTR \t%s %s",
+					Token::getRegister(data[addr+1]),
+					Token::getRegister(data[addr+2]));
+					addr += 3;
+					break;
+				}
+				case PTR_RA: {
+					std::printf("PTR \t%s &%02d%02d",
+					Token::getRegister(data[addr+1]),
+					data[addr+2], data[addr+3]);
+					addr += 4;
 					break;
 				}
 				

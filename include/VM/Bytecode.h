@@ -56,7 +56,10 @@ namespace VM {
 
 		HLT_ = 		0x40,
 		
-		STB_ = 		0x50,
+		PTR_R = 	0x50,
+		PTR_RR = 	0x51,
+		PTR_RA = 	0x52,
+		STB_ = 		0x53,
 	};
 
 	enum ByteReg {

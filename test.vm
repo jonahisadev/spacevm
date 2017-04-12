@@ -1,15 +1,15 @@
 #entry main
 
 :main
-	mov %cx &min		; Start the counter
-	mov %dx &max		; Set maximum
+	ptr %cx &min		; Start the counter
+	ptr %dx &max		; Set maximum
 
 :loop
-	inc %cx				; Increment counter
-	cmp %cx %dx			; Compare
 	mov %bx %cx			; Copy iteration to BX
 	call @square		; Square BX
 	call @print			; Print BX
+	inc %cx				; Increment counter
+	cmp %cx %dx			; Compare
 	jl @loop			; If less, keep going
 	jmp @end			; Otherwise, end the program
 
@@ -31,6 +31,6 @@
 	sysi
 
 #data
-	stb *min $0			; Minimum - 1
-	stb *max $10		; Maximum
+	stb *min $1			; Minimum
+	stb *max $11		; Maximum - 1
 #end

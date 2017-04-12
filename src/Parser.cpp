@@ -240,6 +240,8 @@ namespace VM {
 			return TokenInst::OR;
 		else if (Util::strEquals(lex, "xor"))
 			return TokenInst::XOR;
+		else if (Util::strEquals(lex, "ptr"))
+			return TokenInst::PTR;
 		else if (Util::strEquals(lex, "stb"))
 			return TokenInst::STB;
 

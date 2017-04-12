@@ -139,6 +139,8 @@ namespace VM {
 				return "OR";
 			case TokenInst::XOR:
 				return "XOR";
+			case TokenInst::PTR:
+				return "PTR";
 			case TokenInst::STB:
 				return "STB";
 			default:

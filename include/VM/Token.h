@@ -48,6 +48,7 @@ namespace VM {
 		OR,
 		XOR,
 		
+		PTR,
 		STB,
 
 		HLT

@@ -55,7 +55,7 @@ namespace VM {
 					addr += VAR_OFFSET;
 					
 					short* regPtr = getRegister(reg);
-					*regPtr = memory[addr];
+					*regPtr = (short)addr;
 					break;
 				}
 
@@ -264,6 +264,7 @@ namespace VM {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					this->pc += 2;
 					break;
 				}
 				case ByteInst::JE_: {
@@ -271,6 +272,7 @@ namespace VM {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					this->pc += 2;
 					break;
 				}
 				case ByteInst::JG_: {
@@ -278,6 +280,7 @@ namespace VM {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					this->pc += 2;
 					break;
 				}
 				case ByteInst::JL_: {
@@ -285,6 +288,7 @@ namespace VM {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					this->pc += 2;
 					break;
 				}
 				case ByteInst::JGE_: {
@@ -292,6 +296,7 @@ namespace VM {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					this->pc += 2;
 					break;
 				}
 				case ByteInst::JLE_: {
@@ -299,6 +304,7 @@ namespace VM {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					this->pc += 2;
 					break;
 				}
 				case ByteInst::JZ_: {
@@ -306,6 +312,7 @@ namespace VM {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					this->pc += 2;
 					break;
 				}
 				case ByteInst::JNZ_: {
@@ -313,6 +320,7 @@ namespace VM {
 						this->pc = Util::bToS(getNextByte(), getNextByte());
 						goto startWhile;
 					}
+					this->pc += 2;
 					break;
 				}
 				
@@ -376,6 +384,41 @@ namespace VM {
 					break;
 				}
 				
+				// PTR
+				case ByteInst::PTR_R: {
+					unsigned char reg = getNextByte();
+					short* regPtr = getRegister(reg);
+					
+					unsigned char data = memory[*regPtr];
+					*regPtr = data;
+					break;
+				}
+				case ByteInst::PTR_RR: {
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short* aPtr = getRegister(a);
+					short* bPtr = getRegister(b);
+					
+					unsigned char data = memory[*bPtr];
+					*aPtr = data;
+					
+					std::cout << "Reg: " << *aPtr << std::endl;
+					
+					break;
+				}
+				case ByteInst::PTR_RA: {
+					unsigned char reg = getNextByte();
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short* regPtr = getRegister(reg);
+					unsigned short addr = Util::bToS(a, b);
+					
+					*regPtr = memory[VAR_OFFSET + addr];
+					break;
+				}
+				
 				// STB
 				case ByteInst::STB_: {
 					unsigned char data = getNextByte();
@@ -407,9 +450,6 @@ namespace VM {
 			}
 			
 			this->pc++;
-			if (this->cx == 10) {
-				sys_exit(0);
-			}
 		}
 		
 		endLoop:

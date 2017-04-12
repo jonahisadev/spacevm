@@ -32,7 +32,7 @@ namespace VM {
         unsigned char* data = new unsigned char[size];
         ASSERT(data, "Could not load file");
 
-        fread(data, 1, size, file);
+        fread(data, sizeof(unsigned char), size, file);
         fclose(file);
 
 		data[size] = '\0';
