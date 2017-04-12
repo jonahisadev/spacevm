@@ -51,13 +51,6 @@ namespace VM {
 		this->data[this->ptr++] = data;
 	}
 	
-	/**
-	template <class T>
-	T List<T>::get(int ptr) {
-		return this->data[ptr];
-	}
-	**/
-	
 	template <class T>
 	void List<T>::set(int ptr, T data) {
 		this->data[ptr] = data;

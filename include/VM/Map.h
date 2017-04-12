@@ -56,18 +56,6 @@ namespace VM {
         this->ptr++;
     }
     
-	/**
-    template <class A, class B>
-    A Map<A, B>::getDataA(int ptr) {
-        return this->dataA[ptr];
-    }
-    
-    template <class A, class B>
-    B Map<A, B>::getDataB(int ptr) {
-        return this->dataB[ptr];
-    }
-	**/
-    
     template <class A, class B>
     void Map<A, B>::showList() {
         // TODO: actually implement

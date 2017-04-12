@@ -17,6 +17,10 @@ namespace VM {
 
 	Compiler::~Compiler() {
 		delete this->textBuf;
+		delete this->lblMap;
+		delete this->jmpMap;
+		delete this->addrMap;
+		delete this->varMap;
 	}
 	
 	void Compiler::setLabelList(List<char*>* lblList) {
