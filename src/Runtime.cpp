@@ -403,8 +403,6 @@ namespace VM {
 					unsigned char data = memory[*bPtr];
 					*aPtr = data;
 					
-					std::cout << "Reg: " << *aPtr << std::endl;
-					
 					break;
 				}
 				

@@ -1,23 +1,36 @@
 #entry main
 
 :main
-	ldw %ax &last		; Print `large`
-	ldw %bx &large
-	ldw %cx &more
-	ldb %dx &test
+	ldb %cx &min		; Start the counter
+	ldb %dx &max		; Set maximum
+
+:loop
+	mov %bx %cx			; Copy iteration to BX
+	call @square		; Square BX
+	call @print			; Print BX
+	inc %cx				; Increment counter
+	cmp %cx %dx			; Compare
+	jl @loop			; If less, keep going
+	jmp @end			; Otherwise, end the program
+
+:square
+	mul %bx %bx			; Square BX
+	ret
+
+:print
+	mov %ax $2			; Print BX
 	sysi
-	
 	mov %ax $3			; Print new-line
 	mov %bx $10
 	sysi
-	
-	mov %ax $1			; Exit
+	ret
+
+:end
+	mov %ax $1			; Exit the program
 	mov %bx $0
 	sysi
-	
+
 #data
-	stw *large $5124
-	stw *more $300
-	stb *test $43
-	stw *last $4
+	stb *min $1			; Minimum
+	stb *max $11		; Maximum - 1
 #end
