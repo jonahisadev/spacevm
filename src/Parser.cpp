@@ -63,8 +63,10 @@ namespace VM {
 			if (!isspace(lex[j]))
 				empty = false; break;
 		}
-		if (empty)
+		if (empty) {
+			line++;
 			goto resetLex;
+		}
 			
 		// Preprocessor check
 		if (nextPPI) {
@@ -256,6 +258,8 @@ namespace VM {
 			return TokenInst::STB;
 		else if (Util::strEquals(lex, "ldb"))
 			return TokenInst::LDB;
+		else if (Util::strEquals(lex, "stw"))
+			return TokenInst::STW;
 
 		else if (Util::strEquals(lex, "hlt"))
 			return TokenInst::HLT;

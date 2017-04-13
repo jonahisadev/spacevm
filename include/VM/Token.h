@@ -51,6 +51,7 @@ namespace VM {
 		PTR,
 		STB,
 		LDB,
+		STW,
 
 		HLT
 	};

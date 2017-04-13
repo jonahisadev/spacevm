@@ -428,6 +428,17 @@ namespace VM {
 					*regPtr = memory[VAR_OFFSET + addr];
 					break;
 				}
+				
+				// STW
+				case ByteInst::STW_: {
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					memory[VAR_OFFSET + var_ptr++] = a;
+					memory[VAR_OFFSET + var_ptr++] = b;
+					
+					break;
+				}
 
 				// SYSI
 				case ByteInst::SYSI_: {

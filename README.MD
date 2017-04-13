@@ -25,7 +25,7 @@ and debugging the current VM is priority along with the first couple of items.
 
 ### To Do
 
-* Store words
+* Load words
 * String support
 * Make a debugger for runtime
 * Sub-labels?

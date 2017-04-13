@@ -349,6 +349,14 @@ namespace VM {
 					break;
 				}
 				
+				// STW
+				case STW_: {
+					std::printf("STW \t%d",
+					Util::bToS(data[addr+1], data[addr+2]));
+					addr += 3;
+					break;
+				}
+				
 				// DEFAULT
 				default: {
 					std::printf("???");

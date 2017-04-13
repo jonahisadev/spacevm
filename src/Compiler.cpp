@@ -323,6 +323,15 @@ namespace VM {
 					else
 						serror("LDB", t->getLine());
 				}
+				
+				// STW
+				else if (t->getData() == TokenInst::STW) {
+					if (tokenList->get(i+1)->getType() == TokenType::VAR &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::STW_);
+					else
+						serror("STW", t->getLine());
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {
@@ -365,7 +374,13 @@ namespace VM {
 
 			// NUMBERS
 			else if (t->getType() == TokenType::NUM) {
-				writeByte(t->getData());
+				if (t->getData() > 255) {
+					unsigned char* num = Util::sToB(t->getData());
+					writeByte(num[0]);
+					writeByte(num[1]);
+				} else {
+					writeByte(t->getData());
+				}
 			}
 			
 			// PREPROCESSORS

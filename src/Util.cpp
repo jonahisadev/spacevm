@@ -85,13 +85,13 @@ namespace VM {
 	
 	unsigned char* Util::sToB(unsigned short addr) {
 		unsigned char* ret = new unsigned char[2];
-		ret[0] = (addr & 0xFF00) >> 4;
-		ret[1] = (addr & 0x00FF) >> 0;
+		ret[0] = (addr >> 8) & 0xFF;
+		ret[1] = (addr >> 0) & 0xFF;
 		return ret;
 	}
 	
 	unsigned short Util::bToS(unsigned char a, unsigned char b) {
-		short x = (a << 4) | b;
+		short x = (a << 8) | b;
 		return x;
 	}
 
