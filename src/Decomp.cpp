@@ -357,6 +357,15 @@ namespace VM {
 					break;
 				}
 				
+				// LDW
+				case LDW_: {
+					std::printf("LDW \t%s &%02d%02d",
+					Token::getRegister(data[addr + 1]),
+					data[addr+2], data[addr+3]);
+					addr += 4;
+					break;
+				}
+				
 				// DEFAULT
 				default: {
 					std::printf("???");

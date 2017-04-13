@@ -1,8 +1,10 @@
 #entry main
 
 :main
-	mov %ax $2			; Print 42
-	mov %bx $42
+	ldw %ax &last		; Print `large`
+	ldw %bx &large
+	ldw %cx &more
+	ldb %dx &test
 	sysi
 	
 	mov %ax $3			; Print new-line
@@ -15,4 +17,7 @@
 	
 #data
 	stw *large $5124
+	stw *more $300
+	stb *test $43
+	stw *last $4
 #end

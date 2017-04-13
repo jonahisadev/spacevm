@@ -332,6 +332,15 @@ namespace VM {
 					else
 						serror("STW", t->getLine());
 				}
+				
+				// LDW
+				else if (t->getData() == TokenInst::LDW) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::ADDR)
+						writeByte(ByteInst::LDW_);
+					else
+						serror("LDW", t->getLine());
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {
@@ -352,7 +361,7 @@ namespace VM {
 			
 			// VARIABLES
 			else if (t->getType() == TokenType::VAR) {
-				this->varMap->add(t->getData(), this->addr);
+				this->varMap->add(t->getData(), 0);
 			}
 			else if (t->getType() == TokenType::ADDR) {
 				this->addrMap->add(t->getData(), this->addr);
@@ -374,12 +383,21 @@ namespace VM {
 
 			// NUMBERS
 			else if (t->getType() == TokenType::NUM) {
-				if (t->getData() > 255) {
+				Token* storeTk = tokenList->get(i-2);
+				if (storeTk->getData() == TokenInst::STB) {
+					writeByte(t->getData());
+				} else if (storeTk->getData() == TokenInst::STW) {
 					unsigned char* num = Util::sToB(t->getData());
 					writeByte(num[0]);
 					writeByte(num[1]);
 				} else {
-					writeByte(t->getData());
+					if (t->getData() > 255) {
+						unsigned char* num = Util::sToB(t->getData());
+						writeByte(num[0]);
+						writeByte(num[1]);
+					} else {
+						writeByte(t->getData());
+					}
 				}
 			}
 			
@@ -392,8 +410,9 @@ namespace VM {
 					this->textBuf->set(1, addrw[0]);
 					this->textBuf->set(2, addrw[1]);
 				} else if (t->getData() == TokenPPI::END) {
-					if (currentDataSection)
+					if (currentDataSection) {
 						writeByte(ByteInst::RET_);
+					}
 				}
 			}
 
@@ -429,6 +448,14 @@ namespace VM {
 			continue;
 		}
 		
+		// Set variable size offsets
+		for (int i = 0; i < varMap->getPointer(); i++) {
+			int size = varMap->getDataA(i);
+			for (int j = i+1; j < varMap->getPointer(); j++) {
+				varMap->setDataB(j, varMap->getDataB(j) + size);
+			}
+		}
+		
 		// Fix variable addresses
 		for (int i = 0; i < addrMap->getPointer(); i++) {
 			int index = addrMap->getDataA(i);
@@ -436,8 +463,7 @@ namespace VM {
 			
 			for (int j = 0; j < varMap->getPointer(); j++) {
 				if (Util::strEquals(addrName, varList->get(j))) {
-					int size = varMap->getDataA(j);
-					unsigned char* addrw = Util::sToB(j);
+					unsigned char* addrw = Util::sToB(varMap->getDataB(j));
 					this->textBuf->set(addrMap->getDataB(i), addrw[0]);
 					this->textBuf->set(addrMap->getDataB(i)+1, addrw[1]);
 					delete[] addrw;

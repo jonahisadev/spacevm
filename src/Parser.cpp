@@ -125,6 +125,8 @@ namespace VM {
 			tokenList->add(new Token(TokenType::INST, tokenData, line));
 			if (tokenData == TokenInst::STB)
 				lastStoreSize = 1;
+			else if (tokenData == TokenInst::STW)
+				lastStoreSize = 2;
 		}
 
 		// UNKNOWN
@@ -260,6 +262,8 @@ namespace VM {
 			return TokenInst::LDB;
 		else if (Util::strEquals(lex, "stw"))
 			return TokenInst::STW;
+		else if (Util::strEquals(lex, "ldw"))
+			return TokenInst::LDW;
 
 		else if (Util::strEquals(lex, "hlt"))
 			return TokenInst::HLT;

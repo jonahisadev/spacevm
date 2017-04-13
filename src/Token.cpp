@@ -147,6 +147,8 @@ namespace VM {
 				return "LDB";
 			case TokenInst::STW:
 				return "STW";
+			case TokenInst::LDW:
+				return "LDW";
 			default:
 				return "???";
 		}

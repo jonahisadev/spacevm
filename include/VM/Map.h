@@ -21,6 +21,8 @@ namespace VM {
         void add(A dataA, B dataB);
         A getDataA(int ptr) const { return dataA[ptr]; }
         B getDataB(int ptr) const { return dataB[ptr]; }
+		void setDataA(int ptr, A data) { this->dataA[ptr] = data; }
+		void setDataB(int ptr, B data) { this->dataB[ptr] = data; }
         void showList();
         
         int getPointer() const { return ptr; }

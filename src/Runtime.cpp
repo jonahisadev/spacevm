@@ -439,6 +439,22 @@ namespace VM {
 					
 					break;
 				}
+				
+				// LDW
+				case ByteInst::LDW_: {
+					unsigned reg = getNextByte();
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short* regPtr = getRegister(reg);
+					unsigned short addr = Util::bToS(a, b);
+					
+					short data = Util::bToS(memory[VAR_OFFSET + addr],
+						memory[VAR_OFFSET + addr + 1]);
+						
+					*regPtr = data;
+					break;
+				}
 
 				// SYSI
 				case ByteInst::SYSI_: {
