@@ -10,6 +10,7 @@ namespace VM {
 		this->jmpList = new List<char*>(1);
 		this->varList = new List<char*>(1);
 		this->addrList = new List<char*>(1);
+		this->strList = new List<char*>(1);
     }
 
     Parser::~Parser() {
@@ -111,7 +112,19 @@ namespace VM {
 		else if (lex[0] == '*') {
 			char* var = Util::strDup(lex, 1, Util::strLength(lex));
 			varList->add(var);
-			tokenList->add(new Token(TokenType::VAR, lastStoreSize, line));
+			if (tokenList->get(tokenList->getPointer()-1)->getData() == TokenInst::STR) {
+				tokenList->add(new Token(TokenType::VAR, 0, line));
+			} else {
+				tokenList->add(new Token(TokenType::VAR, lastStoreSize, line));
+			}
+		}
+		
+		// STRINGS
+		else if (lex[0] == '"' && lex[Util::strLength(lex)-1] == '"') {
+			char* str = Util::strDup(lex, 1, Util::strLength(lex)-2);
+			strList->add(str);
+			tokenList->get(tokenList->getPointer()-1)->setData(Util::strLength(str)+1);		// update storeSize
+			tokenList->add(new Token(TokenType::STRING, strList->getPointer()-1, line));
 		}
 		
 		// PREPROCESSORS
@@ -170,6 +183,7 @@ namespace VM {
 		c->setJumpList(this->jmpList);
 		c->setAddrList(this->addrList);
 		c->setVarList(this->varList);
+		c->setStrList(this->strList);
 		c->setBeginLabel(this->beginLabel);
 		return c;
 	}
@@ -264,6 +278,8 @@ namespace VM {
 			return TokenInst::STW;
 		else if (Util::strEquals(lex, "ldw"))
 			return TokenInst::LDW;
+		else if (Util::strEquals(lex, "str"))
+			return TokenInst::STR;
 
 		else if (Util::strEquals(lex, "hlt"))
 			return TokenInst::HLT;

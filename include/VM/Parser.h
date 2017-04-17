@@ -23,6 +23,7 @@ namespace VM {
 		List<char*>* jmpList;
 		List<char*>* varList;
 		List<char*>* addrList;
+		List<char*>* strList;
 		
 		const char* beginLabel = "start";
 

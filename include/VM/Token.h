@@ -17,6 +17,7 @@ namespace VM {
 		PPI,
 		ADDR,
 		VAR,
+		STRING,
 	};
 
 	enum TokenInst {
@@ -53,6 +54,7 @@ namespace VM {
 		LDB,
 		STW,
 		LDW,
+		STR,
 
 		HLT
 	};
@@ -83,6 +85,8 @@ namespace VM {
 		TokenType getType() const { return type; }
 		int getData() const { return data; }
 		int getLine() const { return line; }
+		
+		void setData(int data) { this->data = data; }
 
 		LOCAL const char* getInstruction(int inst);
 		LOCAL const char* getRegister(int reg);

@@ -73,6 +73,10 @@ namespace VM {
 				std::cout << "JumpTo: i" << t->getData() << std::endl;
 			} else if (t->getType() == TokenType::PPI) {
 				std::cout << "PPI: " << t->getData() << std::endl;
+			} else if (t->getType() == TokenType::VAR) {
+				std::cout << "VAR: " << t->getData() << std::endl;
+			} else if (t->getType() == TokenType::STRING) {
+				std::cout << "STR: " << t->getData() << std::endl;
 			}
 		}
 	}
@@ -149,6 +153,8 @@ namespace VM {
 				return "STW";
 			case TokenInst::LDW:
 				return "LDW";
+			case TokenInst::STR:
+				return "STR";
 			default:
 				return "???";
 		}

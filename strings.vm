@@ -1,0 +1,51 @@
+#entry main
+
+:main
+	mov %cx &testing				; Move addr to BX
+	call @printStr					; Print the string
+	call @printNL					; Print a new line
+	
+	mov %ax $2
+	ldb %bx &testAgain
+	sysi
+	
+	call @printNL
+	
+	mov %ax $1						; Exit
+	mov %bx $0
+	sysi
+	
+:printStr
+	push %ax						; Save AX
+
+:printStr_loop
+	mov %ax $3						; Set system call to print chars
+	ptr %bx %cx						; Dereference
+	cmp %bx $0						; Compare end of string
+	je @printStr_end				; Finish if 0
+	sysi							; System call
+	inc %cx							; Increment pointer
+	jmp @printStr_loop				; Start over
+	
+:printStr_end
+	pop %ax							; Restore AX
+	ret
+	
+:printNL
+	push %ax
+	push %bx
+	
+	mov %ax $3
+	mov %bx $10
+	sysi
+	
+	pop %bx
+	pop %ax
+	
+	ret
+	
+#data
+	stw *longNum $5124				; Random for testing
+	str *testing "Hello!"			; String for testing
+	stb *testAgain $42				; For testing purposes
+#end

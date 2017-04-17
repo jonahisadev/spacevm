@@ -62,6 +62,7 @@ namespace VM {
 		LDB_ =		0x53,
 		STW_ = 		0x54,
 		LDW_ = 		0x55,
+		STR_ =		0x56,
 	};
 
 	enum ByteReg {

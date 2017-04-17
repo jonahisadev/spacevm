@@ -453,6 +453,17 @@ namespace VM {
 					*regPtr = data;
 					break;
 				}
+				
+				// STR
+				case ByteInst::STR_: {
+					char data = getNextByte();
+					while (data != 0) {
+						memory[VAR_OFFSET + var_ptr++] = data;
+						data = getNextByte();
+					}
+					memory[VAR_OFFSET + var_ptr++] = 0;
+					break;
+				}
 
 				// SYSI
 				case ByteInst::SYSI_: {

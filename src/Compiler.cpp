@@ -39,12 +39,17 @@ namespace VM {
 		this->varList = varList;
 	}
 	
+	void Compiler::setStrList(List<char*>* strList) {
+		this->strList = strList;
+	}
+	
 	void Compiler::setBeginLabel(const char* beginLabel) {
 		this->beginLabel = beginLabel;
 	}
 
 	void Compiler::serror(const char* inst, int line) {
 		std::cerr << "Symantics Error (" << line << "): Invalid " << inst << " operand types" << std::endl;
+		std::exit(1);
 	}
 
 	void Compiler::start() {
@@ -341,6 +346,15 @@ namespace VM {
 					else
 						serror("LDW", t->getLine());
 				}
+				
+				// STR
+				else if (t->getData() == TokenInst::STR) {
+					if (tokenList->get(i+1)->getType() == TokenType::VAR &&
+						tokenList->get(i+2)->getType() == TokenType::STRING)
+						writeByte(ByteInst::STR_);
+					else
+						serror("STR", t->getLine());
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {
@@ -377,7 +391,7 @@ namespace VM {
 					writeByte(b);
 				} else {
 					std::cerr << "Invalid register: " << b << std::endl;
-					panic ("Aborting");
+					panic("Aborting");
 				}
 			}
 
@@ -401,6 +415,15 @@ namespace VM {
 				}
 			}
 			
+			// STRINGS
+			else if (t->getType() == TokenType::STRING) {
+				char* str = strList->get(t->getData());
+				for (int j = 0; j < Util::strLength(str); j++) {
+					writeByte((unsigned char)str[j]);
+				}
+				writeByte(0x00);
+			}
+			
 			// PREPROCESSORS
 			else if (t->getType() == TokenType::PPI) {
 				if (t->getData() == TokenPPI::DATA) {
@@ -418,8 +441,7 @@ namespace VM {
 
 			// UNKNOWN
 			else {
-				std::cerr << "Major Compiler Error: Unknown Token Type!" << std::endl;
-				panic("Aborting");
+				panic("Major Compiler Error: Unknown Token Type!\nAborting");
 			}
 		}
 
