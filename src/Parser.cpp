@@ -51,8 +51,19 @@ namespace VM {
 				continue;
 			}
 			
+			if (text[i] == '"') {
+				delim = '"';
+			}
+			
 			lex[lexi++] = text[i++];
         }
+		
+		// String?
+		if (delim == '"') {
+			delim = ' ';
+			lex[lexi] = '"';
+			lexi++;
+		}
 
         // Set the delimeter to nothing
         lex[lexi] = '\0';

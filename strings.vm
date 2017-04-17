@@ -46,6 +46,6 @@
 	
 #data
 	stw *longNum $5124				; Random for testing
-	str *testing "Hello!"			; String for testing
+	str *testing "Hello, world!"	; String for testing
 	stb *testAgain $42				; For testing purposes
 #end
