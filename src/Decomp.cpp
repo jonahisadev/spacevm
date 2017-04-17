@@ -366,6 +366,19 @@ namespace VM {
 					break;
 				}
 				
+				// STR
+				case STR_: {
+					std::printf("%s\t\"", "STR");
+					unsigned char c = data[++addr];
+					while (c != 0) {
+						std::printf("%c", (char)c);
+						c = data[++addr];
+					}
+					std::printf("\"");
+					addr++;
+					break;
+				}
+				
 				// DEFAULT
 				default: {
 					std::printf("???");
