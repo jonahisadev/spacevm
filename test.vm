@@ -1,5 +1,7 @@
 #entry main
 
+#include "strings.vm"
+
 :main
 	ldb %cx &min		; Start the counter
 	ldb %dx &max		; Set maximum

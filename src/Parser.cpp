@@ -160,6 +160,7 @@ namespace VM {
 		}
 
 		finalChecks:
+		// Backup check for EOF
 		if (i >= flen)
 			return;
 
@@ -211,6 +212,10 @@ namespace VM {
 				tokenList->add(new Token(TokenType::PPI, TokenPPI::ENTRY, line));
 				nextPPI = true;
 			}
+			else if (Util::strEquals(inst, "include")) {
+				tokenList->add(new Token(TokenType::PPI, TokenPPI::INCLUDE, line));
+				nextPPI = true;
+			}
 			else {
 				std::cerr << "Invalid Preprocessor: '" << inst << "'" << std::endl;
 				panic("Aborting");
@@ -219,6 +224,9 @@ namespace VM {
 			Token* lastToken = tokenList->get(tokenList->getPointer()-1);
 			if (lastToken->getData() == TokenPPI::ENTRY) {
 				this->beginLabel = const_cast<const char*>(Util::strDupFull(inst));
+			}
+			else if (lastToken->getData() == TokenPPI::INCLUDE) {
+				std::cout << "Will include " << inst << std::endl;
 			}
 			nextPPI = false;
 		}
