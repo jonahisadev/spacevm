@@ -226,7 +226,21 @@ namespace VM {
 				this->beginLabel = const_cast<const char*>(Util::strDupFull(inst));
 			}
 			else if (lastToken->getData() == TokenPPI::INCLUDE) {
-				std::cout << "Will include " << inst << std::endl;
+				// Parse
+				char* path = Util::strDup(inst, 1, Util::strLength(inst)-2);
+			    char* fileContents = VM::Util::readFile(path);
+				int flen = VM::Util::strLength(fileContents);
+			    ASSERT(fileContents, "File reading failure");
+			    Parser* subParser = new Parser(fileContents, flen);
+			    subParser->start();
+			    
+			    // Append data
+			    this->tokenList->appendList(subParser->tokenList);
+			    this->lblList->appendList(subParser->lblList);
+				this->jmpList->appendList(subParser->jmpList);
+				this->varList->appendList(subParser->varList);
+				this->addrList->appendList(subParser->addrList);
+				this->strList->appendList(subParser->strList);
 			}
 			nextPPI = false;
 		}

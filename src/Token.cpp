@@ -55,6 +55,12 @@ namespace VM {
 	Token* TokenList::get(int ptr) {
 		return this->data[ptr];
 	}
+	
+	void TokenList::appendList(TokenList* list) {
+		for (int i = 0; i < list->getPointer(); i++) {
+			this->add(list->get(i));
+		}
+	}
 
 	void TokenList::showList() {
 		Token* t;

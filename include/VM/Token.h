@@ -108,6 +108,7 @@ namespace VM {
 
 		void add(Token* t);
 		Token* get(int ptr);
+		void appendList(TokenList* list);
 
 		void showList();
 

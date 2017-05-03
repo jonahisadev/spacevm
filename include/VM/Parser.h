@@ -38,6 +38,7 @@ namespace VM {
 
         void setDebug(bool debug) { this->debug = debug; }
         inline bool isDebug() const { return debug; }
+		inline TokenList* getTokenList() const { return tokenList; }
 
         void start();
 		int checkInst(char* lex);

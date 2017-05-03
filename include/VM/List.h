@@ -20,6 +20,7 @@ namespace VM {
 		void add(T data);
 		T get(int ptr) const { return data[ptr]; }
 		void set(int ptr, T data);
+		void appendList(List<T>* list);
 		void showList();
 		
 		int getPointer() const { return ptr; }
@@ -54,6 +55,13 @@ namespace VM {
 	template <class T>
 	void List<T>::set(int ptr, T data) {
 		this->data[ptr] = data;
+	}
+	
+	template <class T>
+	void List<T>::appendList(List<T>* list) {
+		for (int i = 0; i < list->getPointer(); i++) {
+			this->add(list->get(i));
+		}
 	}
 	
 	template <class T>
