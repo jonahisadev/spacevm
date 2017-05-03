@@ -2,7 +2,21 @@
 ;	Exit the program
 ;	BX: Exit code
 ;
-
-:exit
+exit:
 	mov %ax $1
 	sysi
+	
+;
+;	Print new line
+;
+print_nl:
+	push %ax
+	push %bx
+	
+	mov %ax $3
+	mov %bx $10
+	sysi
+	
+	pop %bx
+	pop %ax
+	ret

@@ -2,6 +2,10 @@
 
 #include "lib/stdlib.vm"
 
-:main
+main:
+	mov %ax $2
 	mov %bx $42
+	sysi
+	
+	call @print_nl
 	call @exit

@@ -102,8 +102,8 @@ namespace VM {
 		}
 
 		// LABELS
-		else if (lex[0] == ':') {
-			char* labelName = Util::strDup(lex, 1, Util::strLength(lex));
+		else if (lex[Util::strLength(lex)-1] == ':') {
+			char* labelName = Util::strDup(lex, 0, Util::strLength(lex)-1);
 			// TODO: check for duplicates
 			lblList->add(labelName);
 			tokenList->add(new Token(TokenType::LBL, lblList->getPointer()-1, line));

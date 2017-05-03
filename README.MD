@@ -29,7 +29,8 @@ and debugging the current VM is priority along with the first couple of items.
 
 ### To Do
 
-* Improve labels and jumps/calls to them
+* Improve jumps/calls to labels
+* Figure out a way to debug with file inclusions
 * Implement high/low register access
 * Create and maintain documentation
 * Make a debugger for runtime
