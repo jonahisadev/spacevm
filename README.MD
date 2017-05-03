@@ -32,7 +32,8 @@ and debugging the current VM is priority along with the first couple of items.
 * Improve jumps/calls to labels
 * Figure out a way to debug with file inclusions
 * Implement high/low register access
-* Create and maintain documentation
+* Maintain documentation
+	* Add instruction set
 * Make a debugger for runtime
 * Sub-labels?
 * Implement more system calls
