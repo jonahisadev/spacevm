@@ -1,0 +1,8 @@
+;
+;	Exit the program
+;	BX: Exit code
+;
+
+:exit
+	mov %ax $1
+	sysi

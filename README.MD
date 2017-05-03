@@ -1,18 +1,17 @@
 # SpaceVM
 
-### Description
+## Description
 
 A simple virtual machine compiler/runtime. Made by a high school student,
 so it probably sucks a lot in terms of efficiency. The hope is to make it
 functional first (with a framework for speed), and then rebuild bits and
-pieces to make it better. The original idea for this project was to create
-a VM for a game that would include system level programming. As the registers
-and whatnot for this project are 16-bit, this isn't practically fit for
-common usage, or for a language to be implemented in. This project may be
-used for reference in the creation of a new VM in the future, fit more
-for practical application.
+pieces to make it better. Once a big portion of this is finished, I will be
+converting the whole system to 32-bit instead of 16-bit. Things will break.
+It will be difficult. But it'll be fun, and it'll be awesome.
 
-### Dev Notes
+## Dev Notes
+
+### Opcode Additions
 
 For adding opcodes, please have the following files open in the following 
 order:
@@ -30,8 +29,9 @@ and debugging the current VM is priority along with the first couple of items.
 
 ### To Do
 
+* Improve labels and jumps/calls to them
 * Implement high/low register access
-* Allow file inclusion
+* Create and maintain documentation
 * Make a debugger for runtime
 * Sub-labels?
 * Implement more system calls
