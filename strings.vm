@@ -1,6 +1,6 @@
 #entry main
 
-:main
+main:
 	mov %cx &testing				; Move addr to BX
 	call @printStr					; Print the string
 	call @printNL					; Print a new line
@@ -15,10 +15,10 @@
 	mov %bx $0
 	sysi
 	
-:printStr
+printStr:
 	push %ax						; Save AX
 
-:printStr_loop
+printStr_loop:
 	mov %ax $3						; Set system call to print chars
 	ptr %bx %cx						; Dereference
 	cmp %bx $0						; Compare end of string
@@ -27,11 +27,11 @@
 	inc %cx							; Increment pointer
 	jmp @printStr_loop				; Start over
 	
-:printStr_end
+printStr_end:
 	pop %ax							; Restore AX
 	ret
 	
-:printNL
+printNL:
 	push %ax
 	push %bx
 	

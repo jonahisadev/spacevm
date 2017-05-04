@@ -252,6 +252,8 @@ namespace VM {
 				this->varList->appendList(subParser->varList);
 				this->addrList->appendList(subParser->addrList);
 				this->strList->appendList(subParser->strList);
+				
+				// TODO: Increment pointer values tokenList
 			}
 			nextPPI = false;
 		}

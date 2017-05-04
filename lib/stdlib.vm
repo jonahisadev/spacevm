@@ -9,7 +9,7 @@ exit:
 ;
 ;	Print new line
 ;
-print_nl:
+printNL:
 	push %ax
 	push %bx
 	
@@ -19,4 +19,22 @@ print_nl:
 	
 	pop %bx
 	pop %ax
+	ret
+	
+;
+;	Print a string
+;	CX: Address of string
+;	
+printStr:
+	push %ax						; Save AX
+printStr_loop:
+	mov %ax $3						; Set system call to print chars
+	ptr %bx %cx						; Dereference
+	cmp %bx $0						; Compare end of string
+	jz @printStr_end				; Finish if 0
+	sysi							; System call
+	inc %cx							; Increment pointer
+	jmp @printStr_loop				; Start over
+printStr_end:
+	pop %ax							; Restore AX
 	ret
