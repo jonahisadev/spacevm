@@ -104,9 +104,20 @@ namespace VM {
 		// LABELS
 		else if (lex[Util::strLength(lex)-1] == ':') {
 			char* labelName = Util::strDup(lex, 0, Util::strLength(lex)-1);
-			// TODO: check for duplicates
-			lblList->add(labelName);
-			tokenList->add(new Token(TokenType::LBL, lblList->getPointer()-1, line));
+			bool exists = false;
+			for (int n = 0; n < lblList->getPointer(); n++) {
+				if (Util::strEquals(labelName, lblList->get(n))) {
+					exists = true;
+					break;
+				}
+			}
+			if (!exists) {
+				lblList->add(labelName);
+				tokenList->add(new Token(TokenType::LBL, lblList->getPointer()-1, line));
+			} else {
+				std::cerr << "Duplicate label (" << line << ") : " << labelName << std::endl;
+				panic("Aborting");
+			}
 		}
 		else if (lex[0] == '@') {	
 			char* jumpName = Util::strDup(lex, 1, Util::strLength(lex));

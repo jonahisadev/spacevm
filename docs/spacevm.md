@@ -4,6 +4,8 @@
 
 * [Compiler Chain](#compiler-chain)
 * [Basic Syntax](#basic-syntax)
+* [Instruction Set](#instruction-set)
+* [Limitations](#limitations)
 
 ---
 
@@ -90,5 +92,34 @@ Some more syntactical notes:
 
 To see more examples of these, please look at `strings.vm` in the root
 directory of the repository.
+
+---
+
+## Instruction Set
+
+Legend:
+* R = Register
+* N = Number
+* A = Address
+* V = Variable
+* L = Label
+
+**_Remember:_** Arguments are NOT separated by commas in code
+
+| Instruction 	| Arguments 			| Description 		|
+| ------------- | --------------------- | ----------------- |
+| `MOV`		  	| R,R / R,N / R,A		| Move a value to a register |
+| `ADD`		  	| R,R / R,N				| Add a value into a register |
+| `SUB`		  	| R,R / R,N				| Subtract a value into a register |
+| `CALL`		| L						| Call a routine (routine must return) |
+| `RET`			|						| Return from a routine call |
+
+---
+
+## Limitations
+
+* The current system is 16-bit. Values over 0xFFFF or 65535 will probably break 
+the system (unless you combine registers by some sort of magic)
+* Only include files one time. Any extra time will create duplicate symbols
 
 ---

@@ -19,7 +19,7 @@ namespace VM {
 			if (opcode == HLT_)
 				break;
 				
-			std::printf("%04d: ", addr);
+			std::printf("%04X: ", addr);
 			
 			switch(opcode) {
 				// NOP
@@ -45,7 +45,7 @@ namespace VM {
 					break;
 				}
 				case MOV_RA: {
-					std::printf("MOV \t%s &%02d%02d", 
+					std::printf("MOV \t%s &%02X%02X", 
 					Token::getRegister(data[addr+1]), 
 					data[addr+2], data[addr+3]);
 					addr += 4;
@@ -86,7 +86,7 @@ namespace VM {
 				
 				// CALL
 				case CALL_: {
-					std::printf("CALL \t&%02d%02d",
+					std::printf("CALL \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
@@ -215,55 +215,55 @@ namespace VM {
 				
 				// JUMPS
 				case JMP_: {
-					std::printf("JMP \t&%02d%02d",
+					std::printf("JMP \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JNE_: {
-					std::printf("JNE \t&%02d%02d",
+					std::printf("JNE \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JE_: {
-					std::printf("JE \t&%02d%02d",
+					std::printf("JE \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JG_: {
-					std::printf("JG \t&%02d%02d",
+					std::printf("JG \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JL_: {
-					std::printf("JL \t&%02d%02d",
+					std::printf("JL \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JGE_: {
-					std::printf("JGE \t&%02d%02d",
+					std::printf("JGE \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JLE_: {
-					std::printf("JLE \t&%02d%02d",
+					std::printf("JLE \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JZ_: {
-					std::printf("JZ \t&%02d%02d",
+					std::printf("JZ \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JNZ_: {
-					std::printf("JNZ \t&%02d%02d",
+					std::printf("JNZ \t&%02X%02X",
 					data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
@@ -342,7 +342,7 @@ namespace VM {
 				
 				// LDB
 				case LDB_: {
-					std::printf("LDB \t%s &%02d%02d",
+					std::printf("LDB \t%s &%02X%02X",
 					Token::getRegister(data[addr+1]),
 					data[addr+2], data[addr+3]);
 					addr += 4;
@@ -359,7 +359,7 @@ namespace VM {
 				
 				// LDW
 				case LDW_: {
-					std::printf("LDW \t%s &%02d%02d",
+					std::printf("LDW \t%s &%02X%02X",
 					Token::getRegister(data[addr + 1]),
 					data[addr+2], data[addr+3]);
 					addr += 4;

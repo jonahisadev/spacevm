@@ -1,11 +1,15 @@
 #entry main
 
-#include "lib/stdlib.vm"
-
 main:
 	mov %ax $2
-	mov %bx $42
+	ldb %bx &test
 	sysi
 	
 	call @print_nl
 	call @exit
+	
+#include "lib/stdlib.vm"
+
+#data
+	stb *test $42
+#end
