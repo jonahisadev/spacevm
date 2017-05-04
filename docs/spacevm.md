@@ -5,6 +5,7 @@
 * [Compiler Chain](#compiler-chain)
 * [Basic Syntax](#basic-syntax)
 * [Instruction Set](#instruction-set)
+* [System Interrupts](#system-interrupts)
 * [Limitations](#limitations)
 
 ---
@@ -41,7 +42,7 @@ writes to a data buffer the according bytecode. Once the end of the token list
 has been reached, the compiler writes the bytecode to a binary file, ready for
 the runtime.
 
-The compiler has a sort of symantics checker, which can be programmed into
+The compiler has a sort of semantics checker, which can be programmed into
 the compiler by hand. It wouldn't make sense to subtract a number from an
 instruction, so the compiler makes sure that doesn't happen.
 
@@ -103,6 +104,7 @@ Legend:
 * A = Address
 * V = Variable
 * L = Label
+* 0 = No arguments
 
 **_Remember:_** Arguments are NOT separated by commas in code
 
@@ -112,7 +114,47 @@ Legend:
 | `ADD`		  	| R,R / R,N				| Add a value into a register |
 | `SUB`		  	| R,R / R,N				| Subtract a value into a register |
 | `CALL`		| L						| Call a routine (routine must return) |
-| `RET`			|						| Return from a routine call |
+| `RET`			| 0						| Return from a routine call |
+| `SYSI`		| 0						| Run a system interrupt |
+| `MUL`			| R,R / R,N				| Multiply a value into a register |
+| `DIV`			| R,R / R,N				| Divide a value into a register (remainder goes in RM register) |
+| `SXR`			| R						| Shift a register right |
+| `SXL`			| R						| Shift a register left |
+| `INC`			| R						| Increment a register |
+| `DEC`			| R						| Decrement a register |
+| `PUSH`		| R / N					| Push a value to the stack |
+| `POP`			| R / 0					| Pop a value from the stack to a register or thin air |
+| `CMP`			| R,R / R,N				| Compare two values (sets flags) |
+| `JMP`			| L						| Jump unconditionally to a label |
+| `JNE`			| L						| Jump if not equal |
+| `JE`			| L						| Jump if equal |
+| `JG`			| L						| Jump if greater than |
+| `JL`			| L						| Jump if less than |
+| `JGE`			| L						| Jump if greater than or equal |
+| `JLE`			| L						| Jump if less than or equal |
+| `JZ`			| L						| Jump if difference is zero |
+| `JNZ`			| L						| Jump if difference is not zero |
+| `AND`			| R,R / R,N				| AND two values into a register |
+| `OR`			| R,R / R,N				| OR two values into a register |
+| `XOR`			| R,R / R,N				| XOR two values into a register |
+| `HLT`			| 0						| Terminate the program immediately |
+| `PTR`			| R / R,R				| Dereference a pointer either into a separate register or into the same one |
+| `STB`			| V,N					| Store a byte |
+| `LDB`			| R,A					| Load byte into register |
+| `STW`			| V,N					| Store word |
+| `LDW`			| R,A					| Load word into register |
+| `STR`			| V,STR					| Store a string |
+
+---
+
+## System Interrupts
+
+| Interrupt 	| Arguments (BX, CX, ...) 	| Description 		|
+| ------------- | ------------------------- | ----------------- |
+| `0x01`		| `exit_code`				| Exit the program |
+| `0x02`		| `byte`					| Print a byte to console |
+| `0x03`		| `char`					| Print a char to console |
+| `0x04`		| `word`					| Print a word to console |
 
 ---
 
@@ -121,5 +163,8 @@ Legend:
 * The current system is 16-bit. Values over 0xFFFF or 65535 will probably break 
 the system (unless you combine registers by some sort of magic)
 * Only include files one time. Any extra time will create duplicate symbols
+* Parser only supports lowercase instructions
+* Some syntactical and/or semantic errors may not give all necessary
+information to properly debug the issue.
 
 ---

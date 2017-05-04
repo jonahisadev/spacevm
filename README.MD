@@ -33,7 +33,7 @@ and debugging the current VM is priority along with the first couple of items.
 * Figure out a way to debug with file inclusions
 * Implement high/low register access
 * Maintain documentation
-	* Continue instruction set
+	* Add register list
 	* Continue limitations
 * Make a debugger for runtime
 * Sub-labels?
