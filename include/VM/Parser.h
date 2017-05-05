@@ -35,6 +35,7 @@ namespace VM {
 		void showLabelLists();
 		Compiler* createCompiler(const char* path);
 		void ppi(char* inst, int line);
+		void includeFile(char* file);
 
         void setDebug(bool debug) { this->debug = debug; }
         inline bool isDebug() const { return debug; }

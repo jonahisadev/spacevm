@@ -237,25 +237,47 @@ namespace VM {
 				this->beginLabel = const_cast<const char*>(Util::strDupFull(inst));
 			}
 			else if (lastToken->getData() == TokenPPI::INCLUDE) {
-				// Parse
-				char* path = Util::strDup(inst, 1, Util::strLength(inst)-2);
-			    char* fileContents = VM::Util::readFile(path);
-				int flen = VM::Util::strLength(fileContents);
-			    ASSERT(fileContents, "File reading failure");
-			    Parser* subParser = new Parser(fileContents, flen);
-			    subParser->start();
-			    
-			    // Append data
-			    this->tokenList->appendList(subParser->tokenList);
-			    this->lblList->appendList(subParser->lblList);
-				this->jmpList->appendList(subParser->jmpList);
-				this->varList->appendList(subParser->varList);
-				this->addrList->appendList(subParser->addrList);
-				this->strList->appendList(subParser->strList);
-				
-				// TODO: Increment pointer values tokenList
+				includeFile(inst);
 			}
 			nextPPI = false;
+		}
+	}
+	
+	void Parser::includeFile(char* file) {
+		// Parse
+		char* path = Util::strDup(file, 1, Util::strLength(file)-2);
+		char* fileContents = VM::Util::readFile(path);
+		int flen = VM::Util::strLength(fileContents);
+		ASSERT(fileContents, "File reading failure");
+		Parser* subParser = new Parser(fileContents, flen);
+		subParser->start();
+		
+		// Save offsets
+		int tokenSize = tokenList->getPointer();
+		int lblSize = lblList->getPointer();
+		int jmpSize = jmpList->getPointer();
+		int addrSize = addrList->getPointer();
+		int strSize = strList->getPointer();
+		
+		// Append data
+		this->tokenList->appendList(subParser->tokenList);
+		this->lblList->appendList(subParser->lblList);
+		this->jmpList->appendList(subParser->jmpList);
+		this->varList->appendList(subParser->varList);
+		this->addrList->appendList(subParser->addrList);
+		this->strList->appendList(subParser->strList);
+		
+		// Correct included pointers
+		for (int i = tokenSize-1; i < this->tokenList->getPointer(); i++) {
+			Token* t = this->tokenList->get(i);
+			if (t->getType() == TokenType::LBL)
+				t->setData(t->getData() + lblSize);
+			else if (t->getType() == TokenType::JMP_T)
+				t->setData(t->getData() + jmpSize);
+			else if (t->getType() == TokenType::ADDR)
+				t->setData(t->getData() + addrSize);
+			else if (t->getType() == TokenType::STRING)
+				t->setData(t->getData() + strSize);
 		}
 	}
 
