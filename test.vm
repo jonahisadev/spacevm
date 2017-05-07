@@ -5,8 +5,7 @@ main:
 	call @printStr
 	call @printNL
 	
-	mov %bx &test
-	ptr %bx
+	ldb %bx &test
 	call @square
 	mov %bx %dx
 	call @exit

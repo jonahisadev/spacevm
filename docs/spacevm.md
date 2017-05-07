@@ -159,7 +159,7 @@ Legend:
 
 ---
 
-## Memory Layouts
+## Memory Layout
 
 The below table assumes the base of the runtime memory is at the bottom, and
 the max is at the top. There is no padding between the specific areas of
