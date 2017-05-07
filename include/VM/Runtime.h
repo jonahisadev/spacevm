@@ -14,6 +14,7 @@ namespace VM {
 	private:
 		int retCode;
 		const int MEMORY_SIZE = 0x10000;
+		const int PROG_BASE = 0x1000;
 		const int STACK_MAX = 0xE000;
 		const int VAR_OFFSET = 0x4000;
 
@@ -21,11 +22,10 @@ namespace VM {
 		short rm = 0;
 		unsigned short cf = 0b0000;
 		unsigned short sp = 0x8000-1;
-		unsigned short pc = 0;
+		unsigned short pc = PROG_BASE + 2;
 
 		unsigned short var_ptr = 0;
-
-		unsigned char* data;
+		
 		unsigned char* memory;
 
 		void sys_exit(int code);
@@ -47,6 +47,7 @@ namespace VM {
 		// 0100 = Greater than
 		// 1000 = Zero
 		void cmp(short a, short b);
+		void jump();
 		bool getFlag(int ptr);
 
 		int getReturnCode() const { return retCode; }

@@ -5,11 +5,16 @@ main:
 	call @printStr
 	call @printNL
 	
-	mov %bx $42
+	mov %bx &test
+	ptr %bx
+	call @square
+	mov %bx %dx
 	call @exit
 
 #include "lib/stdlib.vm"
+#include "lib/math.vm"
 
 #data
 	str *hello "Hello!"
+	stb *test $5
 #end

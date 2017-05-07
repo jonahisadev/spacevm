@@ -6,6 +6,7 @@
 * [Basic Syntax](#basic-syntax)
 * [Instruction Set](#instruction-set)
 * [System Interrupts](#system-interrupts)
+* [Memory Layout](#memory-layout)
 * [Limitations](#limitations)
 
 ---
@@ -155,6 +156,26 @@ Legend:
 | `0x02`		| `byte`					| Print a byte to console |
 | `0x03`		| `char`					| Print a char to console |
 | `0x04`		| `word`					| Print a word to console |
+
+---
+
+## Memory Layouts
+
+The below table assumes the base of the runtime memory is at the bottom, and
+the max is at the top. There is no padding between the specific areas of
+memory. Offsets are set in the runtime header. The addresses listed are the
+bases of each section. It should be noted that the stack grows upward instead
+of downwards. Because I'm lazy.
+
+| Address 	| Description 	|
+| --------- | ------------- |
+| `0x10000`	| MAX			|
+| `0xF000`	| Reserved		|
+| `0xE000`	| Video Memory (Not used) |
+| `0x8000`	| Stack 		|
+| `0x4000`	| Variables		|
+| `0x1000`	| Program		|
+| `0x0000`	| BASE			|
 
 ---
 

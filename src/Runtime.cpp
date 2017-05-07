@@ -4,12 +4,20 @@ namespace VM {
 
 	Runtime::Runtime(unsigned char* data) {
 		this->retCode = 0;
-		this->data = data;
 		this->memory = new unsigned char[MEMORY_SIZE];
+		
+		unsigned char aLen = data[0];
+		unsigned char bLen = data[1];
+		unsigned short binLen = Util::bToS(aLen, bLen);
+		
+		for (int i = 0; i < binLen; i++) {
+			this->memory[PROG_BASE + i] = data[i];
+		}
+		
+		delete[] data;
 	}
 
 	Runtime::~Runtime() {
-		delete[] this->data;
 		delete[] this->memory;
 	}
 
@@ -18,7 +26,7 @@ namespace VM {
 		
 		while (opcode != ByteInst::HLT_) {
 			startWhile:
-			opcode = this->data[this->pc];
+			opcode = this->memory[this->pc];
 
 			switch (opcode) {
 				
@@ -74,6 +82,8 @@ namespace VM {
 
 					short* destPtr = getRegister(dest);
 					short* srcPtr = getRegister(src);
+					
+					std::cout << destPtr << ", " << srcPtr << std::endl;
 
 					*destPtr += *srcPtr;
 					break;
@@ -107,9 +117,7 @@ namespace VM {
 					push(data[0]);
 					
 					// Jump to address
-					unsigned char addrA = getNextByte();
-					unsigned char addrB = getNextByte();
-					this->pc = Util::bToS(addrA, addrB);
+					jump();
 					goto startWhile;
 				}
 				
@@ -258,16 +266,12 @@ namespace VM {
 			
 				// JUMPS
 				case ByteInst::JMP_: {
-					unsigned char addrA = getNextByte();
-					unsigned char addrB = getNextByte();
-					this->pc = Util::bToS(addrA, addrB);
+					jump();
 					goto startWhile;
 				}
 				case ByteInst::JNE_: {
 					if (!getFlag(1)) {
-						unsigned char addrA = getNextByte();
-						unsigned char addrB = getNextByte();
-						this->pc = Util::bToS(addrA, addrB);
+						jump();
 						goto startWhile;
 					}
 					this->pc += 2;
@@ -275,9 +279,7 @@ namespace VM {
 				}
 				case ByteInst::JE_: {
 					if (getFlag(1)) {
-						unsigned char addrA = getNextByte();
-						unsigned char addrB = getNextByte();
-						this->pc = Util::bToS(addrA, addrB);
+						jump();
 						goto startWhile;
 					}
 					this->pc += 2;
@@ -285,9 +287,7 @@ namespace VM {
 				}
 				case ByteInst::JG_: {
 					if (getFlag(3)) {
-						unsigned char addrA = getNextByte();
-						unsigned char addrB = getNextByte();
-						this->pc = Util::bToS(addrA, addrB);
+						jump();
 						goto startWhile;
 					}
 					this->pc += 2;
@@ -295,9 +295,7 @@ namespace VM {
 				}
 				case ByteInst::JL_: {
 					if (getFlag(2)) {
-						unsigned char addrA = getNextByte();
-						unsigned char addrB = getNextByte();
-						this->pc = Util::bToS(addrA, addrB);
+						jump();
 						goto startWhile;
 					}
 					this->pc += 2;
@@ -305,9 +303,7 @@ namespace VM {
 				}
 				case ByteInst::JGE_: {
 					if (getFlag(1) || getFlag(3)) {
-						unsigned char addrA = getNextByte();
-						unsigned char addrB = getNextByte();
-						this->pc = Util::bToS(addrA, addrB);
+						jump();
 						goto startWhile;
 					}
 					this->pc += 2;
@@ -315,9 +311,7 @@ namespace VM {
 				}
 				case ByteInst::JLE_: {
 					if (getFlag(1) || getFlag(2)) {
-						unsigned char addrA = getNextByte();
-						unsigned char addrB = getNextByte();
-						this->pc = Util::bToS(addrA, addrB);
+						jump();
 						goto startWhile;
 					}
 					this->pc += 2;
@@ -325,9 +319,7 @@ namespace VM {
 				}
 				case ByteInst::JZ_: {
 					if (getFlag(4)) {
-						unsigned char addrA = getNextByte();
-						unsigned char addrB = getNextByte();
-						this->pc = Util::bToS(addrA, addrB);
+						jump();
 						goto startWhile;
 					}
 					this->pc += 2;
@@ -335,9 +327,7 @@ namespace VM {
 				}
 				case ByteInst::JNZ_: {
 					if (!getFlag(4)) {
-						unsigned char addrA = getNextByte();
-						unsigned char addrB = getNextByte();
-						this->pc = Util::bToS(addrA, addrB);
+						jump();
 						goto startWhile;
 					}
 					this->pc += 2;
@@ -515,7 +505,7 @@ namespace VM {
 	}
 
 	unsigned char Runtime::getNextByte() {
-		return this->data[++this->pc];
+		return this->memory[++this->pc];
 	}
 
 	void Runtime::push(unsigned char data) {
@@ -547,6 +537,12 @@ namespace VM {
 			this->cf |= 0b1000;
 		else
 			this->cf &= 0b0111;
+	}
+	
+	void Runtime::jump() {
+		unsigned char addrA = getNextByte();
+		unsigned char addrB = getNextByte();
+		this->pc = Util::bToS(addrA, addrB) + PROG_BASE;
 	}
 	
 	bool Runtime::getFlag(int ptr) {

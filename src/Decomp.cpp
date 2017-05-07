@@ -11,7 +11,13 @@ namespace VM {
 	}
 	
 	void Decomp::start() {
-		unsigned short addr = 0;
+		unsigned char a = data[0];
+		unsigned char b = data[1];
+		unsigned short binLen = Util::bToS(a, b);
+		
+		std::printf("LEN:  %d\n", binLen);
+		
+		unsigned short addr = 2;
 		bool running = true;
 		
 		while (running) {

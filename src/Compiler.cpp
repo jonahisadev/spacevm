@@ -53,7 +53,11 @@ namespace VM {
 	}
 
 	void Compiler::start() {
-		for (int i = 0; i < 6; i++) {
+		//	
+		//	| 2      | 4         | 4          |
+		//	| Length | Data Addr | Entry Addr |
+		//
+		for (int i = 0; i < 8; i++) {
 			writeByte(0x00);
 		}
 		
@@ -429,9 +433,9 @@ namespace VM {
 				if (t->getData() == TokenPPI::DATA) {
 					currentDataSection = true;
 					unsigned char* addrw = Util::sToB(this->addr);
-					this->textBuf->set(0, ByteInst::CALL_);
-					this->textBuf->set(1, addrw[0]);
-					this->textBuf->set(2, addrw[1]);
+					this->textBuf->set(2, ByteInst::CALL_);
+					this->textBuf->set(3, addrw[0]);
+					this->textBuf->set(4, addrw[1]);
 				} else if (t->getData() == TokenPPI::END) {
 					if (currentDataSection) {
 						writeByte(ByteInst::RET_);
@@ -507,14 +511,20 @@ namespace VM {
 			if (Util::strEquals(lblList->get(i), this->beginLabel)) {
 				unsigned short addr = lblMap->getDataB(i);
 				unsigned char* addrw = Util::sToB(addr);
-				this->textBuf->set(3, ByteInst::JMP_);
-				this->textBuf->set(4, addrw[0]);
-				this->textBuf->set(5, addrw[1]);
+				this->textBuf->set(5, ByteInst::JMP_);
+				this->textBuf->set(6, addrw[0]);
+				this->textBuf->set(7, addrw[1]);
 				break;
 			}
 		}
 
 		writeByte(ByteInst::HLT_);
+		
+		unsigned short binLen = this->textBuf->getPointer();
+		unsigned char* binLenW = Util::sToB(binLen);
+		this->textBuf->set(0, binLenW[0]);
+		this->textBuf->set(1, binLenW[1]);
+		
 		writeOutputFile();
 	}
 

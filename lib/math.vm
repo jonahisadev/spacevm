@@ -1,0 +1,11 @@
+;
+;	Square a number
+;	BX: Number to square
+;	Return: DX
+;
+square:
+	push %bx
+	mul %bx %bx
+	mov %dx %bx
+	pop %bx
+	ret
