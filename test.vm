@@ -5,9 +5,12 @@ main:
 	call @printStr
 	call @printNL
 	
-	ldb %bx &test
-	call @square
-	mov %bx %dx
+	mov %bl 0x23
+	mov %bh 0x01
+	call @printNum
+	call @printNL
+	
+	mov %bx $0
 	call @exit
 
 #include "lib/stdlib.vm"
@@ -15,5 +18,4 @@ main:
 
 #data
 	str *hello "Hello!"
-	stb *test $5
 #end

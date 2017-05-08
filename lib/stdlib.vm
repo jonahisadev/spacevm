@@ -38,3 +38,14 @@ printStr_loop:
 printStr_end:
 	pop %ax							; Restore AX
 	ret
+	
+;
+;	Print a number
+;	BX: Number
+;
+printNum:
+	push %ax
+	mov %ax $4
+	sysi
+	pop %ax
+	ret

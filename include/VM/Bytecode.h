@@ -66,33 +66,10 @@ namespace VM {
 	};
 
 	enum ByteReg {
-		AX_ = 0x00,
-		BX_ = 0x01,
-		CX_ = 0x02,
-		DX_ = 0x03,
-		XX_ = 0x04,
-		YX_ = 0x05,
-
-		AL_ = 0x10,
-		BL_ = 0x11,
-		CL_ = 0x12,
-		DL_ = 0x13,
-		XL_ = 0x14,
-		YL_ = 0x15,
-
-		AH_ = 0x20,
-		BH_ = 0x21,
-		CH_ = 0x22,
-		DH_ = 0x23,
-		XH_ = 0x24,
-		YH_ = 0x25,
-
-		CF_ = 0x30,
-		CY_ = 0x31,
-		BP_ = 0x32,
-		SP_ = 0x33,
-		RM_ = 0x34,
-		PC_ = 0x35,
+		AX_, BX_, CX_, DX_, XX_, YX_,
+		AL_, BL_, CL_, DL_, XL_, YL_,
+		AH_, BH_, CH_, DH_, XH_, YH_,
+		CF_, CY_, BP_, SP_, RM_, PC_
 	};
 
 } // namespace VM

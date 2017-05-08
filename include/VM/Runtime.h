@@ -7,6 +7,7 @@
 
 #include <VM/Util.h>
 #include <VM/Bytecode.h>
+#include <VM/Register.h>
 
 namespace VM {
 
@@ -17,9 +18,15 @@ namespace VM {
 		const int PROG_BASE = 0x1000;
 		const int STACK_MAX = 0xE000;
 		const int VAR_OFFSET = 0x4000;
-
-		short ax, bx, cx, dx, xx, yx = 0;
-		short rm = 0;
+		
+		Register* ax = new Register(ByteReg::AX_);
+		Register* bx = new Register(ByteReg::BX_);
+		Register* cx = new Register(ByteReg::CX_);
+		Register* dx = new Register(ByteReg::DX_);
+		Register* xx = new Register(ByteReg::XX_);
+		Register* yx = new Register(ByteReg::YX_);
+		Register* rm = new Register(ByteReg::RM_);
+		
 		unsigned short cf = 0b0000;
 		unsigned short sp = 0x8000-1;
 		unsigned short pc = PROG_BASE + 2;
@@ -52,7 +59,7 @@ namespace VM {
 
 		int getReturnCode() const { return retCode; }
 
-		short* getRegister(unsigned char reg);
+		Register* getRegister(unsigned char reg);
 	};
 
 } // namespace VM

@@ -40,18 +40,18 @@ namespace VM {
 					unsigned char reg = getNextByte();
 					unsigned char val = getNextByte();
 
-					short* regPtr = getRegister(reg);
-					*regPtr = val;
+					Register* regPtr = getRegister(reg);
+					regPtr->set(val);
 					break;
 				}
 				case ByteInst::MOV_RR: {
 					unsigned char dest = getNextByte();
 					unsigned char src = getNextByte();
 
-					short* destPtr = getRegister(dest);
-					short* srcPtr = getRegister(src);
+					Register* destPtr = getRegister(dest);
+					Register* srcPtr = getRegister(src);
 
-					*destPtr = *srcPtr;
+					destPtr->set(srcPtr->get());
 					break;
 				}
 				case ByteInst::MOV_RA: {
@@ -62,8 +62,8 @@ namespace VM {
 					unsigned short addr = Util::bToS(a, b);
 					addr += VAR_OFFSET;
 					
-					short* regPtr = getRegister(reg);
-					*regPtr = (short)addr;
+					Register* regPtr = getRegister(reg);
+					regPtr->set((short)addr);
 					break;
 				}
 
@@ -72,20 +72,18 @@ namespace VM {
 					unsigned char reg = getNextByte();
 					unsigned char val = getNextByte();
 
-					short* regPtr = getRegister(reg);
-					*regPtr += val;
+					Register* regPtr = getRegister(reg);
+					regPtr->set(regPtr->get() + val);
 					break;
 				}
 				case ByteInst::ADD_RR: {
 					unsigned char dest = getNextByte();
 					unsigned char src = getNextByte();
 
-					short* destPtr = getRegister(dest);
-					short* srcPtr = getRegister(src);
-					
-					std::cout << destPtr << ", " << srcPtr << std::endl;
+					Register* destPtr = getRegister(dest);
+					Register* srcPtr = getRegister(src);
 
-					*destPtr += *srcPtr;
+					destPtr->set(destPtr->get() + srcPtr->get());
 					break;
 				}
 
@@ -94,18 +92,18 @@ namespace VM {
 					unsigned char reg = getNextByte();
 					unsigned char val = getNextByte();
 
-					short* regPtr = getRegister(reg);
-					*regPtr -= val;
+					Register* regPtr = getRegister(reg);
+					regPtr->set(regPtr->get() - val);
 					break;
 				}
 				case ByteInst::SUB_RR: {
 					unsigned char dest = getNextByte();
 					unsigned char src = getNextByte();
 
-					short* destPtr = getRegister(dest);
-					short* srcPtr = getRegister(src);
+					Register* destPtr = getRegister(dest);
+					Register* srcPtr = getRegister(src);
 
-					*destPtr -= *srcPtr;
+					destPtr->set(destPtr->get() - srcPtr->get());
 					break;
 				}
 				
@@ -137,18 +135,18 @@ namespace VM {
 					unsigned char reg = getNextByte();
 					unsigned char val = getNextByte();
 
-					short* regPtr = getRegister(reg);
-					*regPtr *= val;
+					Register* regPtr = getRegister(reg);
+					regPtr->set(regPtr->get() * val);
 					break;
 				}
 				case ByteInst::MUL_RR: {
 					unsigned char dest = getNextByte();
 					unsigned char src = getNextByte();
 
-					short* destPtr = getRegister(dest);
-					short* srcPtr = getRegister(src);
+					Register* destPtr = getRegister(dest);
+					Register* srcPtr = getRegister(src);
 
-					*destPtr *= *srcPtr;
+					destPtr->set(destPtr->get() * srcPtr->get());
 					break;
 				}
 
@@ -157,11 +155,11 @@ namespace VM {
 					unsigned char reg = getNextByte();
 					unsigned char val = getNextByte();
 
-					short* regPtr = getRegister(reg);
-					short save = *regPtr;
+					Register* regPtr = getRegister(reg);
+					short save = regPtr->get();
 
-					*regPtr = (short)floor((float)*regPtr / (float)val);
-					this->rm = (short)((int)save % (int)val);
+					regPtr->set((short)floor((float)regPtr->get() / (float)val));
+					this->rm->set((short)((int)save % (int)val));
 					
 					break;
 				}
@@ -169,12 +167,12 @@ namespace VM {
 					unsigned char dest = getNextByte();
 					unsigned char src = getNextByte();
 
-					short* destPtr = getRegister(dest);
-					short* srcPtr = getRegister(src);
-					short save = *destPtr;
+					Register* destPtr = getRegister(dest);
+					Register* srcPtr = getRegister(src);
+					short save = destPtr->get();
 
-					*destPtr = (short)floor((float)*destPtr / (float)*srcPtr);
-					this->rm = (short)((int)save % (int)*srcPtr);
+					destPtr->set((short)floor((float)destPtr->get() / (float)srcPtr->get()));
+					this->rm->set((short)((int)save % (int)srcPtr->get()));
 					
 					break;
 				}
@@ -182,45 +180,45 @@ namespace VM {
 				// SXL
 				case ByteInst::SXL_R: {
 					unsigned char reg = getNextByte();
-					short* regPtr = getRegister(reg);
+					Register* regPtr = getRegister(reg);
 
-					*regPtr = *regPtr << 1;
+					regPtr->set(regPtr->get() << 1);
 					break;
 				}
 
 				// SXR
 				case ByteInst::SXR_R: {
 					unsigned char reg = getNextByte();
-					short* regPtr = getRegister(reg);
+					Register* regPtr = getRegister(reg);
 
-					*regPtr = *regPtr >> 1;
+					regPtr->set(regPtr->get() >> 1);
 					break;
 				}
 
 				// INC
 				case ByteInst::INC_R: {
 					unsigned char reg = getNextByte();
-					short* regPtr = getRegister(reg);
+					Register* regPtr = getRegister(reg);
 
-					*regPtr += 1;
+					regPtr->set(regPtr->get() + 1);
 					break;
 				}
 
 				// DEC
 				case ByteInst::DEC_R: {
 					unsigned char reg = getNextByte();
-					short* regPtr = getRegister(reg);
+					Register* regPtr = getRegister(reg);
 
-					*regPtr -= 1;
+					regPtr->set(regPtr->get() - 1);
 					break;
 				}
 
 				// PUSH
 				case ByteInst::PUSH_R: {
 					unsigned char reg = getNextByte();
-					short* regPtr = getRegister(reg);
+					Register* regPtr = getRegister(reg);
 
-					unsigned char data = *regPtr;
+					unsigned char data = regPtr->get();
 					push(data);
 					break;
 				}
@@ -233,9 +231,9 @@ namespace VM {
 				// POP
 				case ByteInst::POP_R: {
 					unsigned char reg = getNextByte();
-					short* regPtr = getRegister(reg);
+					Register* regPtr = getRegister(reg);
 
-					*regPtr = pop();
+					regPtr->set(pop());
 					break;
 				}
 				case ByteInst::POP_X: {
@@ -248,19 +246,19 @@ namespace VM {
 					unsigned char a = getNextByte();
 					unsigned char b = getNextByte();
 					
-					short* aPtr = getRegister(a);
-					short* bPtr = getRegister(b);
+					Register* aPtr = getRegister(a);
+					Register* bPtr = getRegister(b);
 					
-					cmp(*aPtr, *bPtr);
+					cmp(aPtr->get(), bPtr->get());
 					break;
 				}
 				case ByteInst::CMP_RN: {
 					unsigned char a = getNextByte();
 					unsigned char b = getNextByte();
 					
-					short* aPtr = getRegister(a);
+					Register* aPtr = getRegister(a);
 					
-					cmp(*aPtr, b);
+					cmp(aPtr->get(), b);
 					break;
 				}
 			
@@ -339,18 +337,18 @@ namespace VM {
 					unsigned char reg = getNextByte();
 					unsigned char val = getNextByte();
 					
-					short* regPtr = getRegister(reg);
-					*regPtr &= val;
+					Register* regPtr = getRegister(reg);
+					regPtr->set(regPtr->get() & val);
 					break;
 				}
 				case ByteInst::AND_RR: {
 					unsigned char a = getNextByte();
 					unsigned char b = getNextByte();
 					
-					short* aPtr = getRegister(a);
-					short* bPtr = getRegister(b);
+					Register* aPtr = getRegister(a);
+					Register* bPtr = getRegister(b);
 					
-					*aPtr &= *bPtr;
+					aPtr->set(aPtr->get() & bPtr->get());
 					break;
 				}
 				
@@ -359,18 +357,18 @@ namespace VM {
 					unsigned char reg = getNextByte();
 					unsigned char val = getNextByte();
 					
-					short* regPtr = getRegister(reg);
-					*regPtr |= val;
+					Register* regPtr = getRegister(reg);
+					regPtr->set(regPtr->get() | val);
 					break;
 				}
 				case ByteInst::OR_RR: {
 					unsigned char a = getNextByte();
 					unsigned char b = getNextByte();
 					
-					short* aPtr = getRegister(a);
-					short* bPtr = getRegister(b);
+					Register* aPtr = getRegister(a);
+					Register* bPtr = getRegister(b);
 					
-					*aPtr |= *bPtr;
+					aPtr->set(aPtr->get() | bPtr->get());
 					break;
 				}
 				
@@ -379,39 +377,39 @@ namespace VM {
 					unsigned char reg = getNextByte();
 					unsigned char val = getNextByte();
 					
-					short* regPtr = getRegister(reg);
-					*regPtr ^= val;
+					Register* regPtr = getRegister(reg);
+					regPtr->set(regPtr->get() ^ val);
 					break;
 				}
 				case ByteInst::XOR_RR: {
 					unsigned char a = getNextByte();
 					unsigned char b = getNextByte();
 					
-					short* aPtr = getRegister(a);
-					short* bPtr = getRegister(b);
+					Register* aPtr = getRegister(a);
+					Register* bPtr = getRegister(b);
 					
-					*aPtr ^= *bPtr;
+					aPtr->set(aPtr->get() ^ bPtr->get());
 					break;
 				}
 				
 				// PTR
 				case ByteInst::PTR_R: {
 					unsigned char reg = getNextByte();
-					short* regPtr = getRegister(reg);
+					Register* regPtr = getRegister(reg);
 					
-					unsigned char data = memory[*regPtr];
-					*regPtr = data;
+					unsigned char data = memory[regPtr->get()];
+					regPtr->set(data);
 					break;
 				}
 				case ByteInst::PTR_RR: {
 					unsigned char a = getNextByte();
 					unsigned char b = getNextByte();
 					
-					short* aPtr = getRegister(a);
-					short* bPtr = getRegister(b);
+					Register* aPtr = getRegister(a);
+					Register* bPtr = getRegister(b);
 					
-					unsigned char data = memory[*bPtr];
-					*aPtr = data;
+					unsigned char data = memory[bPtr->get()];
+					aPtr->set(data);
 					
 					break;
 				}
@@ -430,10 +428,10 @@ namespace VM {
 					unsigned char a = getNextByte();
 					unsigned char b = getNextByte();
 					
-					short* regPtr = getRegister(reg);
+					Register* regPtr = getRegister(reg);
 					unsigned short addr = Util::bToS(a, b);
 					
-					*regPtr = memory[VAR_OFFSET + addr];
+					regPtr->set(memory[VAR_OFFSET + addr]);
 					break;
 				}
 				
@@ -454,13 +452,13 @@ namespace VM {
 					unsigned char a = getNextByte();
 					unsigned char b = getNextByte();
 					
-					short* regPtr = getRegister(reg);
+					Register* regPtr = getRegister(reg);
 					unsigned short addr = Util::bToS(a, b);
 					
 					short data = Util::bToS(memory[VAR_OFFSET + addr],
 						memory[VAR_OFFSET + addr + 1]);
 						
-					*regPtr = data;
+					regPtr->set(data);
 					break;
 				}
 				
@@ -477,20 +475,20 @@ namespace VM {
 
 				// SYSI
 				case ByteInst::SYSI_: {
-					if (this->ax == 0x01) {
-						sys_exit(this->bx);
+					if (this->ax->get() == 0x01) {
+						sys_exit(this->bx->get());
 						goto endLoop;
 					}
-					else if (this->ax == 0x02) {
-						sys_print_b(this->bx);
+					else if (this->ax->get() == 0x02) {
+						sys_print_b(this->bx->get());
 						break;
 					}
-					else if (this->ax == 0x03) {
-						sys_print_c((char)this->bx);
+					else if (this->ax->get() == 0x03) {
+						sys_print_c((char)this->bx->get());
 						break;
 					}
-					else if (this->ax == 0x04) {
-						sys_print_w(this->bx);
+					else if (this->ax->get() == 0x04) {
+						sys_print_w(this->bx->get());
 						break;
 					}
 				}
@@ -567,30 +565,92 @@ namespace VM {
 		std::cout << w;
 	}
 
-	short* Runtime::getRegister(unsigned char reg) {
+	Register* Runtime::getRegister(unsigned char reg) {
+		// AX
 		if (reg == ByteReg::AX_) {
-			return &this->ax;
+			this->ax->setReferenceType(RegRef::R_FULL);
+			return this->ax;
+		} else if (reg == ByteReg::AL_) {
+			this->ax->setReferenceType(RegRef::R_LOW);
+			return this->ax;
 		}
-		else if (reg == ByteReg::BX_) {
-			return &this->bx;
+		else if (reg == ByteReg::AH_) {
+			this->ax->setReferenceType(RegRef::R_HIGH);
+			return this->ax;
 		}
-		else if (reg == ByteReg::CX_) {
-			return &this->cx;
+		
+		// BX
+		if (reg == ByteReg::BX_) {
+			this->bx->setReferenceType(RegRef::R_FULL);
+			return this->bx;
+		} else if (reg == ByteReg::BL_) {
+			this->bx->setReferenceType(RegRef::R_LOW);
+			return this->bx;
 		}
-		else if (reg == ByteReg::DX_) {
-			return &this->dx;
+		else if (reg == ByteReg::BH_) {
+			this->bx->setReferenceType(RegRef::R_HIGH);
+			return this->bx;
 		}
-		else if (reg == ByteReg::XX_) {
-			return &this->xx;
+		
+		// CX
+		if (reg == ByteReg::CX_) {
+			this->cx->setReferenceType(RegRef::R_FULL);
+			return this->cx;
+		} else if (reg == ByteReg::CL_) {
+			this->cx->setReferenceType(RegRef::R_LOW);
+			return this->cx;
 		}
-		else if (reg == ByteReg::YX_) {
-			return &this->yx;
+		else if (reg == ByteReg::CH_) {
+			this->cx->setReferenceType(RegRef::R_HIGH);
+			return this->cx;
 		}
+		
+		// DX
+		if (reg == ByteReg::DX_) {
+			this->dx->setReferenceType(RegRef::R_FULL);
+			return this->dx;
+		} else if (reg == ByteReg::DL_) {
+			this->dx->setReferenceType(RegRef::R_LOW);
+			return this->dx;
+		}
+		else if (reg == ByteReg::DH_) {
+			this->dx->setReferenceType(RegRef::R_HIGH);
+			return this->dx;
+		}
+		
+		// XX
+		if (reg == ByteReg::XX_) {
+			this->xx->setReferenceType(RegRef::R_FULL);
+			return this->xx;
+		} else if (reg == ByteReg::XL_) {
+			this->xx->setReferenceType(RegRef::R_LOW);
+			return this->xx;
+		}
+		else if (reg == ByteReg::XH_) {
+			this->xx->setReferenceType(RegRef::R_HIGH);
+			return this->xx;
+		}
+		
+		// YX
+		if (reg == ByteReg::YX_) {
+			this->yx->setReferenceType(RegRef::R_FULL);
+			return this->yx;
+		} else if (reg == ByteReg::YL_) {
+			this->yx->setReferenceType(RegRef::R_LOW);
+			return this->yx;
+		}
+		else if (reg == ByteReg::YH_) {
+			this->yx->setReferenceType(RegRef::R_HIGH);
+			return this->yx;
+		}
+		
 		else if (reg == ByteReg::RM_) {
-			return &this->rm;
+			return this->rm;
 		}
 
 		else {
+			std::cerr << "Unknown Register: " << (int)reg << std::endl;
+			panic("Aborting");
 			return nullptr;
 		}
 	}
