@@ -332,6 +332,37 @@ namespace VM {
 					break;
 				}
 				
+				// PUSHW
+				case ByteInst::PUSHW_R: {
+					unsigned char reg = getNextByte();
+					Register* regPtr = getRegister(reg);
+
+					short data = regPtr->get();
+					pushw(data);
+					break;
+				}
+				case ByteInst::PUSHW_N: {
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					short num = (short)Util::bToS(a, b);
+					
+					pushw(num);
+					break;
+				}
+
+				// POPW
+				case ByteInst::POPW_R: {
+					unsigned char reg = getNextByte();
+					Register* regPtr = getRegister(reg);
+
+					regPtr->set(popw());
+					break;
+				}
+				case ByteInst::POPW_X: {
+					popw();
+					break;
+				}
+				
 				// AND
 				case ByteInst::AND_RN: {
 					unsigned char reg = getNextByte();
@@ -511,8 +542,21 @@ namespace VM {
 			this->memory[++this->sp] = data;
 	}
 
-	short Runtime::pop() {
-		return (short)this->memory[this->sp--];
+	unsigned char Runtime::pop() {
+		return this->memory[this->sp--];
+	}
+	
+	void Runtime::pushw(short data) {
+		unsigned char* dataw = Util::sToB(data);
+		push(dataw[1]);
+		push(dataw[0]);
+	}
+	
+	short Runtime::popw() {
+		unsigned char a = this->memory[this->sp--];
+		unsigned char b = this->memory[this->sp--];
+		short data = (short)Util::bToS(a, b);
+		return data;
 	}
 	
 	void Runtime::cmp(short a, short b) {

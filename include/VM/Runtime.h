@@ -46,8 +46,11 @@ namespace VM {
 
 		void start();
 		unsigned char getNextByte();
+		
 		void push(unsigned char data);
-		short pop();
+		unsigned char pop();
+		void pushw(short data);
+		short popw();
 		
 		// 0001 = Equals
 		// 0010 = Less than

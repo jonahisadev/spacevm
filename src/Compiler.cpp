@@ -268,6 +268,26 @@ namespace VM {
 						serror("JNZ", t->getLine());
 				}
 				
+				// PUSHW
+				else if (t->getData() == TokenInst::PUSHW) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG)
+						writeByte(ByteInst::PUSHW_R);
+					else if (tokenList->get(i+1)->getType() == TokenType::NUM)
+						writeByte(ByteInst::PUSHW_N);
+					else
+						serror("PUSHW", t->getLine());
+				}
+				
+				// POPW
+				else if (t->getData() == TokenInst::POPW) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG)
+						writeByte(ByteInst::POPW_R);
+					else if (tokenList->get(i+1)->getType() == TokenType::INST)
+						writeByte(ByteInst::POPW_X);
+					else
+						serror("POPW", t->getLine());
+				}
+				
 				// AND
 				else if (t->getData() == TokenInst::AND) {
 					if (tokenList->get(i+1)->getType() == TokenType::REG &&

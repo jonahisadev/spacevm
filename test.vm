@@ -5,8 +5,9 @@ main:
 	call @printStr
 	call @printNL
 	
-	mov %bl 0x23
-	mov %bh 0x01
+	ldw %ax &num
+	pushw %ax
+	popw %bx
 	call @printNum
 	call @printNL
 	
@@ -18,4 +19,5 @@ main:
 
 #data
 	str *hello "Hello!"
+	stw *num $1209
 #end

@@ -275,6 +275,33 @@ namespace VM {
 					break;
 				}
 				
+				// PUSHW
+				case PUSHW_R: {
+					std::printf("PUSHW \t%s", 
+					Token::getRegister(data[addr+1]));
+					addr += 2;
+					break;
+				}
+				case PUSHW_N: {
+					std::printf("PUSHW \t%d", 
+					data[addr+1]);
+					addr += 2;
+					break;
+				}
+				
+				// POPW
+				case POPW_R: {
+					std::printf("POPW \t%s", 
+					Token::getRegister(data[addr+1]));
+					addr += 2;
+					break;
+				}
+				case POPW_X: {
+					std::printf("POPW");
+					addr++;
+					break;
+				}
+				
 				// AND
 				case AND_RN: {
 					std::printf("AND \t%s %d", 

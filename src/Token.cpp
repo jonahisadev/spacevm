@@ -143,6 +143,10 @@ namespace VM {
 				return "JZ";
 			case TokenInst::JNZ:
 				return "JNZ";
+			case TokenInst::PUSHW:
+				return "PUSHW";
+			case TokenInst::POPW:
+				return "POPW";
 			case TokenInst::AND:
 				return "AND";
 			case TokenInst::OR:

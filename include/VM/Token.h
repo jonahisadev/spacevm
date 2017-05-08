@@ -45,6 +45,8 @@ namespace VM {
 		JLE,
 		JZ,
 		JNZ,
+		PUSHW,
+		POPW,
 		AND,
 		OR,
 		XOR,

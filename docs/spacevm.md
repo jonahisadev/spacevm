@@ -124,8 +124,8 @@ Legend:
 | `SXL`			| R						| Shift a register left |
 | `INC`			| R						| Increment a register |
 | `DEC`			| R						| Decrement a register |
-| `PUSH`		| R / N					| Push a value to the stack |
-| `POP`			| R / 0					| Pop a value from the stack to a register or thin air |
+| `PUSH`		| R / N					| Push a byte to the stack |
+| `POP`			| R / 0					| Pop a byte from the stack |
 | `CMP`			| R,R / R,N				| Compare two values (sets flags) |
 | `JMP`			| L						| Jump unconditionally to a label |
 | `JNE`			| L						| Jump if not equal |
@@ -136,6 +136,8 @@ Legend:
 | `JLE`			| L						| Jump if less than or equal |
 | `JZ`			| L						| Jump if difference is zero |
 | `JNZ`			| L						| Jump if difference is not zero |
+| `PUSHW`		| R / N					| Push a word to the stack |
+| `POPW`		| R / 0					| Pop a word from the stack |
 | `AND`			| R,R / R,N				| AND two values into a register |
 | `OR`			| R,R / R,N				| OR two values into a register |
 | `XOR`			| R,R / R,N				| XOR two values into a register |
@@ -164,11 +166,11 @@ Legend:
 
 | Name			| Description			|
 | ------------- | --------------------- |
-| AX, BX, CX, DX, XX, YX | General purpose registers |
-| RM			| Remainder |
-| BP			| Base pointer |
-| SP			| Stack pointer |
-| CF			| Compare flags |
+| `AX, BX, CX, DX, XX, YX` | General purpose registers |
+| `RM`			| Remainder |
+| `BP`			| Base pointer |
+| `SP`			| Stack pointer |
+| `CF`			| Compare flags |
 
 ---
 

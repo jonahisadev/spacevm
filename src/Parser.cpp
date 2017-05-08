@@ -330,6 +330,10 @@ namespace VM {
 			return TokenInst::JZ;
 		else if (Util::strEquals(lex, "jnz"))
 			return TokenInst::JNZ;
+		else if (Util::strEquals(lex, "pushw"))
+			return TokenInst::PUSHW;
+		else if (Util::strEquals(lex, "popw"))
+			return TokenInst::POPW;
 		else if (Util::strEquals(lex, "and"))
 			return TokenInst::AND;
 		else if (Util::strEquals(lex, "or"))

@@ -47,6 +47,11 @@ namespace VM {
 		JZ_ = 		0x27,
 		JNZ_ = 		0x28,
 		
+		PUSHW_R = 	0x2A,
+		PUSHW_N = 	0x2B,
+		POPW_R = 	0x2C,
+		POPW_X =	0x2D,
+		
 		AND_RN = 	0x30,
 		AND_RR = 	0x31,
 		OR_RN = 	0x32,
