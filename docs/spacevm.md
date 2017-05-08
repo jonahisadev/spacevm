@@ -6,6 +6,7 @@
 * [Basic Syntax](#basic-syntax)
 * [Instruction Set](#instruction-set)
 * [System Interrupts](#system-interrupts)
+* [Registers](#registers)
 * [Memory Layout](#memory-layout)
 * [Limitations](#limitations)
 
@@ -156,6 +157,18 @@ Legend:
 | `0x02`		| `byte`					| Print a byte to console |
 | `0x03`		| `char`					| Print a char to console |
 | `0x04`		| `word`					| Print a word to console |
+
+---
+
+## Registers
+
+| Name			| Description			|
+| ------------- | --------------------- |
+| AX, BX, CX, DX, XX, YX | General purpose registers |
+| RM			| Remainder |
+| BP			| Base pointer |
+| SP			| Stack pointer |
+| CF			| Compare flags |
 
 ---
 

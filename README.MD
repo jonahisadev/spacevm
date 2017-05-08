@@ -29,19 +29,11 @@ and debugging the current VM is priority along with the first couple of items.
 
 ### To Do
 
+* Make a debugger for runtime
 * Improve jumps/calls to labels
 * Figure out a way to debug with file inclusions
-* Implement high/low register access
 * Maintain documentation
-	* Add register list
 	* Continue limitations
-* Make a debugger for runtime
 * Sub-labels?
 * Implement more system calls
-
-### System Calls
-
-* 0x01 - exit(code)
-* 0x02 - print_b(byte)
-* 0x03 - print_c(char)
-* 0x04 - print_w(word)
+    * File writing and reading
