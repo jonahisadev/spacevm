@@ -208,6 +208,7 @@ namespace VM {
 		c->setVarList(this->varList);
 		c->setStrList(this->strList);
 		c->setBeginLabel(this->beginLabel);
+		c->setSymbols(this->symbols);
 		return c;
 	}
 	

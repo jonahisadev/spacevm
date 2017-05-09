@@ -8,7 +8,7 @@
 
 void showHelp() {
 	std::cout << "== SpaceVM Help ==" << std::endl;
-	std::cout << "\tspc -c [file] (-d): Compile source" << std::endl;
+	std::cout << "\tspc -c [file] (-d/-g): Compile source" << std::endl;
 	std::cout << "\tspc -r [file]: Run bytecode" << std::endl;
 	std::cout << "\tspc -d [file]: Disassemble bytecode" << std::endl;
 }
@@ -27,8 +27,13 @@ int main(int argc, char** argv) {
 	    ASSERT(fileContents, "File reading failure");
 
 		VM::Parser* p = new VM::Parser(fileContents, flen);
+		
+		// TODO: Make this more efficient
 		if (argc >= 4 && VM::Util::strEquals(argv[3], "-d"))
 			p->setDebug(true);
+		if (argc >= 4 && VM::Util::strEquals(argv[3], "-g"))
+			p->setSymbols(true);
+			
 		p->start();
 
 		if (p->isDebug()) {

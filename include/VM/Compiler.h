@@ -19,6 +19,8 @@ namespace VM {
 		List<unsigned char>* textBuf;
 		unsigned short addr;
 		
+		bool symbols = false;
+		
 		List<char*>* lblList;
 		List<char*>* jmpList;
 		List<char*>* addrList;
@@ -52,6 +54,8 @@ namespace VM {
 		void writeByte(unsigned char data);
 
 		void writeOutputFile();
+		
+		void setSymbols(bool symbols) { this->symbols = symbols; }
 
 		unsigned char getByteReg(int tokenData);
 	};

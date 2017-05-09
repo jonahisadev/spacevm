@@ -13,6 +13,7 @@ namespace VM {
     private:
         char* text;
 		bool debug = false;
+		bool symbols = false;
 		int flen;
 		
 		bool nextPPI = false;
@@ -38,6 +39,7 @@ namespace VM {
 		void includeFile(char* file);
 
         void setDebug(bool debug) { this->debug = debug; }
+        void setSymbols(bool symbols) { this->symbols = symbols; }
         inline bool isDebug() const { return debug; }
 		inline TokenList* getTokenList() const { return tokenList; }
 

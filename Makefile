@@ -14,4 +14,4 @@ $(EXEC): $(OBJ)
 	$(CC) $(CFLAGS) $^ -o $@
 
 clean:
-	rm -rf *.o src/*.o $(EXEC) *.vmc
+	rm -rf *.o src/*.o $(EXEC) *.vmc *.vmd

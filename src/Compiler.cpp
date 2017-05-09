@@ -546,6 +546,25 @@ namespace VM {
 		this->textBuf->set(1, binLenW[1]);
 		
 		writeOutputFile();
+		
+		// Write debug information if requested
+		if (this->symbols) {
+			char* nPath = Util::strDupFull((char*)this->path);
+			nPath[Util::strLength(path)-1] = 'd';
+			FILE* debugFile = fopen(nPath, "w");
+			
+			for (int i = 0; i < this->lblMap->getPointer(); i++) {
+				int addr = lblMap->getDataB(i);
+				int listPtr = lblMap->getDataA(i);
+				char* lblName = Util::strDupFull(lblList->get(listPtr));
+				
+				fprintf(debugFile, "%d\n", addr);
+				fwrite(lblName, 1, Util::strLength(lblName), debugFile);
+				fprintf(debugFile, "\n");
+			}
+			
+			fclose(debugFile);
+		}
 	}
 
 	void Compiler::writeOutputFile() {
