@@ -1,6 +1,8 @@
 #ifndef SPACE_MAP_H
 #define SPACE_MAP_H
 
+#include <iostream>
+
 namespace VM {
 	
 	template <typename ...> class Map;
@@ -10,10 +12,9 @@ namespace VM {
     private:
         A* dataA;
         B* dataB;
-        
-        int size;
+		int size;
         int ptr;
-        
+		
     public:
         Map(int size);
         ~Map();

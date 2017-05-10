@@ -2,10 +2,11 @@ CC = g++
 LDFLAGS =
 CFLAGS = -I include -g -c -std=c++11
 SRC = $(wildcard *.cpp src/*.cpp)
+HEAD = $(wildcard include/VM/*.h)
 OBJ = $(SRC:.cpp=.o)
 EXEC = spc
 
-all: $(OBJ) $(EXEC)
+all: $(OBJ) $(EXEC) $(HEAD)
 
 $(EXEC): $(OBJ)
 	$(CC) $(LDFLAGS) $^ -o $@

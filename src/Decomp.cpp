@@ -2,21 +2,20 @@
 
 namespace VM {
 	
-	Decomp::Decomp(unsigned char* data) {
+	Decomp::Decomp(unsigned char* data, bool hasSymbols, char* symbols) {
 		this->data = data;
-		if (this->hasSymbols)
+		this->hasSymbols = hasSymbols;
+		if (this->hasSymbols) {
+			this->symbols = Util::strDupFull(symbols);
 			this->symbolMap = new Map<int, char*>(1);
+		}
 	}
 	
 	Decomp::~Decomp() {
 		free(this->data);
-		if (this->hasSymbols)
-			free(this->symbols);
-	}
-	
-	void Decomp::setSymbols(char* symbols)  {
-		this->symbols = Util::strDupFull(symbols);
-		hasSymbols = true;
+		if (this->hasSymbols) {
+			delete this->symbolMap;
+		}
 	}
 	
 	void Decomp::loadSymbols() {
@@ -24,7 +23,7 @@ namespace VM {
 		int lexi = 0;
 		int i = 0;
 		
-		while (this->symbols[i] != '\0') {
+		while (true) {
 			// ADDR
 			while (this->symbols[i] != ',') {
 				lex[lexi++] = this->symbols[i++];
@@ -39,8 +38,9 @@ namespace VM {
 				lex[x] = '\0';
 			
 			// LABEL
-			while (this->symbols[i] != '\n')
+			while (this->symbols[i] != '\n' && this->symbols[i] != '\0') {
 				lex[lexi++] = this->symbols[i++];
+			}
 				
 			lex[lexi] = '\0';
 			char* name = Util::strDupFull(lex);
@@ -50,13 +50,15 @@ namespace VM {
 				lex[x] = '\0';
 			
 			// FINISH
-			std::cout << "Address " << addr << " is '" << name << "'" << std::endl;
-			
 			this->symbolMap->add(addr, name);
 			i++;
+			
+			if (this->symbols[i] == '\0')
+				break;
 		}
 		
 		delete[] lex;
+		free(this->symbols);
 	}
 	
 	void Decomp::start() {
@@ -82,7 +84,7 @@ namespace VM {
 				for (int i = 0; i < this->symbolMap->getPointer(); i++) {
 					if (addr == this->symbolMap->getDataA(i)) {
 						std::cout << std::endl;
-						std::cout << this->symbolMap->getDataB(i) << std::endl;
+						std::cout << this->symbolMap->getDataB(i) << ":" << std::endl;
 					}
 				}
 			}

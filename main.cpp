@@ -71,21 +71,21 @@ int main(int argc, char** argv) {
 		unsigned char* data = VM::Util::readBinFile(argv[2]);
 		ASSERT(data, "Binary reading failure");
 		
-		VM::Decomp* d = new VM::Decomp(data);
-		
 		// Load symbols file
 		char* debugFile = VM::Util::strDupFull(argv[2]);
 		debugFile[VM::Util::strLength(debugFile)-1] = 'd';
 		char* symbols = VM::Util::readFile(debugFile);
-		delete[] debugFile;
 		
+		VM::Decomp* d;
 		if (symbols) {
-			d->setSymbols(symbols);
+			d = new VM::Decomp(data, true, symbols);
+		} else {
+			d = new VM::Decomp(data, false, nullptr);
 		}
-		
-		delete[] symbols;
-		
 		d->start();
+		
+		delete[] debugFile;
+		delete[] symbols;
 		
 		return 0;
 	}

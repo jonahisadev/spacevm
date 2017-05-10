@@ -3,6 +3,7 @@
 
 #include <VM/Bytecode.h>
 #include <VM/Util.h>
+#include <VM/List.h>
 #include <VM/Token.h>
 #include <VM/Map.h>
 
@@ -17,11 +18,10 @@ namespace VM {
 		Map<int, char*>* symbolMap;
 		
 	public:
-		Decomp(unsigned char* data);
+		Decomp(unsigned char* data, bool hasSymbols, char* symbols);
 		~Decomp();
 		
 		void start();
-		void setSymbols(char* symbols);
 		void loadSymbols();
 	};
 	
