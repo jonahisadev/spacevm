@@ -15,7 +15,7 @@ namespace VM {
         char* data = new char[size];
         ASSERT(data, "Could not load file");
 
-        fread(data, 1, size, file);
+        fread(data, sizeof(char), size, file);
         fclose(file);
 
 		data[size] = '\0';
@@ -97,7 +97,7 @@ namespace VM {
 		return x;
 	}
 	
-	int Util::convertNumber(char* str, int base) {
+	int Util::convertTokNum(char* str, int base) {
 	    char* nStr = nullptr;
 		if (base == 10)
 		 	nStr = Util::strDup(str, 1, Util::strLength(str));
@@ -105,6 +105,11 @@ namespace VM {
 			nStr = Util::strDup(str, 2, Util::strLength(str));
 		int x = (int) strtol(nStr, (char**)NULL, base);
 		return x;
+	}
+	
+	int Util::convertNum(char* str, int base) {
+	    int x = (int) strtol(str, (char**)NULL, base);
+	    return x;
 	}
 
 } // namespace VM

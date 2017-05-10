@@ -21,12 +21,7 @@ namespace VM {
 		~Decomp();
 		
 		void start();
-		
-		void setSymbols(char* symbols) {
-			this->symbols = symbols;
-			hasSymbols = true;
-		}
-		
+		void setSymbols(char* symbols);
 		void loadSymbols();
 	};
 	

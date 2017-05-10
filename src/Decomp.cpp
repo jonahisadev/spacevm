@@ -14,31 +14,49 @@ namespace VM {
 			free(this->symbols);
 	}
 	
+	void Decomp::setSymbols(char* symbols)  {
+		this->symbols = Util::strDupFull(symbols);
+		hasSymbols = true;
+	}
+	
 	void Decomp::loadSymbols() {
-		char lex[256];
+		char* lex = new char[256];
 		int lexi = 0;
 		int i = 0;
 		
 		while (this->symbols[i] != '\0') {
-			while (lex[lexi] != ',')
+			// ADDR
+			while (this->symbols[i] != ',') {
 				lex[lexi++] = this->symbols[i++];
+			}
 			
 			lex[lexi] = '\0';
-			int addr = Util::convertNumber(lex, 10);
-			lexi++;
+			int addr = Util::convertNum(lex, 10);
+			i++;
 			
-			while (lex[lexi] != '\n')
+			lexi = 0;
+			for (int x = 0; x < 256; x++)
+				lex[x] = '\0';
+			
+			// LABEL
+			while (this->symbols[i] != '\n')
 				lex[lexi++] = this->symbols[i++];
 				
 			lex[lexi] = '\0';
 			char* name = Util::strDupFull(lex);
 			
-			this->symbolMap->add(addr, name);
-			
 			lexi = 0;
-			for (int x = 0; x < 255; x++)
+			for (int x = 0; x < 256; x++)
 				lex[x] = '\0';
+			
+			// FINISH
+			std::cout << "Address " << addr << " is '" << name << "'" << std::endl;
+			
+			this->symbolMap->add(addr, name);
+			i++;
 		}
+		
+		delete[] lex;
 	}
 	
 	void Decomp::start() {

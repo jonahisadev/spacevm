@@ -83,6 +83,8 @@ int main(int argc, char** argv) {
 			d->setSymbols(symbols);
 		}
 		
+		delete[] symbols;
+		
 		d->start();
 		
 		return 0;
