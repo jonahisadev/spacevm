@@ -558,9 +558,10 @@ namespace VM {
 				int listPtr = lblMap->getDataA(i);
 				char* lblName = Util::strDupFull(lblList->get(listPtr));
 				
-				fprintf(debugFile, "%d\n", addr);
+				fprintf(debugFile, "%d,", addr);
 				fwrite(lblName, 1, Util::strLength(lblName), debugFile);
-				fprintf(debugFile, "\n");
+				if (i != this->lblMap->getPointer() - 1)
+					fprintf(debugFile, "\n");
 			}
 			
 			fclose(debugFile);

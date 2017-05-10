@@ -29,6 +29,7 @@ and debugging the current VM is priority along with the first couple of items.
 
 ### To Do
 
+* Switch debug symbol file to binary
 * Make a debugger for runtime
 * Improve jumps/calls to labels
 * Figure out a way to debug with file inclusions

@@ -19,6 +19,7 @@ namespace VM {
 		LOCAL char* strDupFull(char* src);
 		LOCAL unsigned char* sToB(unsigned short addr);
 		LOCAL unsigned short bToS(unsigned char a, unsigned char b);
+		LOCAL int convertNumber(char* str, int base);
     };
 
 } // namespace VM

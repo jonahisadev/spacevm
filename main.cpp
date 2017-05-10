@@ -72,6 +72,17 @@ int main(int argc, char** argv) {
 		ASSERT(data, "Binary reading failure");
 		
 		VM::Decomp* d = new VM::Decomp(data);
+		
+		// Load symbols file
+		char* debugFile = VM::Util::strDupFull(argv[2]);
+		debugFile[VM::Util::strLength(debugFile)-1] = 'd';
+		char* symbols = VM::Util::readFile(debugFile);
+		delete[] debugFile;
+		
+		if (symbols) {
+			d->setSymbols(symbols);
+		}
+		
 		d->start();
 		
 		return 0;

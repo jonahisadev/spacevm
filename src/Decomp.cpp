@@ -4,13 +4,48 @@ namespace VM {
 	
 	Decomp::Decomp(unsigned char* data) {
 		this->data = data;
+		if (this->hasSymbols)
+			this->symbolMap = new Map<int, char*>(1);
 	}
 	
 	Decomp::~Decomp() {
 		free(this->data);
+		if (this->hasSymbols)
+			free(this->symbols);
+	}
+	
+	void Decomp::loadSymbols() {
+		char lex[256];
+		int lexi = 0;
+		int i = 0;
+		
+		while (this->symbols[i] != '\0') {
+			while (lex[lexi] != ',')
+				lex[lexi++] = this->symbols[i++];
+			
+			lex[lexi] = '\0';
+			int addr = Util::convertNumber(lex, 10);
+			lexi++;
+			
+			while (lex[lexi] != '\n')
+				lex[lexi++] = this->symbols[i++];
+				
+			lex[lexi] = '\0';
+			char* name = Util::strDupFull(lex);
+			
+			this->symbolMap->add(addr, name);
+			
+			lexi = 0;
+			for (int x = 0; x < 255; x++)
+				lex[x] = '\0';
+		}
 	}
 	
 	void Decomp::start() {
+		if (hasSymbols) {
+			loadSymbols();
+		}
+		
 		unsigned char a = data[0];
 		unsigned char b = data[1];
 		unsigned short binLen = Util::bToS(a, b);
@@ -24,6 +59,15 @@ namespace VM {
 			unsigned char opcode = data[addr];
 			if (opcode == HLT_)
 				break;
+				
+			if (hasSymbols) {
+				for (int i = 0; i < this->symbolMap->getPointer(); i++) {
+					if (addr == this->symbolMap->getDataA(i)) {
+						std::cout << std::endl;
+						std::cout << this->symbolMap->getDataB(i) << std::endl;
+					}
+				}
+			}
 				
 			std::printf("%04X: ", addr);
 			

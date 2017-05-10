@@ -93,7 +93,6 @@ namespace VM {
 
 		LOCAL const char* getInstruction(int inst);
 		LOCAL const char* getRegister(int reg);
-		LOCAL int convertNumber(char* str, int base);
 
 		LOCAL int getRegToken(char* reg, int line);
 	};

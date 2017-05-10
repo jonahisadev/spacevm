@@ -29,6 +29,7 @@ namespace VM {
     };
     
     template class Map<int, unsigned short>;    // index, address
+    template class Map<int, char*>;             // address, symbol
     
     template <class A, class B>
     Map<A, B>::Map(int size) {

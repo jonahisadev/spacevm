@@ -16,16 +16,6 @@ namespace VM {
 		// Nothing
 	}
 
-	int Token::convertNumber(char* str, int base) {
-		char* nStr = nullptr;
-		if (base == 10)
-		 	nStr = Util::strDup(str, 1, Util::strLength(str));
-		else if (base == 16)
-			nStr = Util::strDup(str, 2, Util::strLength(str));
-		int x = (int) strtol(nStr, (char**)NULL, base);
-		return x;
-	}
-
 	//
 	//	TOKEN LIST
 	//

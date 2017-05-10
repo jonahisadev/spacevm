@@ -95,10 +95,10 @@ namespace VM {
 
 		// NUMBERS
 		else if (lex[0] == '$') {
-			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex, 10), line));
+			tokenList->add(new Token(TokenType::NUM, Util::convertNumber(lex, 10), line));
 		}
 		else if (lex[0] == '0' && lex[1] == 'x') {
-			tokenList->add(new Token(TokenType::NUM, Token::convertNumber(lex, 16), line));
+			tokenList->add(new Token(TokenType::NUM, Util::convertNumber(lex, 16), line));
 		}
 
 		// LABELS

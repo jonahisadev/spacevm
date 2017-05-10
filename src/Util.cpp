@@ -4,7 +4,9 @@ namespace VM {
 
     char* Util::readFile(const char* path) {
         FILE* file = fopen(path, "r");
-        ASSERT(file, "Could not open file");
+        //ASSERT(file, "Could not open file");
+        if (!file)
+            return nullptr;
 
         fseek(file, 0, SEEK_END);
         int size = (int) ftell(file);
@@ -92,6 +94,16 @@ namespace VM {
 	
 	unsigned short Util::bToS(unsigned char a, unsigned char b) {
 		short x = (a << 8) | b;
+		return x;
+	}
+	
+	int Util::convertNumber(char* str, int base) {
+	    char* nStr = nullptr;
+		if (base == 10)
+		 	nStr = Util::strDup(str, 1, Util::strLength(str));
+		else if (base == 16)
+			nStr = Util::strDup(str, 2, Util::strLength(str));
+		int x = (int) strtol(nStr, (char**)NULL, base);
 		return x;
 	}
 
