@@ -3,7 +3,6 @@
 
 #include <VM/Bytecode.h>
 #include <VM/Util.h>
-#include <VM/List.h>
 #include <VM/Token.h>
 #include <VM/Map.h>
 
@@ -23,6 +22,7 @@ namespace VM {
 		
 		void start();
 		void loadSymbols();
+		void printJumpLabel(unsigned char a, unsigned char b);
 	};
 	
 } // namespace VM

@@ -61,6 +61,17 @@ namespace VM {
 		free(this->symbols);
 	}
 	
+	void Decomp::printJumpLabel(unsigned char a, unsigned char b) {
+		if (hasSymbols) {
+			unsigned short lblAddr = Util::bToS(a, b);
+ 			for (int i = 0; i < this->symbolMap->getPointer(); i++) {
+				if (this->symbolMap->getDataA(i) == lblAddr) {
+					std::printf("\t\t(%s)", this->symbolMap->getDataB(i));
+				}
+			}
+		}
+	}
+	
 	void Decomp::start() {
 		if (hasSymbols) {
 			loadSymbols();
@@ -158,6 +169,9 @@ namespace VM {
 				case CALL_: {
 					std::printf("CALL \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					
+					printJumpLabel(data[addr+1], data[addr+2]);
+					
 					addr += 3;
 					break;
 				}
@@ -287,54 +301,63 @@ namespace VM {
 				case JMP_: {
 					std::printf("JMP \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					printJumpLabel(data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JNE_: {
 					std::printf("JNE \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					printJumpLabel(data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JE_: {
 					std::printf("JE \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					printJumpLabel(data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JG_: {
 					std::printf("JG \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					printJumpLabel(data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JL_: {
 					std::printf("JL \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					printJumpLabel(data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JGE_: {
 					std::printf("JGE \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					printJumpLabel(data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JLE_: {
 					std::printf("JLE \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					printJumpLabel(data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JZ_: {
 					std::printf("JZ \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					printJumpLabel(data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}
 				case JNZ_: {
 					std::printf("JNZ \t&%02X%02X",
 					data[addr+1], data[addr+2]);
+					printJumpLabel(data[addr+1], data[addr+2]);
 					addr += 3;
 					break;
 				}

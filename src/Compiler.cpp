@@ -456,6 +456,12 @@ namespace VM {
 					this->textBuf->set(2, ByteInst::CALL_);
 					this->textBuf->set(3, addrw[0]);
 					this->textBuf->set(4, addrw[1]);
+					
+					// Add data entry to debug symbols
+					if (this->symbols) {
+						this->lblList->add((char*)"DATA_ENTRY");
+						this->lblMap->add(this->lblList->getPointer()-1, this->addr);
+					}
 				} else if (t->getData() == TokenPPI::END) {
 					if (currentDataSection) {
 						writeByte(ByteInst::RET_);
@@ -556,10 +562,9 @@ namespace VM {
 			for (int i = 0; i < this->lblMap->getPointer(); i++) {
 				int addr = lblMap->getDataB(i);
 				int listPtr = lblMap->getDataA(i);
-				char* lblName = Util::strDupFull(lblList->get(listPtr));
+				char* lblName = lblList->get(listPtr);
 				
-				fprintf(debugFile, "%d,", addr);
-				fwrite(lblName, 1, Util::strLength(lblName), debugFile);
+				fprintf(debugFile, "%d,%s", addr, lblName);
 				if (i != this->lblMap->getPointer() - 1)
 					fprintf(debugFile, "\n");
 			}
