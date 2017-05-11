@@ -10,15 +10,13 @@ exit:
 ;	Print new line
 ;
 printNL:
-	push %ax
-	push %bx
+	pusha
 	
 	mov %ax $3
 	mov %bx $10
 	sysi
 	
-	pop %bx
-	pop %ax
+	popa
 	ret
 	
 ;
@@ -44,8 +42,8 @@ printStr_end:
 ;	BX: Number
 ;
 printNum:
-	push %ax
+	pusha
 	mov %ax $4
 	sysi
-	pop %ax
+	popa
 	ret

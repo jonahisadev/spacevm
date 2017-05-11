@@ -503,6 +503,28 @@ namespace VM {
 					memory[VAR_OFFSET + var_ptr++] = 0;
 					break;
 				}
+				
+				// PUSHA
+				case ByteInst::PUSHA_: {
+					pushw(this->ax->get());
+					pushw(this->bx->get());
+					pushw(this->cx->get());
+					pushw(this->dx->get());
+					pushw(this->xx->get());
+					pushw(this->yx->get());
+					break;
+				}
+				
+				// POPA
+				case ByteInst::POPA_: {
+					this->yx->set(popw());
+					this->xx->set(popw());
+					this->dx->set(popw());
+					this->cx->set(popw());
+					this->bx->set(popw());
+					this->ax->set(popw());
+					break;
+				}
 
 				// SYSI
 				case ByteInst::SYSI_: {

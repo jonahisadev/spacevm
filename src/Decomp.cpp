@@ -499,6 +499,20 @@ namespace VM {
 					break;
 				}
 				
+				// PUSHA
+				case PUSHA_: {
+					std::printf("PUSHA");
+					addr++;
+					break;
+				}
+				
+				// POPA
+				case POPA_: {
+					std::printf("POPA");
+					addr++;
+					break;
+				}
+				
 				// DEFAULT
 				default: {
 					std::printf("???");

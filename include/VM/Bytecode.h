@@ -68,6 +68,9 @@ namespace VM {
 		STW_ = 		0x54,
 		LDW_ = 		0x55,
 		STR_ =		0x56,
+		
+		PUSHA_ =	0x60,
+		POPA_ =		0x61,
 	};
 
 	enum ByteReg {

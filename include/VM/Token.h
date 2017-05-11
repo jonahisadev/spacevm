@@ -57,6 +57,9 @@ namespace VM {
 		STW,
 		LDW,
 		STR,
+		
+		PUSHA,
+		POPA,
 
 		HLT
 	};

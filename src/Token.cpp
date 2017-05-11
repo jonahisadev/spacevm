@@ -155,6 +155,10 @@ namespace VM {
 				return "LDW";
 			case TokenInst::STR:
 				return "STR";
+			case TokenInst::PUSHA:
+				return "PUSHA";
+			case TokenInst::POPA:
+				return "POPA";
 			default:
 				return "???";
 		}

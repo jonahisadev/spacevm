@@ -379,6 +379,22 @@ namespace VM {
 					else
 						serror("STR", t->getLine());
 				}
+				
+				// PUSHA
+				else if (t->getData() == TokenInst::PUSHA) {
+					if (tokenList->get(i+1)->getType() == TokenType::INST)
+						writeByte(ByteInst::PUSHA_);
+					else
+						serror("PUSHA", t->getLine());
+				}
+				
+				// POPA
+				else if (t->getData() == TokenInst::POPA) {
+					if (tokenList->get(i+1)->getType() == TokenType::INST)
+						writeByte(ByteInst::POPA_);
+					else
+						serror("POPA", t->getLine());
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {

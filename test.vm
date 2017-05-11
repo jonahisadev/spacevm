@@ -1,13 +1,8 @@
 #entry main
 
 main:
-	mov %cx &hello
-	call @printStr
-	call @printNL
-	
-	ldw %ax &num
-	pushw %ax
-	popw %bx
+	ldw %bx &num
+	call @printNum
 	call @printNum
 	call @printNL
 	
@@ -18,6 +13,5 @@ main:
 #include "lib/math.vm"
 
 #data
-	str *hello "Hello!"
-	stw *num $1209
+	stw *num $512
 #end

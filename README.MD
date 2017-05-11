@@ -29,6 +29,7 @@ and debugging the current VM is priority along with the first couple of items.
 
 ### To Do
 
+* Allow capital instructions
 * Switch debug symbol file to binary
 * Make a debugger for runtime
 * Improve jumps/calls to labels
