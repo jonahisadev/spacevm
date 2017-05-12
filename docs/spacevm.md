@@ -148,6 +148,8 @@ Legend:
 | `STW`			| V,N					| Store word |
 | `LDW`			| R,A					| Load word into register |
 | `STR`			| V,STR					| Store a string |
+| `PUSHA`		| 0						| Pushes all general purpose registers |
+| `POPA`		| 0						| Pops values back into genereal purpose registers |
 
 ---
 
