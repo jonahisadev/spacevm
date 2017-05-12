@@ -29,15 +29,21 @@ and debugging the current VM is priority along with the first couple of items.
 
 ### To Do
 
-* Preprocessor constants
-* Switch debug symbol file to binary
+Below is the list of items that must be completed before switching the system
+to 32-bit mode.
+
 * Continue debugger for runtime
     * Breakpoint setter
     * Stepper
-* Improve jumps/calls to labels
-* Figure out a way to debug with file inclusions
-* Maintain documentation
-	* Continue limitations
-* Sub-labels?
+* Preprocessor constants
+* Better compiler/parser error messages
+    * Figure out a way to debug with file inclusions
 * Implement more system calls
     * File writing and reading
+
+Below is a list of features that are not necessary before switching to 32-bit.
+These also may not ever be completed.
+
+* Improve jumps/calls to labels
+* Switch debug symbol file to binary
+* Sub-labels
