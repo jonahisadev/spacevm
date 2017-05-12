@@ -23,9 +23,16 @@ namespace VM {
 
 	void Runtime::start() {
 		unsigned char opcode = 0;
+		bool firstDebug = true;
+		
+		startWhile:
+		if (this->debug && !firstDebug) {
+			std::cout << "INST: " << (int)opcode << std::endl;
+		}
+		firstDebug = false;
 		
 		while (opcode != ByteInst::HLT_) {
-			startWhile:
+			// startWhile:
 			opcode = this->memory[this->pc];
 
 			switch (opcode) {
@@ -528,6 +535,9 @@ namespace VM {
 
 				// SYSI
 				case ByteInst::SYSI_: {
+					if (this->debug)
+						std::cout << "INST: " << ByteInst::SYSI_ << std::endl;
+					
 					if (this->ax->get() == 0x01) {
 						sys_exit(this->bx->get());
 						goto endLoop;
@@ -549,6 +559,9 @@ namespace VM {
 			}
 			
 			this->pc++;
+			
+			if (debug)
+				goto startWhile;
 		}
 		
 		endLoop:

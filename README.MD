@@ -31,7 +31,9 @@ and debugging the current VM is priority along with the first couple of items.
 
 * Preprocessor constants
 * Switch debug symbol file to binary
-* Make a debugger for runtime
+* Continue debugger for runtime
+    * Breakpoint setter
+    * Stepper
 * Improve jumps/calls to labels
 * Figure out a way to debug with file inclusions
 * Maintain documentation

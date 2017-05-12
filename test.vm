@@ -1,11 +1,11 @@
 #entry main
 
 main:
-	ldb %bx &exit_success
+	ldb %bx &EXIT_SUCCESS
 	call @exit
 
 #include "lib/stdlib.vm"
 
 #data
-	stb *exit_success $0
+	stb *EXIT_SUCCESS $0
 #end

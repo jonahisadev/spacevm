@@ -39,6 +39,8 @@ namespace VM {
 		void sys_print_b(unsigned char b);
 		void sys_print_c(char c);
 		void sys_print_w(short w);
+		
+		bool debug = false;
 
 	public:
 		Runtime(unsigned char* data);
@@ -61,6 +63,7 @@ namespace VM {
 		bool getFlag(int ptr);
 
 		int getReturnCode() const { return retCode; }
+		void setDebug(bool debug) { this->debug = debug; }
 
 		Register* getRegister(unsigned char reg);
 	};

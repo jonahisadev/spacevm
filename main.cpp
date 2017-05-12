@@ -59,6 +59,10 @@ int main(int argc, char** argv) {
 		ASSERT(data, "Binary reading failure");
 
 		VM::Runtime* r = new VM::Runtime(data);
+		
+		if (argc >= 4 && VM::Util::strEquals(argv[3], "-d"))
+			r->setDebug(true);
+
 		r->start();
 
 		int ret = r->getReturnCode();
