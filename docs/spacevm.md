@@ -94,7 +94,8 @@ Some more syntactical notes:
 * Strings must be surrounded by double quotes: `"Hello world!"`
 
 To see more examples of these, please look at `strings.vm` in the root
-directory of the repository.
+directory of the repository. You are allowed to reference instructions and
+registers with capital letters. Variables and labels are case sensitive.
 
 ---
 
@@ -201,7 +202,6 @@ of downwards. Because I'm lazy.
 * The current system is 16-bit. Values over 0xFFFF or 65535 will probably break 
 the system (unless you combine registers by some sort of magic)
 * Only include files one time. Any extra time will create duplicate symbols
-* Parser only supports lowercase instructions
 * Some syntactical and/or semantic errors may not give all necessary
 information to properly debug the issue.
 

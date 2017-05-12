@@ -220,53 +220,55 @@ namespace VM {
 	}
 
 	int Token::getRegToken(char* reg, int line) {
-		if (Util::strEquals(reg, "%ax"))
+		Util::toCaps(reg);
+		
+		if (Util::strEquals(reg, "%AX"))
 			return TokenReg::AX;
-		else if (Util::strEquals(reg, "%bx"))
+		else if (Util::strEquals(reg, "%BX"))
 			return TokenReg::BX;
-		else if (Util::strEquals(reg, "%cx"))
+		else if (Util::strEquals(reg, "%CX"))
 			return TokenReg::CX;
-		else if (Util::strEquals(reg, "%dx"))
+		else if (Util::strEquals(reg, "%DX"))
 			return TokenReg::DX;
-		else if (Util::strEquals(reg, "%xx"))
+		else if (Util::strEquals(reg, "%XX"))
 			return TokenReg::XX;
-		else if (Util::strEquals(reg, "%yx"))
+		else if (Util::strEquals(reg, "%YX"))
 			return TokenReg::YX;
-		else if (Util::strEquals(reg, "%al"))
+		else if (Util::strEquals(reg, "%AL"))
 			return TokenReg::AL;
-		else if (Util::strEquals(reg, "%bl"))
+		else if (Util::strEquals(reg, "%BL"))
 			return TokenReg::BL;
-		else if (Util::strEquals(reg, "%cl"))
+		else if (Util::strEquals(reg, "%CL"))
 			return TokenReg::CL;
-		else if (Util::strEquals(reg, "%dl"))
+		else if (Util::strEquals(reg, "%DL"))
 			return TokenReg::DL;
-		else if (Util::strEquals(reg, "%xl"))
+		else if (Util::strEquals(reg, "%XL"))
 			return TokenReg::XL;
-		else if (Util::strEquals(reg, "%yl"))
+		else if (Util::strEquals(reg, "%YL"))
 			return TokenReg::YL;
-		else if (Util::strEquals(reg, "%ah"))
+		else if (Util::strEquals(reg, "%AH"))
 			return TokenReg::AH;
-		else if (Util::strEquals(reg, "%bh"))
+		else if (Util::strEquals(reg, "%BH"))
 			return TokenReg::BH;
-		else if (Util::strEquals(reg, "%ch"))
+		else if (Util::strEquals(reg, "%CH"))
 			return TokenReg::CH;
-		else if (Util::strEquals(reg, "%dh"))
+		else if (Util::strEquals(reg, "%DH"))
 			return TokenReg::DH;
-		else if (Util::strEquals(reg, "%xh"))
+		else if (Util::strEquals(reg, "%XH"))
 			return TokenReg::XH;
-		else if (Util::strEquals(reg, "%yh"))
+		else if (Util::strEquals(reg, "%YH"))
 			return TokenReg::YH;
-		else if (Util::strEquals(reg, "%cf"))
+		else if (Util::strEquals(reg, "%CF"))
 			return TokenReg::CF;
-		else if (Util::strEquals(reg, "%cy"))
+		else if (Util::strEquals(reg, "%CY"))
 			return TokenReg::CY;
-		else if (Util::strEquals(reg, "%bp"))
+		else if (Util::strEquals(reg, "%BP"))
 			return TokenReg::BP;
-		else if (Util::strEquals(reg, "%sp"))
+		else if (Util::strEquals(reg, "%SP"))
 			return TokenReg::SP;
-		else if (Util::strEquals(reg, "%rm"))
+		else if (Util::strEquals(reg, "%RM"))
 			return TokenReg::RM;
-		else if (Util::strEquals(reg, "%pc"))
+		else if (Util::strEquals(reg, "%PC"))
 			return TokenReg::PC;
 		else {
 			std::cerr << "Invalid Register (" << line << ") : " << reg << std::endl;

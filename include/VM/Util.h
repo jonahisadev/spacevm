@@ -21,6 +21,7 @@ namespace VM {
 		LOCAL unsigned short bToS(unsigned char a, unsigned char b);
 		LOCAL int convertTokNum(char* str, int base);
 		LOCAL int convertNum(char* str, int base);
+		LOCAL void toCaps(char* str);
     };
 
 } // namespace VM

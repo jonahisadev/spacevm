@@ -1,17 +1,11 @@
 #entry main
 
 main:
-	ldw %bx &num
-	call @printNum
-	call @printNum
-	call @printNL
-	
-	mov %bx $0
+	ldb %bx &exit_success
 	call @exit
 
 #include "lib/stdlib.vm"
-#include "lib/math.vm"
 
 #data
-	stw *num $512
+	stb *exit_success $0
 #end

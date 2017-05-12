@@ -283,82 +283,84 @@ namespace VM {
 	}
 
 	int Parser::checkInst(char* lex) {
-		if (Util::strEquals(lex, "mov"))
+		Util::toCaps(lex);
+		
+		if (Util::strEquals(lex, "MOV"))
             return TokenInst::MOV;
-		else if (Util::strEquals(lex, "add"))
+		else if (Util::strEquals(lex, "ADD"))
 			return TokenInst::ADD;
-		else if (Util::strEquals(lex, "sub"))
+		else if (Util::strEquals(lex, "SUB"))
 			return TokenInst::SUB;
-		else if (Util::strEquals(lex, "call"))
+		else if (Util::strEquals(lex, "CALL"))
 			return TokenInst::CALL;
-		else if (Util::strEquals(lex, "ret"))
+		else if (Util::strEquals(lex, "RET"))
 			return TokenInst::RET;
-		else if (Util::strEquals(lex, "sysi"))
+		else if (Util::strEquals(lex, "SYSI"))
 			return TokenInst::SYSI;
-		else if (Util::strEquals(lex, "mul"))
+		else if (Util::strEquals(lex, "MUL"))
 			return TokenInst::MUL;
-		else if (Util::strEquals(lex, "div"))
+		else if (Util::strEquals(lex, "DIV"))
 			return TokenInst::DIV;
-		else if (Util::strEquals(lex, "sxr"))
+		else if (Util::strEquals(lex, "SXR"))
 			return TokenInst::SXR;
-		else if (Util::strEquals(lex, "sxl"))
+		else if (Util::strEquals(lex, "SXL"))
 			return TokenInst::SXL;
-		else if (Util::strEquals(lex, "inc"))
+		else if (Util::strEquals(lex, "INC"))
 			return TokenInst::INC;
-		else if (Util::strEquals(lex, "dec"))
+		else if (Util::strEquals(lex, "DEC"))
 			return TokenInst::DEC;
-		else if (Util::strEquals(lex, "push"))
+		else if (Util::strEquals(lex, "PUSH"))
 			return TokenInst::PUSH;
-		else if (Util::strEquals(lex, "pop"))
+		else if (Util::strEquals(lex, "POP"))
 			return TokenInst::POP;
-		else if (Util::strEquals(lex, "cmp"))
+		else if (Util::strEquals(lex, "CMP"))
 			return TokenInst::CMP;
-		else if (Util::strEquals(lex, "jmp"))
+		else if (Util::strEquals(lex, "JMP"))
 			return TokenInst::JMP;
-		else if (Util::strEquals(lex, "jne"))
+		else if (Util::strEquals(lex, "JNE"))
 			return TokenInst::JNE;
-		else if (Util::strEquals(lex, "je"))
+		else if (Util::strEquals(lex, "JE"))
 			return TokenInst::JE;
-		else if (Util::strEquals(lex, "jg"))
+		else if (Util::strEquals(lex, "JG"))
 			return TokenInst::JG;
-		else if (Util::strEquals(lex, "jl"))
+		else if (Util::strEquals(lex, "JL"))
 			return TokenInst::JL;
-		else if (Util::strEquals(lex, "jge"))
+		else if (Util::strEquals(lex, "JGE"))
 			return TokenInst::JGE;
-		else if (Util::strEquals(lex, "jle"))
+		else if (Util::strEquals(lex, "JLE"))
 			return TokenInst::JLE;
-		else if (Util::strEquals(lex, "jz"))
+		else if (Util::strEquals(lex, "JZ"))
 			return TokenInst::JZ;
-		else if (Util::strEquals(lex, "jnz"))
+		else if (Util::strEquals(lex, "JNZ"))
 			return TokenInst::JNZ;
-		else if (Util::strEquals(lex, "pushw"))
+		else if (Util::strEquals(lex, "PUSHW"))
 			return TokenInst::PUSHW;
-		else if (Util::strEquals(lex, "popw"))
+		else if (Util::strEquals(lex, "POPW"))
 			return TokenInst::POPW;
-		else if (Util::strEquals(lex, "and"))
+		else if (Util::strEquals(lex, "AND"))
 			return TokenInst::AND;
-		else if (Util::strEquals(lex, "or"))
+		else if (Util::strEquals(lex, "OR"))
 			return TokenInst::OR;
-		else if (Util::strEquals(lex, "xor"))
+		else if (Util::strEquals(lex, "XOR"))
 			return TokenInst::XOR;
-		else if (Util::strEquals(lex, "ptr"))
+		else if (Util::strEquals(lex, "PTR"))
 			return TokenInst::PTR;
-		else if (Util::strEquals(lex, "stb"))
+		else if (Util::strEquals(lex, "STB"))
 			return TokenInst::STB;
-		else if (Util::strEquals(lex, "ldb"))
+		else if (Util::strEquals(lex, "LDB"))
 			return TokenInst::LDB;
-		else if (Util::strEquals(lex, "stw"))
+		else if (Util::strEquals(lex, "STW"))
 			return TokenInst::STW;
-		else if (Util::strEquals(lex, "ldw"))
+		else if (Util::strEquals(lex, "LDW"))
 			return TokenInst::LDW;
-		else if (Util::strEquals(lex, "str"))
+		else if (Util::strEquals(lex, "STR"))
 			return TokenInst::STR;
-		else if (Util::strEquals(lex, "pusha"))
+		else if (Util::strEquals(lex, "PUSHA"))
 			return TokenInst::PUSHA;
-		else if (Util::strEquals(lex, "popa"))
+		else if (Util::strEquals(lex, "POPA"))
 			return TokenInst::POPA;
 
-		else if (Util::strEquals(lex, "hlt"))
+		else if (Util::strEquals(lex, "HLT"))
 			return TokenInst::HLT;
 
 		else {

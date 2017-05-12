@@ -111,5 +111,13 @@ namespace VM {
 	    int x = (int) strtol(str, (char**)NULL, base);
 	    return x;
 	}
+	
+	void Util::toCaps(char* str) {
+	    int len = strLength(str);
+	    for (int i = 0; i < len; i++) {
+	        if (str[i] >= 'a' && str[i] <= 'z')
+	            str[i] -= 'a' - 'A';
+	    }
+	}
 
 } // namespace VM
