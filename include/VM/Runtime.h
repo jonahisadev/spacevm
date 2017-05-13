@@ -8,6 +8,7 @@
 #include <VM/Util.h>
 #include <VM/Bytecode.h>
 #include <VM/Register.h>
+#include <VM/Debugger.h>
 
 namespace VM {
 

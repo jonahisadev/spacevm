@@ -29,6 +29,7 @@ namespace VM {
 	template class List<unsigned char>;
 	template class List<int>;
 	template class List<char*>;
+	template class List<unsigned short>;
 	
 	template <class T>
 	List<T>::List(int size) {
