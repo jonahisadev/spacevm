@@ -30,15 +30,21 @@ namespace VM {
 		startWhile:
 		if (this->debug) {
 			if (firstDebug) {
-				d->begin();
+				d->run(0, false);
 				firstDebug = false;
 			} else {
 				if (d->isBreakpoint(this->pc - PROG_BASE)) {
-					d->bp(this->pc - PROG_BASE);
+					d->run(this->pc - PROG_BASE, false);
+					goto endDebug;
+				}
+				if (d->isModeStep()) {
+					d->run(this->pc, true);
+					goto endDebug;
 				}
 			}
 		}
 
+		endDebug:
 		while (opcode != ByteInst::HLT_) {
 			// startWhile:
 			opcode = this->memory[this->pc];

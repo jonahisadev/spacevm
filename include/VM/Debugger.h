@@ -17,14 +17,16 @@ namespace VM {
     class Debugger {
     private:
         List<unsigned short>* bpoints;
+        bool modeStep = false;
+        bool started = false;
 
     public:
         Debugger();
         ~Debugger();
 
-        void begin();
         bool isBreakpoint(unsigned short addr);
-        void bp(unsigned short addr);
+        void run(unsigned short addr, bool step);
+        inline bool isModeStep() { return modeStep; }
     };
 
 } // namespace VM
