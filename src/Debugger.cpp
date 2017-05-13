@@ -9,8 +9,20 @@ namespace VM {
     Debugger::~Debugger() {
         delete this->bpoints;
     }
+
+    void Debugger::bp(unsigned short addr) {
+        printf("Hit breakpoint 0x%04X\n", addr);
+        char* cmd = new char[256];
+        printf("dbg > ");
+        fgets(cmd, 256, stdin);
+    }
 	
 	void Debugger::begin() {
+        printf(
+            "SpaceVM Runtime Debugger\n"
+            "Please set breakpoints, or run\n"
+        );
+
         debugStart:
 		char* cmd = new char[256];
 		printf("dbg > ");
@@ -58,5 +70,13 @@ namespace VM {
         delete[] cmd;
         delete[] lex;
 	}
+
+    bool Debugger::isBreakpoint(unsigned short addr) {
+        for (int i = 0; i < this->bpoints->getPointer(); i++) {
+            if (this->bpoints->get(i) == addr)
+                return true;
+        }
+        return false;
+    }
 
 } // namespace VM

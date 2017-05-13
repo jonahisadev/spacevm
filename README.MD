@@ -33,7 +33,6 @@ Below is the list of items that must be completed before switching the system
 to 32-bit mode.
 
 * Continue debugger for runtime
-    * Breakpoint setter
     * Stepper
 * Preprocessor constants
 * Better compiler/parser error messages

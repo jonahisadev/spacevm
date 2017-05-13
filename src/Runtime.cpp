@@ -32,6 +32,10 @@ namespace VM {
 			if (firstDebug) {
 				d->begin();
 				firstDebug = false;
+			} else {
+				if (d->isBreakpoint(this->pc - PROG_BASE)) {
+					d->bp(this->pc - PROG_BASE);
+				}
 			}
 		}
 

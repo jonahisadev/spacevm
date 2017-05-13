@@ -1,11 +1,16 @@
 #entry main
 
 main:
+	mov %cx &name
+	call @printStr
+	call @printNL
+
 	ldb %bx &EXIT_SUCCESS
 	call @exit
 
 #include "lib/stdlib.vm"
 
 #data
+	str *name "Jonah"
 	stb *EXIT_SUCCESS $0
 #end

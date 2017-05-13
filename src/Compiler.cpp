@@ -574,7 +574,8 @@ namespace VM {
 			char* nPath = Util::strDupFull((char*)this->path);
 			nPath[Util::strLength(path)-1] = 'd';
 			FILE* debugFile = fopen(nPath, "w");
-			
+
+			// Write labels
 			for (int i = 0; i < this->lblMap->getPointer(); i++) {
 				int addr = lblMap->getDataB(i);
 				int listPtr = lblMap->getDataA(i);

@@ -23,6 +23,8 @@ namespace VM {
         ~Debugger();
 
         void begin();
+        bool isBreakpoint(unsigned short addr);
+        void bp(unsigned short addr);
     };
 
 } // namespace VM
