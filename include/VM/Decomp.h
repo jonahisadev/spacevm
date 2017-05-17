@@ -15,6 +15,11 @@ namespace VM {
 		bool hasSymbols = false;
 		
 		Map<int, char*>* symbolMap;
+
+		// Used for runtime debugger
+		bool hijacked = false;
+		unsigned short* h_addr;
+
 		
 	public:
 		Decomp(unsigned char* data, bool hasSymbols, char* symbols);
@@ -23,6 +28,7 @@ namespace VM {
 		void start();
 		void loadSymbols();
 		void printJumpLabel(unsigned char a, unsigned char b);
+		void hijack(unsigned short* addr);
 	};
 	
 } // namespace VM

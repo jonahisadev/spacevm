@@ -5,7 +5,7 @@ namespace VM {
     Debugger::Debugger(unsigned char* data) {
         this->data = data;
         this->bpoints = new List<unsigned short>(1);
-        this->initInstMap();
+        this->d = new Decomp(data, false, nullptr);
     }
 
     Debugger::~Debugger() {
@@ -19,8 +19,9 @@ namespace VM {
                 "Please set breakpoints, or run\n"
             );
         } else {
-            if (!step)
+            if (!step) {
                 printf("Hit breakpoint 0x%04X\n", addr);
+            }
 
             printLine(addr);
         }
@@ -110,8 +111,9 @@ namespace VM {
     }
     
     void Debugger::printLine(unsigned short addr) {
-        char* name = this->instMap->getName(this->data[addr]);
-        printf("\n0x%04X: %s\n", addr, name);
+        //printf("\n");
+        this->d->hijack(&addr);
+        this->d->start();
     }
 
     bool Debugger::isBreakpoint(unsigned short addr) {
@@ -120,81 +122,6 @@ namespace VM {
                 return true;
         }
         return false;
-    }
-    
-    //
-    //  SPAMMY STUFF
-    //
-    
-    void Debugger::initInstMap() {
-        instMap->add(0x00, (char*)"NOP", 0);
-        
-        instMap->add(0x01, (char*)"MOV", 2);
-        instMap->add(0x02, (char*)"MOV", 2);
-        instMap->add(0x03, (char*)"MOV", 3);
-        
-        instMap->add(0x04, (char*)"ADD", 2);
-        instMap->add(0x05, (char*)"ADD", 2);
-        
-        instMap->add(0x07, (char*)"SUB", 2);
-        instMap->add(0x08, (char*)"SUB", 2);
-        
-        instMap->add(0x0A, (char*)"CALL", 2);
-        instMap->add(0x0B, (char*)"RET", 0);
-        instMap->add(0x0C, (char*)"SYSI", 0);
-        
-        instMap->add(0x10, (char*)"MUL", 2);
-        instMap->add(0x11, (char*)"MUL", 2);
-        
-        instMap->add(0x13, (char*)"DIV", 2);
-        instMap->add(0x14, (char*)"DIV", 2);
-        
-        instMap->add(0x16, (char*)"SXR", 1);
-        instMap->add(0x17, (char*)"SXL", 1);
-        instMap->add(0x18, (char*)"INC", 1);
-        instMap->add(0x19, (char*)"DEC", 1);
-        
-        instMap->add(0x1A, (char*)"PUSH", 1);
-        instMap->add(0x1B, (char*)"PUSH", 1);
-        instMap->add(0x1C, (char*)"POP", 1);
-        instMap->add(0x1D, (char*)"POP", 0);
-        
-        instMap->add(0x1E, (char*)"CMP", 2);
-        instMap->add(0x1F, (char*)"CMP", 2);
-        instMap->add(0x20, (char*)"JMP", 2);
-        instMap->add(0x21, (char*)"JNE", 2);
-        instMap->add(0x22, (char*)"JE", 2);
-        instMap->add(0x23, (char*)"JG", 2);
-        instMap->add(0x24, (char*)"JL", 2);
-        instMap->add(0x25, (char*)"JGE", 2);
-        instMap->add(0x26, (char*)"JLE", 2);
-        instMap->add(0x27, (char*)"JZ", 2);
-        instMap->add(0x28, (char*)"JNZ", 2);
-        
-        instMap->add(0x2A, (char*)"PUSHW", 1);
-        instMap->add(0x2B, (char*)"PUSHW", 1);
-        instMap->add(0x2C, (char*)"POPW", 1);
-        instMap->add(0x2D, (char*)"POPW", 0);
-        
-        instMap->add(0x30, (char*)"AND", 2);
-        instMap->add(0x31, (char*)"AND", 2);
-        instMap->add(0x32, (char*)"OR", 2);
-        instMap->add(0x33, (char*)"OR", 2);
-        instMap->add(0x34, (char*)"XOR", 2);
-        instMap->add(0x35, (char*)"XOR", 2);
-        
-        instMap->add(0x40, (char*)"HLT", 0);
-        
-        instMap->add(0x50, (char*)"PTR", 1);
-        instMap->add(0x51, (char*)"PTR", 2);
-        instMap->add(0x52, (char*)"STB", 1);
-        instMap->add(0x53, (char*)"LDB", 3);
-        instMap->add(0x54, (char*)"STW", 2);
-        instMap->add(0x55, (char*)"LDW", 3);
-        instMap->add(0x56, (char*)"STR", -1);
-        
-        instMap->add(0x60, (char*)"PUSHA", 0);
-        instMap->add(0x61, (char*)"POPA", 0);
     }
 
 } // namespace VM

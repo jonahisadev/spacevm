@@ -33,8 +33,9 @@ Below is the list of items that must be completed before switching the system
 to 32-bit mode.
 
 * Continue debugger for runtime
-    * Print current line
-    * Revamp symbol file
+    * Show registers
+    * Show stack segment
+* Add 16-bit register instructions
 * Preprocessor constants
 * Better compiler/parser error messages
     * Figure out a way to debug with file inclusions
@@ -44,6 +45,7 @@ to 32-bit mode.
 Below is a list of features that are not necessary before switching to 32-bit.
 These also may not ever be completed.
 
+* Revamp symbol file
 * Provide native C calling abilities
 * Improve jumps/calls to labels
 * Switch debug symbol file to binary

@@ -71,6 +71,11 @@ namespace VM {
 			}
 		}
 	}
+
+	void Decomp::hijack(unsigned short* addr) {
+		this->hijacked = true;
+		this->h_addr = addr;
+	}
 	
 	void Decomp::start() {
 		if (hasSymbols) {
@@ -81,17 +86,23 @@ namespace VM {
 		unsigned char b = data[1];
 		unsigned short binLen = Util::bToS(a, b);
 		
-		std::printf("LEN:  %d\n", binLen);
+		if (!hijacked)
+			std::printf("LEN:  %d\n", binLen);
 		
 		unsigned short addr = 2;
 		bool running = true;
-		
+
+		hijackLbl:
+		if (hijacked) {
+			addr = *this->h_addr;
+		}
+
 		while (running) {
 			unsigned char opcode = data[addr];
 			if (opcode == HLT_)
 				break;
 				
-			if (hasSymbols) {
+			if (hasSymbols && !hijacked) {
 				for (int i = 0; i < this->symbolMap->getPointer(); i++) {
 					if (addr == this->symbolMap->getDataA(i)) {
 						std::cout << std::endl;
@@ -521,6 +532,11 @@ namespace VM {
 			}
 			
 			std::printf("\n");
+			if (hijacked) {
+				int difference = addr - *(this->h_addr);
+				*(this->h_addr) += difference;
+				return;
+			}
 		}
 	}
 	
