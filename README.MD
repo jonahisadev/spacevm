@@ -44,6 +44,7 @@ to 32-bit mode.
 Below is a list of features that are not necessary before switching to 32-bit.
 These also may not ever be completed.
 
+* Provide native C calling abilities
 * Improve jumps/calls to labels
 * Switch debug symbol file to binary
 * Sub-labels

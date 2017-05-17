@@ -201,6 +201,9 @@ of downwards. Because I'm lazy.
 
 * The current system is 16-bit. Values over 0xFFFF or 65535 will probably break 
 the system (unless you combine registers by some sort of magic)
+* While the current system is 16-bit, most instructions are 8-bit. To get a
+16-bit number in a register, a word must be pushed, and popped back into the
+register.
 * Only include files one time. Any extra time will create duplicate symbols
 * Some syntactical and/or semantic errors may not give all necessary
 information to properly debug the issue.

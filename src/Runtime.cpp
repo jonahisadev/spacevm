@@ -25,7 +25,7 @@ namespace VM {
 		unsigned char opcode = 0;
 		bool firstDebug = true;
 
-		Debugger* d = new Debugger();
+		Debugger* d = new Debugger(&memory[PROG_BASE]);
 
 		startWhile:
 		if (this->debug) {
