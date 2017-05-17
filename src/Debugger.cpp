@@ -110,7 +110,8 @@ namespace VM {
     }
     
     void Debugger::printLine(unsigned short addr) {
-        printf("%d\n", this->data[addr]);
+        char* name = this->instMap->getName(this->data[addr]);
+        printf("\n0x%04X: %s\n", addr, name);
     }
 
     bool Debugger::isBreakpoint(unsigned short addr) {

@@ -36,7 +36,7 @@ printStr_loop:
 printStr_end:
 	pop %ax							; Restore AX
 	ret
-	
+
 ;
 ;	Print a number
 ;	BX: Number

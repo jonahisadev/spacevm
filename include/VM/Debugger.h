@@ -19,6 +19,15 @@ namespace VM {
             this->name->add(Util::strDupFull(name));
             this->args->add(args);
         }
+
+        char* getName(unsigned char inst) {
+            for (int i = 0; i < this->code->getPointer(); i++) {
+                if (inst == this->code->get(i)) {
+                    return this->name->get(i);
+                }
+            }
+            return nullptr;
+        }
     } InstMap;
 
     enum class DebugToken {

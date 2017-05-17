@@ -46,14 +46,9 @@ the runtime.
 
 The compiler has a sort of semantics checker, which can be programmed into
 the compiler by hand. It wouldn't make sense to subtract a number from an
-instruction, so the compiler makes sure that doesn't happen.
-
-The compiler also matches the list indexes to the lists, and writes addresses
-accordingly, taking into account data sizes, and offsets. The first six bytes
-of the binary have to do with this. The first byte is a call instruction to
-the address of where the data storage is, the address of which is in bytes
-two and three. The fourth byte is a jump to the entry point, the address of
-which is in bytes five and six.
+instruction, so the compiler makes sure that doesn't happen. The compiler 
+also matches the list indexes to the lists, and writes addresses accordingly, 
+taking into account data sizes, and offsets.
 
 ---
 

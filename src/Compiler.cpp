@@ -54,7 +54,7 @@ namespace VM {
 
 	void Compiler::start() {
 		//	
-		//	| 2      | 4         | 4          |
+		//	| 2      | 3         | 3          |
 		//	| Length | Data Addr | Entry Addr |
 		//
 		for (int i = 0; i < 8; i++) {

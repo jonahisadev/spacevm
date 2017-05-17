@@ -25,7 +25,7 @@ namespace VM {
 		unsigned char opcode = 0;
 		bool firstDebug = true;
 
-		Debugger* d = new Debugger(&memory[PROG_BASE]);
+		Debugger* d = new Debugger(&this->memory[PROG_BASE]);
 
 		startWhile:
 		if (this->debug) {
@@ -38,7 +38,7 @@ namespace VM {
 					goto endDebug;
 				}
 				if (d->isModeStep()) {
-					d->run(this->pc, true);
+					d->run(this->pc - PROG_BASE, true);
 					goto endDebug;
 				}
 			}

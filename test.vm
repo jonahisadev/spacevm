@@ -1,11 +1,14 @@
 #entry main
 
+;
+;	Entry point
+;
 main:
-	mov %cx &name
+	mov %cx &name				; Print name
 	call @printStr
 	call @printNL
 
-	ldb %bx &EXIT_SUCCESS
+	ldb %bx &EXIT_SUCCESS		; Exit
 	call @exit
 
 #include "lib/stdlib.vm"
