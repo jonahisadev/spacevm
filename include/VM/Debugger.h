@@ -4,11 +4,14 @@
 #include <VM/Util.h>
 #include <VM/List.h>
 #include <VM/Decomp.h>
+#include <VM/Runtime.h>
 
 #include <iostream>
 #include <cstdio>
 
 namespace VM {
+
+    class Runtime;
 
     enum class DebugToken {
         D_NONE,
@@ -18,6 +21,7 @@ namespace VM {
     class Debugger {
     private:
         List<unsigned short>* bpoints;
+        Runtime* r;
         Decomp* d;
         
         bool modeStep = false;
@@ -26,7 +30,7 @@ namespace VM {
         unsigned char* data;
 
     public:
-        Debugger(unsigned char* data);
+        Debugger(Runtime* r, unsigned char* data);
         ~Debugger();
 
         bool isBreakpoint(unsigned short addr);

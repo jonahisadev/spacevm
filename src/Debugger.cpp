@@ -2,14 +2,16 @@
 
 namespace VM {
 
-    Debugger::Debugger(unsigned char* data) {
+    Debugger::Debugger(Runtime* r, unsigned char* data) {
         this->data = data;
         this->bpoints = new List<unsigned short>(1);
         this->d = new Decomp(data, false, nullptr);
+        this->r = r;
     }
 
     Debugger::~Debugger() {
         delete this->bpoints;
+        delete this->d;
     }
 
     void Debugger::run(unsigned short addr, bool step) {
@@ -61,6 +63,12 @@ namespace VM {
                     s = true;
                     break;
                 }
+                
+                if (Util::strEquals(lex, "registers") ||
+                        Util::strEquals(lex, "reg")) {
+                    this->r->printRegisters();
+                    goto debugStart;
+                }
 
             // NOT STARTED
             } else {
@@ -111,7 +119,7 @@ namespace VM {
     }
     
     void Debugger::printLine(unsigned short addr) {
-        //printf("\n");
+        printf("\t\t");
         this->d->hijack(&addr);
         this->d->start();
     }

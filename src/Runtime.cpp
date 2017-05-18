@@ -25,7 +25,7 @@ namespace VM {
 		unsigned char opcode = 0;
 		bool firstDebug = true;
 
-		Debugger* d = new Debugger(&this->memory[PROG_BASE]);
+		Debugger* d = new Debugger(this, &this->memory[PROG_BASE]);
 
 		startWhile:
 		if (this->debug) {
@@ -747,6 +747,18 @@ namespace VM {
 			panic("Aborting");
 			return nullptr;
 		}
+	}
+	
+	// DEBUG FUNCTIONS
+	
+	void Runtime::printRegisters() {
+		std::cout << "\t\tAX: " << ax->get() << std::endl;
+		std::cout << "\t\tBX: " << bx->get() << std::endl;
+		std::cout << "\t\tCX: " << cx->get() << std::endl;
+		std::cout << "\t\tDX: " << dx->get() << std::endl;
+		std::cout << "\t\tXX: " << xx->get() << std::endl;
+		std::cout << "\t\tYX: " << yx->get() << std::endl;
+		std::cout << "\t\tRM: " << rm->get() << std::endl;
 	}
 
 } // namespace VM

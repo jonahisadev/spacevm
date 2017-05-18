@@ -1,19 +1,13 @@
 #entry main
 
-;
-;	Entry point
-;
 main:
-	mov %cx &name				; Print name
-	call @printStr
+	mov %ax $42
+	mov %bx $32
+	mul %bx %ax
+	call @printNum
 	call @printNL
-
-	ldb %bx &EXIT_SUCCESS		; Exit
+	
+	mov %bx $0
 	call @exit
-
+	
 #include "lib/stdlib.vm"
-
-#data
-	str *name "Jonah"
-	stb *EXIT_SUCCESS $0
-#end

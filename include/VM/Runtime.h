@@ -65,6 +65,9 @@ namespace VM {
 
 		int getReturnCode() const { return retCode; }
 		void setDebug(bool debug) { this->debug = debug; }
+		
+		// Debug Functions
+		void printRegisters();
 
 		Register* getRegister(unsigned char reg);
 	};
