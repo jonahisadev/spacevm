@@ -33,9 +33,8 @@ Below is the list of items that must be completed before switching the system
 to 32-bit mode.
 
 * Continue debugger for runtime
-    * Show registers
     * Show stack segment
-* Add 16-bit register instructions
+* Add 16-bit register `mov` instructions
 * Preprocessor constants
 * Better compiler/parser error messages
     * Figure out a way to debug with file inclusions

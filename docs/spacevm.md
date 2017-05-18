@@ -8,6 +8,7 @@
 * [System Interrupts](#system-interrupts)
 * [Registers](#registers)
 * [Memory Layout](#memory-layout)
+* [Binary Header Layout](#binary-header-layout)
 * [Limitations](#limitations)
 
 ---
@@ -189,6 +190,34 @@ of downwards. Because I'm lazy.
 | `0x4000`	| Variables		|
 | `0x1000`	| Program		|
 | `0x0000`	| BASE			|
+
+---
+
+## Binary Header Layout
+
+The first 8 bytes of the compiled binary are very important, and are required
+for a proper runtime. It should be noted that the last six bytes of the header
+are replaced by `NOP` if their features are not required.
+
+### 0-1
+
+The first two bytes are simply the length of the binary file written in
+big-endian format. The official SpaceVM runtime loads the length to prevent
+memory corruption from destroying the loaded binary.
+
+### 2-4
+
+The next three bytes are actual instructions for the runtime, which is a call
+instruction to where the data is loaded. After loading all of the data onto
+the stack from instructions such as `STB` and `STW`, there is a `RET` 
+instruction, which returns back to the last three bytes of the header. Data
+loading addressing is performed by the compiler, and not the programmer.
+
+### 5-7
+
+The last three bytes are also instructions for the runtime. If an entry point
+to a label is specified by the programmer, a jump instruction to the address of
+that label is written there.
 
 ---
 
