@@ -1,9 +1,12 @@
 #entry main
 
 main:
-	mov %ax $42
-	mov %bx $32
-	mul %bx %ax
+	mov %bx $310
+	call @printNum
+	call @printNL
+	
+	pushw $310
+	popw %bx
 	call @printNum
 	call @printNL
 	
