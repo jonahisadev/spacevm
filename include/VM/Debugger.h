@@ -16,6 +16,7 @@ namespace VM {
     enum class DebugToken {
         D_NONE,
         D_BPOINT,
+        D_STACK,
     };
 
     class Debugger {

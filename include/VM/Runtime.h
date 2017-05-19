@@ -68,6 +68,7 @@ namespace VM {
 		
 		// Debug Functions
 		void printRegisters();
+		void printStack(unsigned short addr);
 
 		Register* getRegister(unsigned char reg);
 	};

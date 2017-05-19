@@ -27,6 +27,8 @@ namespace VM {
 
             printLine(addr);
         }
+        
+        bool s;
 
         debugStart:
         char* cmd = new char[256];
@@ -44,33 +46,54 @@ namespace VM {
         for (int x = 0; x < 255; x++)
             lex[x] = '\0';
 
-        bool s = false;
+        s = false;
         while (i < Util::strLength(cmd)) {
             lex[lexi++] = cmd[i++];
 
             // STARTED
             if (this->started) {
-                // STEP
-                if (Util::strEquals(cmd, "step") ||
-                        Util::strEquals(cmd, "s")) {
-                    this->modeStep = true;
-                    s = true;
-                    break;
-                }
-
-                // CONTINUE
-                else if (Util::strEquals(cmd, "continue") ||
-                         Util::strEquals(cmd, "c")) {
-                    this->modeStep = false;
-                    s = true;
-                    break;
-                }
-                
-                // REGISTERS
-                else if (Util::strEquals(cmd, "registers") ||
-                         Util::strEquals(cmd, "reg")) {
-                    this->r->printRegisters();
-                    goto debugStart;
+                if (tok == DebugToken::D_NONE)
+                    // STEP
+                    if (Util::strEquals(cmd, "step") ||
+                            Util::strEquals(cmd, "s")) {
+                        this->modeStep = true;
+                        s = true;
+                        break;
+                    }
+    
+                    // CONTINUE
+                    else if (Util::strEquals(cmd, "continue") ||
+                             Util::strEquals(cmd, "c")) {
+                        this->modeStep = false;
+                        s = true;
+                        break;
+                    }
+                    
+                    // REGISTERS
+                    else if (Util::strEquals(cmd, "registers") ||
+                             Util::strEquals(cmd, "reg")) {
+                        this->r->printRegisters();
+                        goto debugStart;
+                    }
+                    
+                    // STACK FRAME
+                    else if (Util::strEquals(lex, "stack") ||
+                             Util::strEquals(lex, "sf")) {
+                        tok = DebugToken::D_STACK;
+                        i++;
+                        s = true;
+                        goto resetLex;
+                    }
+                else if (tok == DebugToken::D_STACK) {
+                    if (cmd[i] == '\0') {
+                        lex[lexi] = '\0';
+                        unsigned short addr = (unsigned short)Util::convertNum(lex, 16);
+                        this->r->printStack(addr);
+                        delete[] cmd;
+                        delete[] lex;
+                        s = true;
+                        goto debugStart;
+                    }
                 }
 
             // NOT STARTED
