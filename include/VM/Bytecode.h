@@ -71,6 +71,11 @@ namespace VM {
 		
 		PUSHA_ =	0x60,
 		POPA_ =		0x61,
+		
+		// 16-bit Register Instructions
+		
+		MOVW_RN =	0x81,
+		MOVW_RA =	0x83,
 	};
 
 	enum ByteReg {

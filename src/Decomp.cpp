@@ -524,6 +524,22 @@ namespace VM {
 					break;
 				}
 				
+				// MOVW
+				case MOVW_RN: {
+					std::printf("MOVW \t%s %d",
+					Token::getRegister(data[addr+1]),
+					Util::bToS(data[addr+2], data[addr+3]));
+					addr += 4;
+					break;
+				}
+				case MOVW_RA: {
+					std::printf("MOVW \t%s %02X%02X",
+					Token::getRegister(data[addr+1]),
+					data[addr+2], data[addr+3]);
+					addr += 4;
+					break;
+				}
+				
 				// DEFAULT
 				default: {
 					std::printf("???");

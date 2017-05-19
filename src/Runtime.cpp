@@ -546,6 +546,30 @@ namespace VM {
 					this->ax->set(popw());
 					break;
 				}
+				
+				// MOVW
+				case MOVW_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short val = (short)Util::bToS(a, b);
+					Register* regPtr = getRegister(reg);
+					
+					regPtr->set(val);
+					break;
+				}
+				case MOVW_RA: {
+					unsigned char reg = getNextByte();
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					unsigned short addr = Util::bToS(a, b);
+					Register* regPtr = getRegister(reg);
+					
+					regPtr->set((short)addr);
+					break;
+				}
 
 				// SYSI
 				case ByteInst::SYSI_: {

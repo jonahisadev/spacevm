@@ -159,6 +159,8 @@ namespace VM {
 				return "PUSHA";
 			case TokenInst::POPA:
 				return "POPA";
+			case TokenInst::MOVW:
+				return "MOVW";
 			default:
 				return "???";
 		}

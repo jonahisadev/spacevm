@@ -359,6 +359,8 @@ namespace VM {
 			return TokenInst::PUSHA;
 		else if (Util::strEquals(lex, "POPA"))
 			return TokenInst::POPA;
+		else if (Util::strEquals(lex, "MOVW"))
+			return TokenInst::MOVW;
 
 		else if (Util::strEquals(lex, "HLT"))
 			return TokenInst::HLT;

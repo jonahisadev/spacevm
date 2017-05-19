@@ -60,6 +60,8 @@ namespace VM {
 		
 		PUSHA,
 		POPA,
+		
+		MOVW,
 
 		HLT
 	};

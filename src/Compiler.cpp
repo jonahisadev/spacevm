@@ -395,6 +395,18 @@ namespace VM {
 					else
 						serror("POPA", t->getLine());
 				}
+				
+				// MOVW
+				else if (t->getData() == TokenInst::MOVW) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::MOVW_RN);
+					else if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::ADDR)
+						writeByte(ByteInst::MOVW_RA);
+					else
+						serror("MOVW", t->getLine());
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {

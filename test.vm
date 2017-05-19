@@ -1,8 +1,7 @@
 #entry main
 
 main:
-	pushw $310
-	popw %bx
+	movw %bx $310
 	call @printNum
 	call @printNL
 	
