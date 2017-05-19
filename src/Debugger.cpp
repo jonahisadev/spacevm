@@ -50,22 +50,25 @@ namespace VM {
 
             // STARTED
             if (this->started) {
-                if (Util::strEquals(lex, "step") ||
-                        Util::strEquals(lex, "s")) {
+                // STEP
+                if (Util::strEquals(cmd, "step") ||
+                        Util::strEquals(cmd, "s")) {
                     this->modeStep = true;
                     s = true;
                     break;
                 }
 
-                if (Util::strEquals(lex, "continue") ||
-                        Util::strEquals(lex, "c")) {
+                // CONTINUE
+                else if (Util::strEquals(cmd, "continue") ||
+                         Util::strEquals(cmd, "c")) {
                     this->modeStep = false;
                     s = true;
                     break;
                 }
                 
-                if (Util::strEquals(lex, "registers") ||
-                        Util::strEquals(lex, "reg")) {
+                // REGISTERS
+                else if (Util::strEquals(cmd, "registers") ||
+                         Util::strEquals(cmd, "reg")) {
                     this->r->printRegisters();
                     goto debugStart;
                 }
@@ -73,6 +76,7 @@ namespace VM {
             // NOT STARTED
             } else {
                 if (tok == DebugToken::D_NONE) {
+                    // BREAKPOINT
                     if (Util::strEquals(lex, "breakpoint") ||
                             Util::strEquals(lex, "bp")) {
                         tok = DebugToken::D_BPOINT;
@@ -81,8 +85,9 @@ namespace VM {
                         goto resetLex;
                     }
                     
-                    if (Util::strEquals(lex, "run") ||
-                            Util::strEquals(lex, "r")) {
+                    // RUN
+                    else if (Util::strEquals(cmd, "run") ||
+                             Util::strEquals(cmd, "r")) {
                         s = true;
                         this->started = true;
                         break;
@@ -101,8 +106,8 @@ namespace VM {
                 }
             }
 
-            if (Util::strEquals(lex, "quit") ||
-                    Util::strEquals(lex, "q")) {
+            if (Util::strEquals(cmd, "quit") ||
+                    Util::strEquals(cmd, "q")) {
                 std::exit(0);
             }
         }

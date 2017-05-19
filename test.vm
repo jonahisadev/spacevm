@@ -1,10 +1,6 @@
 #entry main
 
 main:
-	mov %bx $310
-	call @printNum
-	call @printNL
-	
 	pushw $310
 	popw %bx
 	call @printNum

@@ -382,8 +382,8 @@ namespace VM {
 				}
 				case PUSHW_N: {
 					std::printf("PUSHW \t%d", 
-					data[addr+1]);
-					addr += 2;
+					Util::bToS(data[addr+1], data[addr+2]));
+					addr += 3;
 					break;
 				}
 				
