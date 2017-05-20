@@ -787,9 +787,10 @@ namespace VM {
 	
 	void Runtime::printStack(unsigned short addr) {
 		for (int y = 0; y < 16; y++) {
+			std::printf("%04X: ", addr + (y * 16));
 			for (int x = 0; x < 16; x++) {
-				std::cout << this->memory[addr + (y * 16 + x)];
-				if (y != 15 && x != 15) {
+				std::printf("%02X", this->memory[addr + (y * 16 + x)]);
+				if (y != 16 && x != 15) {
 					std::cout << ", ";
 				}
 			}

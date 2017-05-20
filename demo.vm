@@ -1,0 +1,29 @@
+#entry main
+
+main:
+	mov %cx &msg					; Print message
+	call @printStr
+
+	ldb %bx &first					; Print quotient
+	ldb %cx &last
+	div %bx %cx
+	call @printNum
+
+	mov %cx &rm						; Print remainder message
+	call @printStr
+
+	mov %bx %rm						; Print remainder and newline
+	call @printNum
+	call @printNL
+
+	mov %bx $0						; Exit program
+	call @exit
+
+#include "lib/stdlib.vm"
+
+#data
+	stb *first $14
+	stb *last $3
+	str *msg "14 / 3 is "
+	str *rm " remainder "
+#end

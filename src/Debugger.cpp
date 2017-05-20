@@ -52,7 +52,7 @@ namespace VM {
 
             // STARTED
             if (this->started) {
-                if (tok == DebugToken::D_NONE)
+                if (tok == DebugToken::D_NONE) {
                     // STEP
                     if (Util::strEquals(cmd, "step") ||
                             Util::strEquals(cmd, "s")) {
@@ -84,7 +84,7 @@ namespace VM {
                         s = true;
                         goto resetLex;
                     }
-                else if (tok == DebugToken::D_STACK) {
+                } else if (tok == DebugToken::D_STACK) {
                     if (cmd[i] == '\0') {
                         lex[lexi] = '\0';
                         unsigned short addr = (unsigned short)Util::convertNum(lex, 16);
