@@ -6,6 +6,7 @@
 * [Basic Syntax](#basic-syntax)
 * [Instruction Set](#instruction-set)
 * [System Interrupts](#system-interrupts)
+* [Debug Commands](#debug-commands)
 * [Registers](#registers)
 * [Memory Layout](#memory-layout)
 * [Binary Header Layout](#binary-header-layout)
@@ -147,6 +148,10 @@ Legend:
 | `STR`			| V,STR					| Store a string |
 | `PUSHA`		| 0						| Pushes all general purpose registers |
 | `POPA`		| 0						| Pops values back into genereal purpose registers |
+| `ADDW`		| R,N					| Add a 16-bit number to register |
+| `SUBW`		| R,N					| Subtract a 16-bit number from register |
+| `MULW`		| R,N					| Multiply a register by a 16-bit number |
+| `DIVW`		| R,N					| Divide a registery by a 16-bit number |
 
 ---
 
@@ -158,6 +163,20 @@ Legend:
 | `0x02`		| `byte`					| Print a byte to console |
 | `0x03`		| `char`					| Print a char to console |
 | `0x04`		| `word`					| Print a word to console |
+
+---
+
+## Debug Commands
+
+| Command		| Arguments					| Description		|
+| ------------- | ------------------------- | ----------------- |
+| `bp` / `breakpoint`| addr					| Set a breakpoint to an address in compiled code |
+| `r` / `run`	|							| Begin the runtime |
+|				|							|					|
+| `s` / `step`	|							| Step by instructions |
+| `c` / `continue` |						| Continue running until a breakpoint is hit |
+| `reg` / `registers` |						| Show general purpose and remainder registers |
+| `sf` / `stack`| addr						| Show 256 bytes of memory from provided starting address |
 
 ---
 

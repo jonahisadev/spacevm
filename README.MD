@@ -32,7 +32,6 @@ and debugging the current VM is priority along with the first couple of items.
 Below is the list of items that must be completed before switching the system
 to 32-bit mode.
 
-* Add some 16-bit register instructions
 * Preprocessor constants
 * Better compiler/parser error messages
     * Figure out a way to debug with file inclusions
