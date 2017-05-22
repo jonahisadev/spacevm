@@ -1,8 +1,8 @@
 #entry main
 
 main:
-	mov %bx $42
-	addw %bx $510
+	movw %bx $10000
+	divw %bx $1000
 	call @printNum
 	call @printNL
 	

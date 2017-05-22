@@ -583,6 +583,48 @@ namespace VM {
 					regPtr->set(regPtr->get() + val);
 					break;
 				}
+				
+				// SUBW
+				case SUBW_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short val = (short)Util::bToS(a, b);
+					Register* regPtr = getRegister(reg);
+					
+					regPtr->set(regPtr->get() - val);
+					break;
+				}
+				
+				// MULW
+				case MULW_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short val = (short)Util::bToS(a, b);
+					Register* regPtr = getRegister(reg);
+					
+					regPtr->set(regPtr->get() * val);
+					break;
+				}
+				
+				// DIVW
+				case DIVW_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+
+					short val = (short)Util::bToS(a, b);
+					Register* regPtr = getRegister(reg);
+					short save = regPtr->get();
+
+					regPtr->set((short)floor((float)regPtr->get() / (float)val));
+					this->rm->set((short)((int)save % (int)val));
+					
+					break;
+				}
 
 				// SYSI
 				case ByteInst::SYSI_: {

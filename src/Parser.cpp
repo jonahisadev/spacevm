@@ -363,6 +363,12 @@ namespace VM {
 			return TokenInst::MOVW;
 		else if (Util::strEquals(lex, "ADDW"))
 			return TokenInst::ADDW;
+		else if (Util::strEquals(lex, "SUBW"))
+			return TokenInst::SUBW;
+		else if (Util::strEquals(lex, "MULW"))
+			return TokenInst::MULW;
+		else if (Util::strEquals(lex, "DIVW"))
+			return TokenInst::DIVW;
 
 		else if (Util::strEquals(lex, "HLT"))
 			return TokenInst::HLT;

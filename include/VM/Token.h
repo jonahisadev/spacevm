@@ -63,6 +63,9 @@ namespace VM {
 		
 		MOVW,
 		ADDW,
+		SUBW,
+		MULW,
+		DIVW,
 
 		HLT
 	};

@@ -416,6 +416,33 @@ namespace VM {
 					else
 						serror("ADDW", t->getLine());
 				}
+				
+				// SUBW
+				else if (t->getData() == TokenInst::SUBW) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::SUBW_RN);
+					else
+						serror("SUBW", t->getLine());
+				}
+				
+				// MULW
+				else if (t->getData() == TokenInst::MULW) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::MULW_RN);
+					else
+						serror("MULW", t->getLine());
+				}
+				
+				// DIVW
+				else if (t->getData() == TokenInst::DIVW) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::DIVW_RN);
+					else
+						serror("DIVW", t->getLine());
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {

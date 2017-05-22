@@ -163,6 +163,12 @@ namespace VM {
 				return "MOVW";
 			case TokenInst::ADDW:
 				return "ADDW";
+			case TokenInst::SUBW:
+				return "SUBW";
+			case TokenInst::MULW:
+				return "MULW";
+			case TokenInst::DIVW:
+				return "DIVW";
 			default:
 				return "???";
 		}
