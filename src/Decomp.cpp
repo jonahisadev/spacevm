@@ -540,6 +540,15 @@ namespace VM {
 					break;
 				}
 				
+				// ADDW
+				case ADDW_RN: {
+					std::printf("ADDW \t%s %d",
+					Token::getRegister(data[addr+1]),
+					Util::bToS(data[addr+2], data[addr+3]));
+					addr += 4;
+					break;
+				}
+				
 				// DEFAULT
 				default: {
 					std::printf("???");

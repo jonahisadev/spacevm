@@ -570,6 +570,19 @@ namespace VM {
 					regPtr->set((short)addr);
 					break;
 				}
+				
+				// ADDW
+				case ADDW_RN: {
+					unsigned char reg = getNextByte();
+					unsigned char a = getNextByte();
+					unsigned char b = getNextByte();
+					
+					short val = (short)Util::bToS(a, b);
+					Register* regPtr = getRegister(reg);
+					
+					regPtr->set(regPtr->get() + val);
+					break;
+				}
 
 				// SYSI
 				case ByteInst::SYSI_: {

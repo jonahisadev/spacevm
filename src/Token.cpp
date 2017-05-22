@@ -161,6 +161,8 @@ namespace VM {
 				return "POPA";
 			case TokenInst::MOVW:
 				return "MOVW";
+			case TokenInst::ADDW:
+				return "ADDW";
 			default:
 				return "???";
 		}

@@ -76,6 +76,7 @@ namespace VM {
 		
 		MOVW_RN =	0x81,
 		MOVW_RA =	0x83,
+		ADDW_RN =	0x84,
 	};
 
 	enum ByteReg {

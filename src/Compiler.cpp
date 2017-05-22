@@ -407,6 +407,15 @@ namespace VM {
 					else
 						serror("MOVW", t->getLine());
 				}
+				
+				// ADDW
+				else if (t->getData() == TokenInst::ADDW) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::ADDW_RN);
+					else
+						serror("ADDW", t->getLine());
+				}
 
 				// HLT
 				else if (t->getData() == TokenInst::HLT) {

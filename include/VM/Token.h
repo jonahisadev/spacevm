@@ -62,6 +62,7 @@ namespace VM {
 		POPA,
 		
 		MOVW,
+		ADDW,
 
 		HLT
 	};

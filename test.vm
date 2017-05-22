@@ -1,15 +1,12 @@
 #entry main
 
 main:
-	mov %cx &name
-	call @printStr
+	mov %bx $42
+	addw %bx $510
+	call @printNum
 	call @printNL
 	
 	mov %bx $0
 	call @exit
 	
 #include "lib/stdlib.vm"
-
-#data
-	str *name "Jonah"
-#end
