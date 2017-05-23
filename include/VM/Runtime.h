@@ -41,7 +41,7 @@ namespace VM {
 		void sys_print_b(unsigned char b);
 		void sys_print_c(char c);
 		void sys_print_w(short w);
-		void sys_fread(char* path, unsigned short len);
+		void sys_fread(unsigned short path, unsigned short len, unsigned short addr);
 		
 		bool debug = false;
 

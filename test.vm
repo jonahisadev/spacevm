@@ -1,9 +1,14 @@
 #entry main
 
 main:
-	movw %bx $10000
-	divw %bx $1000
-	call @printNum
+	mov %ax $5					; Set system call to `fread`
+	mov %bx &path				; Set the path to the file
+	mov %cx $100				; Set the max amount of bytes to read
+	mov %dx &contents			; Set the address for where the contents will go
+	sysi
+	
+	mov %cx &contents
+	call @printStr
 	call @printNL
 	
 	mov %bx $0
@@ -12,6 +17,7 @@ main:
 #include "lib/stdlib.vm"
 
 #data
-	str *path "test.vm"
+	str *path "fread.txt"
 	resb *contents $100
+	stb *rand $42
 #end

@@ -529,7 +529,7 @@ namespace VM {
 				case ByteInst::RESB_: {
 					unsigned char size = getNextByte();
 					for (int i = 0; i < size; i++) {
-						memory[VAR_OFFSET + var_ptr++] = 1;
+						memory[VAR_OFFSET + var_ptr++] = 0;
 					}
 					break;
 				}
@@ -657,6 +657,10 @@ namespace VM {
 						sys_print_w(this->bx->get());
 						break;
 					}
+					else if (this->ax->get() == 0x05) {
+						sys_fread(this->bx->get(), this->cx->get(), this->dx->get());
+						break;
+					}
 				}
 				
 			}
@@ -745,6 +749,26 @@ namespace VM {
 	
 	void Runtime::sys_print_w(short w) {
 		std::cout << w;
+	}
+	
+	void Runtime::sys_fread(unsigned short path, unsigned short len, unsigned short addr) {
+		char* pathCopy = new char[256];
+		int i = 0;
+		while (memory[path + i] != '\0') {
+			pathCopy[i] = (char)memory[path + i];
+			i++;
+		}
+		pathCopy[i] = '\0';
+		
+		FILE* file = fopen(pathCopy, "r");
+		char* buf = new char[len];
+		fread(buf, 1, len, file);
+		for (int i = 0; i < len; i++) {
+			memory[addr + i] = buf[i];
+		}
+		memory[addr + len] = '\0';
+		delete[] buf;
+		fclose(file);
 	}
 
 	Register* Runtime::getRegister(unsigned char reg) {
@@ -857,6 +881,13 @@ namespace VM {
 				if (y != 16 && x != 15) {
 					std::cout << ", ";
 				}
+			}
+			std::printf("\t\t");
+			for (int x = 0; x < 16; x++) {
+				if (this->memory[addr + (y * 16 + x)] < 32)
+					std::printf(".");
+				else
+					std::printf("%c", this->memory[addr + (y * 16 + x)]);
 			}
 			std::cout << std::endl;
 		}

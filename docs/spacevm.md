@@ -146,6 +146,7 @@ Legend:
 | `STW`			| V,N					| Store word |
 | `LDW`			| R,A					| Load word into register |
 | `STR`			| V,STR					| Store a string |
+| `RESB`		| V,N					| Reserve a set amount of bytes in memory |
 | `PUSHA`		| 0						| Pushes all general purpose registers |
 | `POPA`		| 0						| Pops values back into genereal purpose registers |
 | `ADDW`		| R,N					| Add a 16-bit number to register |
@@ -163,6 +164,7 @@ Legend:
 | `0x02`		| `byte`					| Print a byte to console |
 | `0x03`		| `char`					| Print a char to console |
 | `0x04`		| `word`					| Print a word to console |
+| `0x05`		| `path_addr, len, contents_addr`| Read a file into memory |
 
 ---
 
