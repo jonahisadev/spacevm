@@ -57,6 +57,7 @@ namespace VM {
 		STW,
 		LDW,
 		STR,
+		RESB,
 		
 		PUSHA,
 		POPA,

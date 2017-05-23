@@ -68,6 +68,7 @@ namespace VM {
 		STW_ = 		0x54,
 		LDW_ = 		0x55,
 		STR_ =		0x56,
+		RESB_ = 	0x57,
 		
 		PUSHA_ =	0x60,
 		POPA_ =		0x61,

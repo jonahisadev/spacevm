@@ -355,6 +355,8 @@ namespace VM {
 			return TokenInst::LDW;
 		else if (Util::strEquals(lex, "STR"))
 			return TokenInst::STR;
+		else if (Util::strEquals(lex, "RESB"))
+			return TokenInst::RESB;
 		else if (Util::strEquals(lex, "PUSHA"))
 			return TokenInst::PUSHA;
 		else if (Util::strEquals(lex, "POPA"))

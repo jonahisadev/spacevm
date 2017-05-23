@@ -380,6 +380,15 @@ namespace VM {
 						serror("STR", t->getLine());
 				}
 				
+				// RESB
+				else if (t->getData() == TokenInst::RESB) {
+					if (tokenList->get(i+1)->getType() == TokenType::VAR &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::RESB_);
+					else
+						serror("RESB", t->getLine());
+				}
+				
 				// PUSHA
 				else if (t->getData() == TokenInst::PUSHA) {
 					if (tokenList->get(i+1)->getType() == TokenType::INST)

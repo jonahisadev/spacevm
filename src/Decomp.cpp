@@ -510,6 +510,14 @@ namespace VM {
 					break;
 				}
 				
+				// RESB
+				case RESB_: {
+					std::printf("RESB \t%d",
+					data[addr+1]);
+					addr += 2;
+					break;
+				}
+				
 				// PUSHA
 				case PUSHA_: {
 					std::printf("PUSHA");

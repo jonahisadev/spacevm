@@ -10,3 +10,8 @@ main:
 	call @exit
 	
 #include "lib/stdlib.vm"
+
+#data
+	str *path "test.vm"
+	resb *contents $100
+#end

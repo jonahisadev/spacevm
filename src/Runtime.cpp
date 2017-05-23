@@ -525,6 +525,15 @@ namespace VM {
 					break;
 				}
 				
+				// RESB
+				case ByteInst::RESB_: {
+					unsigned char size = getNextByte();
+					for (int i = 0; i < size; i++) {
+						memory[VAR_OFFSET + var_ptr++] = 1;
+					}
+					break;
+				}
+				
 				// PUSHA
 				case ByteInst::PUSHA_: {
 					pushw(this->ax->get());
