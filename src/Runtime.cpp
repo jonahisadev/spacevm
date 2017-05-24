@@ -761,12 +761,22 @@ namespace VM {
 		pathCopy[i] = '\0';
 		
 		FILE* file = fopen(pathCopy, "r");
+
+		fseek(file, 0, SEEK_END);
+		int max = ftell(file);
+		fseek(file, 0, SEEK_SET);
+
 		char* buf = new char[len];
 		fread(buf, 1, len, file);
+		int last = 0;
 		for (int i = 0; i < len; i++) {
+			if (buf[i] == '\0' || i == max) {
+				last = i;
+				break;
+			}
 			memory[addr + i] = buf[i];
 		}
-		memory[addr + len] = '\0';
+		memory[addr + last] = '\0';
 		delete[] buf;
 		fclose(file);
 	}
@@ -876,13 +886,14 @@ namespace VM {
 	void Runtime::printStack(unsigned short addr) {
 		for (int y = 0; y < 16; y++) {
 			std::printf("%04X: ", addr + (y * 16));
-			for (int x = 0; x < 16; x++) {
+			for (int x = 0; x < 16; x += 2) {
 				std::printf("%02X", this->memory[addr + (y * 16 + x)]);
+				std::printf("%02X", this->memory[addr + (y * 16 + x + 1)]);
 				if (y != 16 && x != 15) {
-					std::cout << ", ";
+					std::cout << " ";
 				}
 			}
-			std::printf("\t\t");
+			std::printf("\t");
 			for (int x = 0; x < 16; x++) {
 				if (this->memory[addr + (y * 16 + x)] < 32)
 					std::printf(".");

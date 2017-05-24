@@ -11,6 +11,10 @@ main:
 	call @printStr
 	call @printNL
 	
+	ldb %bx &rand
+	call @printNum
+	call @printNL
+
 	mov %bx $0
 	call @exit
 	

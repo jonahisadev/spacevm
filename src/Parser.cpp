@@ -24,6 +24,9 @@ namespace VM {
         char delim = ' ';
 		int line = 1;
 
+		// Reserve Byte Number
+		bool resNum = false;
+
         // Reset the buffer
         resetLex:
         for (int x = 0; x < 256; x++)
@@ -95,7 +98,12 @@ namespace VM {
 
 		// NUMBERS
 		else if (lex[0] == '$') {
-			tokenList->add(new Token(TokenType::NUM, Util::convertTokNum(lex, 10), line));
+			int num = Util::convertTokNum(lex, 10);
+			tokenList->add(new Token(TokenType::NUM, num, line));
+			if (resNum) {
+				tokenList->get(tokenList->getPointer()-2)->setData(num);
+				resNum = false;
+			}
 		}
 		else if (lex[0] == '0' && lex[1] == 'x') {
 			tokenList->add(new Token(TokenType::NUM, Util::convertTokNum(lex, 16), line));
@@ -136,6 +144,9 @@ namespace VM {
 			varList->add(var);
 			if (tokenList->get(tokenList->getPointer()-1)->getData() == TokenInst::STR) {
 				tokenList->add(new Token(TokenType::VAR, 0, line));
+			} else if (tokenList->get(tokenList->getPointer()-1)->getData() == TokenInst::RESB) {
+				tokenList->add(new Token(TokenType::VAR, 0, line));
+				resNum = true;
 			} else {
 				tokenList->add(new Token(TokenType::VAR, lastStoreSize, line));
 			}
