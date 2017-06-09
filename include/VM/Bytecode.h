@@ -61,6 +61,8 @@ namespace VM {
 
 		ARG_ = 		0x36,
 
+		POPX_ = 	0x37,
+
 		HLT_ = 		0x40,
 		
 		PTR_R = 	0x50,

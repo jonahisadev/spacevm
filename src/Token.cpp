@@ -145,6 +145,8 @@ namespace VM {
 				return "XOR";
 			case TokenInst::ARG:
 				return "ARG";
+			case TokenInst::POPX:
+				return "POPX";
 			case TokenInst::PTR:
 				return "PTR";
 			case TokenInst::STB:

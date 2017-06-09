@@ -13,6 +13,8 @@ namespace VM {
 		for (int i = 0; i < binLen; i++) {
 			this->memory[PROG_BASE + i] = data[i];
 		}
+
+		this->bp->set(this->sp);
 		
 		delete[] data;
 	}
@@ -130,14 +132,22 @@ namespace VM {
 				
 				// CALL
 				case ByteInst::CALL_: {
-					// Save return address
+					// Save BP
+					unsigned short oldBP = (unsigned short)this->bp->get();
+
+					// Push return address
 					unsigned char* data = Util::sToB(this->pc + 3);
 					push(data[0]);
 					push(data[1]);
 
-					// Save BP offset
+					// Set BP to SP
 					this->bp->set((short)(this->sp - 1));
 					
+					// Push old BP
+					unsigned char* bpBytes = Util::sToB(oldBP);
+					push(bpBytes[0]);
+					push(bpBytes[1]);
+
 					// Jump to address
 					jump();
 					goto startWhile;
@@ -145,17 +155,24 @@ namespace VM {
 				
 				// RET
 				case ByteInst::RET_: {
-					// Get return address
-					//unsigned char a = pop();
-					//unsigned char b = pop();
-					
-					//pop();
-					//pop();
+					// Get old BP
+					unsigned char a = pop();
+					unsigned char b = pop();
+					unsigned short oldBP = Util::bToS(b, a);
 
 					// Jump to address
 					unsigned short addr = Util::bToS(memory[(unsigned short)this->bp->get()],
 						memory[(unsigned short)this->bp->get()+1]);
 					this->pc = addr;
+
+					// Set BP back
+					this->bp->set((short)oldBP);
+
+					// Pop return address
+					pop();
+					pop();
+
+					// Loop
 					goto startWhile;
 				}
 
@@ -461,6 +478,17 @@ namespace VM {
 					unsigned short addr = this->bp->get();
 
 					regPtr->set(memory[addr-off]);
+					break;
+				}
+
+				// POPX
+				case ByteInst::POPX_: {
+					unsigned char x = getNextByte();
+
+					for (int i = 0; i < x; i++) {
+						pop();
+					}
+
 					break;
 				}
 				
@@ -901,6 +929,7 @@ namespace VM {
 		std::cout << "\t\tXX: " << xx->get() << std::endl;
 		std::cout << "\t\tYX: " << yx->get() << std::endl;
 		std::cout << "\t\tRM: " << rm->get() << std::endl;
+		std::cout << "\t\tSP: 0x" << std::hex << this->sp << std::endl;
 		std::cout << "\t\tBP: 0x" << std::hex << (unsigned short)bp->get() << std::endl;
 	}
 	

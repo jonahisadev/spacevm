@@ -332,6 +332,14 @@ namespace VM {
 					else
 						serror("ARG", t->getLine());
 				}
+
+				// POPX
+				else if (t->getData() == TokenInst::POPX) {
+					if (tokenList->get(i+1)->getType() == TokenType::NUM)
+						writeByte(ByteInst::POPX_);
+					else
+						serror("POPX", t->getLine());
+				}
 				
 				// PTR
 				else if (t->getData() == TokenInst::PTR) {

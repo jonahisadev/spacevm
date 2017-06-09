@@ -1,17 +1,22 @@
 #entry main
 
-main:
-	push $3
-	push $2
-	call @add
+;
+;	add(3, 42);
+;
 
-	mov %ax $1
+main:
+	push $42			; Push second argument
+	push $3				; Push first argument
+	call @add			; Call function
+	popx $2				; Delete two arguments from stack
+
+	mov %ax $1			; Exit
 	mov %bx %dx
 	sysi
 
 add:
-	arg %ax $1
-	arg %bx $2
-	add %ax %bx
-	mov %dx %ax
-	ret
+	arg %ax $1			; Get first argument (bytes)
+	arg %bx $2			; Get second argument (bytes)
+	add %ax %bx			; Add arguments
+	mov %dx %ax			; Set return argument
+	ret					; Return

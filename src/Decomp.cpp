@@ -456,6 +456,14 @@ namespace VM {
 					addr += 3;
 					break;
 				}
+
+				// POPX
+				case POPX_: {
+					std::printf("POPX \t%d",
+					data[addr+1]);
+					addr += 2;
+					break;
+				}
 				
 				// PTR
 				case PTR_R: {

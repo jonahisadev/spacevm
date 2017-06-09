@@ -51,6 +51,7 @@ namespace VM {
 		OR,
 		XOR,
 		ARG,
+		POPX,
 		
 		PTR,
 		STB,
