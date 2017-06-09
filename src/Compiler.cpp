@@ -323,6 +323,15 @@ namespace VM {
 					else
 						serror("XOR", t->getLine());
 				}
+
+				// ARG
+				else if (t->getData() == TokenInst::ARG) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::ARG_);
+					else
+						serror("ARG", t->getLine());
+				}
 				
 				// PTR
 				else if (t->getData() == TokenInst::PTR) {

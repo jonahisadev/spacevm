@@ -132,8 +132,11 @@ namespace VM {
 				case ByteInst::CALL_: {
 					// Save return address
 					unsigned char* data = Util::sToB(this->pc + 3);
-					push(data[1]);
 					push(data[0]);
+					push(data[1]);
+
+					// Save BP offset
+					this->bp->set((short)(this->sp - 1));
 					
 					// Jump to address
 					jump();
@@ -143,11 +146,16 @@ namespace VM {
 				// RET
 				case ByteInst::RET_: {
 					// Get return address
-					unsigned char a = pop();
-					unsigned char b = pop();
+					//unsigned char a = pop();
+					//unsigned char b = pop();
 					
+					//pop();
+					//pop();
+
 					// Jump to address
-					this->pc = Util::bToS(a, b);
+					unsigned short addr = Util::bToS(memory[(unsigned short)this->bp->get()],
+						memory[(unsigned short)this->bp->get()+1]);
+					this->pc = addr;
 					goto startWhile;
 				}
 
@@ -441,6 +449,18 @@ namespace VM {
 					Register* bPtr = getRegister(b);
 					
 					aPtr->set(aPtr->get() ^ bPtr->get());
+					break;
+				}
+
+				// ARG
+				case ByteInst::ARG_: {
+					unsigned char reg = getNextByte();
+					unsigned char off = getNextByte();
+
+					Register* regPtr = getRegister(reg);
+					unsigned short addr = this->bp->get();
+
+					regPtr->set(memory[addr-off]);
 					break;
 				}
 				
@@ -881,6 +901,7 @@ namespace VM {
 		std::cout << "\t\tXX: " << xx->get() << std::endl;
 		std::cout << "\t\tYX: " << yx->get() << std::endl;
 		std::cout << "\t\tRM: " << rm->get() << std::endl;
+		std::cout << "\t\tBP: 0x" << std::hex << (unsigned short)bp->get() << std::endl;
 	}
 	
 	void Runtime::printStack(unsigned short addr) {

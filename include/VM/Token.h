@@ -50,6 +50,7 @@ namespace VM {
 		AND,
 		OR,
 		XOR,
+		ARG,
 		
 		PTR,
 		STB,

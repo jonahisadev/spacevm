@@ -59,6 +59,8 @@ namespace VM {
 		XOR_RN = 	0x34,
 		XOR_RR = 	0x35,
 
+		ARG_ = 		0x36,
+
 		HLT_ = 		0x40,
 		
 		PTR_R = 	0x50,

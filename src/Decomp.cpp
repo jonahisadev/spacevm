@@ -447,6 +447,15 @@ namespace VM {
 					addr += 3;
 					break;
 				}
+
+				// ARG
+				case ARG_: {
+					std::printf("ARG \t%s %d",
+					Token::getRegister(data[addr+1]),
+					data[addr+2]);
+					addr += 3;
+					break;
+				}
 				
 				// PTR
 				case PTR_R: {

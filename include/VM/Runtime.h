@@ -27,6 +27,7 @@ namespace VM {
 		Register* xx = new Register(ByteReg::XX_);
 		Register* yx = new Register(ByteReg::YX_);
 		Register* rm = new Register(ByteReg::RM_);
+		Register* bp = new Register(ByteReg::BP_);
 		
 		unsigned short cf = 0b0000;
 		unsigned short sp = 0x8000-1;

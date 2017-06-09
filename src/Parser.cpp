@@ -354,6 +354,8 @@ namespace VM {
 			return TokenInst::OR;
 		else if (Util::strEquals(lex, "XOR"))
 			return TokenInst::XOR;
+		else if (Util::strEquals(lex, "ARG"))
+			return TokenInst::ARG;
 		else if (Util::strEquals(lex, "PTR"))
 			return TokenInst::PTR;
 		else if (Util::strEquals(lex, "STB"))
