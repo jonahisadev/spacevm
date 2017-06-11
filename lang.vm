@@ -5,18 +5,23 @@
 ;
 
 main:
-	push $42			; Push second argument
-	push $3				; Push first argument
+	pushw $1209			; Push second argument
+	push $1				; Push first argument
 	call @add			; Call function
 	popx $2				; Delete two arguments from stack
 
-	mov %ax $1			; Exit
 	mov %bx %dx
-	sysi
+	call @printNum
+	call @printNL
+
+	mov %bx $0
+	call @exit
 
 add:
 	arg %ax $1			; Get first argument (bytes)
-	arg %bx $2			; Get second argument (bytes)
+	argw %bx $3			; Get second argument (bytes)
 	add %ax %bx			; Add arguments
 	mov %dx %ax			; Set return argument
 	ret					; Return
+
+#include "lib/stdlib.vm"

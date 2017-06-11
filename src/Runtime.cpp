@@ -481,6 +481,20 @@ namespace VM {
 					break;
 				}
 
+				// ARGW
+				case ByteInst::ARGW_: {
+					unsigned char reg = getNextByte();
+					unsigned char off = getNextByte();
+
+					Register* regPtr = getRegister(reg);
+					unsigned short addr = this->bp->get();
+
+					short value = Util::bToS(memory[addr-off+1], memory[addr-off]);
+					regPtr->set(value);
+
+					break;
+				}
+
 				// POPX
 				case ByteInst::POPX_: {
 					unsigned char x = getNextByte();
@@ -929,13 +943,15 @@ namespace VM {
 		std::cout << "\t\tXX: " << xx->get() << std::endl;
 		std::cout << "\t\tYX: " << yx->get() << std::endl;
 		std::cout << "\t\tRM: " << rm->get() << std::endl;
-		std::cout << "\t\tSP: 0x" << std::hex << this->sp << std::endl;
-		std::cout << "\t\tBP: 0x" << std::hex << (unsigned short)bp->get() << std::endl;
+		//std::cout << "\t\tSP: 0x" << std::hex << this->sp << std::endl;
+		//std::cout << "\t\tBP: 0x" << std::hex << (unsigned short)bp->get() << std::endl;
+		std::printf("\t\tSP: 0x%04X\n", this->sp);
+		std::printf("\t\tBP: 0x%04X\n", (unsigned short)bp->get());
 	}
 	
 	void Runtime::printStack(unsigned short addr) {
 		for (int y = 0; y < 16; y++) {
-			std::printf("%04X: ", addr + (y * 16));
+			std::printf("\t%04X: ", addr + (y * 16));
 			for (int x = 0; x < 16; x += 2) {
 				std::printf("%02X", this->memory[addr + (y * 16 + x)]);
 				std::printf("%02X", this->memory[addr + (y * 16 + x + 1)]);

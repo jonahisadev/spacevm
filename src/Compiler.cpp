@@ -333,6 +333,15 @@ namespace VM {
 						serror("ARG", t->getLine());
 				}
 
+				// ARGW
+				else if (t->getData() == TokenInst::ARGW) {
+					if (tokenList->get(i+1)->getType() == TokenType::REG &&
+						tokenList->get(i+2)->getType() == TokenType::NUM)
+						writeByte(ByteInst::ARGW_);
+					else
+						serror("ARGW", t->getLine());
+				}
+
 				// POPX
 				else if (t->getData() == TokenInst::POPX) {
 					if (tokenList->get(i+1)->getType() == TokenType::NUM)

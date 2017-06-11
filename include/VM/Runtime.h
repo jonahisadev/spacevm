@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
+#include <cstdio>
 
 #include <VM/Util.h>
 #include <VM/Bytecode.h>

@@ -457,6 +457,15 @@ namespace VM {
 					break;
 				}
 
+				// ARGW
+				case ARGW_: {
+					std::printf("ARGW \t%s %d",
+					Token::getRegister(data[addr+1]),
+					data[addr+2]);
+					addr += 3;
+					break;
+				}
+
 				// POPX
 				case POPX_: {
 					std::printf("POPX \t%d",

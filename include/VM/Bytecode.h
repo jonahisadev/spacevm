@@ -60,8 +60,9 @@ namespace VM {
 		XOR_RR = 	0x35,
 
 		ARG_ = 		0x36,
+		ARGW_ = 	0x37,
 
-		POPX_ = 	0x37,
+		POPX_ = 	0x38,
 
 		HLT_ = 		0x40,
 		
